@@ -6,8 +6,8 @@ export default function Edit( { attributes, setAttributes } ) {
 	return (
 		<div { ...blockProps }>
 			<TextControl
-				value={ attributes.message }
-				onChange={ ( val ) => setAttributes( { message: val } ) }
+				value={ attributes.url }
+				onChange={ ( val ) => setAttributes( { url: val } ) }
 			/>
 		</div>
 	);

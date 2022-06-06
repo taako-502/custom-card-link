@@ -10,7 +10,7 @@ import metadata from './block.json';
 registerBlockType( metadata.name, {
 	example: {
 		attributes: {
-			message: 'External Link Card',
+			url: 'External Link Card',
 		},
 	},
 	edit: Edit,
