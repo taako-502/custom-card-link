@@ -1,5 +1,13 @@
 <?php
-
+/*
+Plugin Name: External Link Card
+Plugin URI: https://github.com/taako-502/external-link-card
+Description: 外部リンクを表示するGutenbergブロック
+Version: 1.0.0
+Author: Takao
+Author URI: https://github.com/taako-502
+License: GPL2
+*/
 require_once __DIR__ .'/library/Get_OGP_InWP-main/get_ogp_inwp.php';
 
 /**
