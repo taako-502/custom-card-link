@@ -3,7 +3,7 @@
 Plugin Name: External Link Card
 Plugin URI: https://github.com/taako-502/external-link-card
 Description: 外部リンクを表示するGutenbergブロック
-Version: 1.0.0
+Version: 20220608
 Author: Takao
 Author URI: https://github.com/taako-502
 License: GPL2
