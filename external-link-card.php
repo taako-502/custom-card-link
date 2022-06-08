@@ -8,7 +8,18 @@ Author: Takao
 Author URI: https://github.com/taako-502
 License: GPL2
 */
-require_once __DIR__ .'/library/Get_OGP_InWP-main/get_ogp_inwp.php';
+require_once __DIR__ .'/library/Get_OGP_InWP/get_ogp_inwp.php';
+require_once __DIR__ .'/library/plugin-update-checker/plugin-update-checker.php';
+
+/**
+ * プラグインアップデーター
+ */
+$myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
+	'https://github.com/taako-502/external-link-card/',
+	__FILE__,
+	'external-link-card'
+);
+$myUpdateChecker->setBranch('main');
 
 /**
 * 外部リンクカード
