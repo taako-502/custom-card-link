@@ -25,13 +25,14 @@ $myUpdateChecker->setBranch('main');
 * 外部リンクカード
 */
 function external_link_card_dynamic_render_callback($attributes) {
-	$url = isset($attributes['url']) ? trim($attributes['url']) : '';
-	if($url == '') {
-		return 'URLを入力してください。';
-	}
+	$url  = isset($attributes['url']) ? trim($attributes['url']) : '';
 	$ogps = \Get_OGP_InWP::get($url);
-	if($ogps == []){
+	if($url == '' && !is_singular()) {
+		return 'URLを入力してください。';
+	} else if($ogps == [] && !is_singular()){
 		return '有効なURLを入力してください。';
+	} else if($url == '' || $ogps == []){
+		return;
 	}
 	$image       = isset($ogps['og:image']) ? $ogps['og:image'] : '';
 	$title       = isset($ogps['og:title']) ? $ogps['og:title'] : '';
