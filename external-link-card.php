@@ -16,7 +16,7 @@ function external_link_card_dynamic_render_callback($attributes) {
 			<a href="%s">
 				<img class="elc--thumbnail" src="%s">
 				<p class="elc--title">%s</p>
-				<p class="elc--title">%s</p>
+				<p class="elc--description">%s</p>
 			</a>
 		</div>',
 		$url,
