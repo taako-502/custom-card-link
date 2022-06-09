@@ -139,6 +139,11 @@ add_action('init', function() {
               'sanitize_callback' => 'sanitize_text_field',
               'default'           => '',
             ),
+            'hover'       => array(
+              'type'              => 'string',
+              'sanitize_callback' => 'sanitize_text_field',
+              'default'           => '',
+            ),
           ),
         ),
       ),

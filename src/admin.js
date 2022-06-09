@@ -4,6 +4,8 @@ import { render, useState, useEffect } from '@wordpress/element';
 import { RadioControl, Button } from '@wordpress/components';
 import api from '@wordpress/api';
 
+import classnames from 'classnames';
+
 import { Store } from 'react-notifications-component';
 import { ReactNotifications } from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css';
@@ -13,7 +15,8 @@ import 'react-notifications-component/dist/theme.css';
  * 管理画面
  */
 const Admin = () => {
-	const [ layout, setLayout ]     = useState( 'card' );
+	const [ layout, setLayout ] = useState( 'card' );
+	const [ hover, setHover ]   = useState( 'shadow' );
 	useEffect( () => {
 		api.loadPromise.then( () => {
 			// Modelの生成
@@ -21,6 +24,7 @@ const Admin = () => {
 			// 設定値の取得
 			model.fetch().then( response => {
 				setLayout( response.external_link_card_settings.layout );
+				setHover( response.external_link_card_settings.hover );
 			});
 		});
 	}, []);
@@ -30,6 +34,7 @@ const Admin = () => {
 			const model = new api.models.Settings({
 				'external_link_card_settings' : {
 					'layout': layout,
+					'hover': hover,
 				}
 			});
 
@@ -68,7 +73,12 @@ const Admin = () => {
 			});
 		});
 	};
-
+	const elcClass = {
+    'elc': true,
+    'elc--card': layout === "card",
+    'elc--list': layout === "list",
+    'elc--hover-shadow': hover === "shadow",
+  };
 	return (
 		<React.Fragment>
 			<ReactNotifications />
@@ -77,7 +87,9 @@ const Admin = () => {
 				<div className="elc-admin__wrap">
 					<div className="elc-admin__preview">
 					<h2>プレビュー</h2>
-					<a className={ layout == 'card' ? 'elc elc--card' : 'elc elc--list' } >
+					<a
+						className={classnames(elcClass)}
+					>
 						<img
 							className={ layout == 'card' ? 'elc__thumbnail' : 'elc__thumbnail elc__thumbnail--list' }
 							src={ thumbnail }
@@ -103,7 +115,7 @@ const Admin = () => {
 					保存
 				</Button>
 				<div className="elc-admin__settings">
-						<h2>セッティング</h2>
+						<h2>デザイン設定</h2>
 						<RadioControl
 								label="レイアウトデザイン"
 								help="デザインのレイアウトを決めます。"
@@ -113,6 +125,17 @@ const Admin = () => {
 										{ label: 'リスト型', value: 'list' },
 								] }
 								onChange={ ( value ) => setLayout( value ) }
+						/>
+						<h3>ホバー</h3>
+						<RadioControl
+								label="ホバー時の動作"
+								help="リンクカードをホバーした際の動作"
+								selected={ hover }
+								options={ [
+										{ label: 'なし', value: 'none' },
+										{ label: '影を表示する', value: 'shadow' },
+								] }
+								onChange={ ( value ) => setHover( value ) }
 						/>
 					</div>
 				</div>
