@@ -75,7 +75,34 @@ const Admin = () => {
 			<div className="elc-admin">
 				<h1>外部リンクカードのデザインの設定画面です。</h1>
 				<div className="elc-admin__wrap">
-					<div className="elc-admin__settings elc-admin__col">
+					<div className="elc-admin__preview">
+					<h2>プレビュー</h2>
+					<a className={ layout == 'card' ? 'elc elc--card' : 'elc elc--list' } >
+						<img
+							className={ layout == 'card' ? 'elc__thumbnail' : 'elc__thumbnail elc__thumbnail--list' }
+							src={ thumbnail }
+						/>
+						<div className='elc__info'>
+							<p
+								className={ layout == 'card' ? 'elc__title' : 'elc__title elc__title--list' }
+							>
+								サンプルの記事カードです。
+							</p>
+							<p
+								className={ layout == 'card' ? 'elc__description' : 'elc__description elc__description--list' }
+							>
+								サンプルの記事カードの説明です。サンプルの記事カードの説明です。サンプルの記事カードの説明です。サンプルの記事カードの説明です。サンプルの記事カードの説明です。この文字の長さはちょうど100文字です。
+							</p>
+						</div>
+					</a>
+				</div>
+				<Button
+				isPrimary
+				onClick={ dataSave }
+				>
+					保存
+				</Button>
+				<div className="elc-admin__settings">
 						<h2>セッティング</h2>
 						<RadioControl
 								label="レイアウトデザイン"
@@ -87,23 +114,6 @@ const Admin = () => {
 								] }
 								onChange={ ( value ) => setLayout( value ) }
 						/>
-					</div>
-					<div className="elc-admin__preview elc-admin__col">
-						<h2>プレビュー</h2>
-						<a className={ layout == 'card' ? 'elc elc--card' : 'elc elc--list' } >
-							<img
-								className={ layout == 'card' ? 'elc__thumbnail' : 'elc__thumbnail elc__thumbnail--list' }
-								src={ thumbnail }
-							/>
-							<p className="elc__title">サンプルの記事カードです。</p>
-							<p className="elc__description">サンプルの記事カードの説明です。</p>
-						</a>
-						<Button
-							isPrimary
-							onClick={ dataSave }
-						>
-							保存
-						</Button>
 					</div>
 				</div>
 			</div>
