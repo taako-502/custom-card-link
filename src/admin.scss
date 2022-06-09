@@ -1,1 +1,13 @@
-@import './style.scss'
+@import './style.scss';
+
+.elc-admin {
+	&__wrap {
+		max-width: 600px;
+		width: 100%;
+		display: flex;
+	}
+
+	&__col {
+		width: 100%;
+	}
+}
