@@ -11,6 +11,9 @@ License: GPL2
 require_once __DIR__ .'/library/Get_OGP_InWP/get_ogp_inwp.php';
 require_once __DIR__ .'/library/plugin-update-checker/plugin-update-checker.php';
 
+const OPTION_GROUP = 'external-link-card';
+const ELC_SLUG     = 'external-link-card';
+
 /**
  * プラグインアップデーター
  */
@@ -59,3 +62,46 @@ function create_block_external_link_card_block_init() {
 	);
 }
 add_action( 'init', 'create_block_external_link_card_block_init' );
+
+/**
+ * 管理画面追加
+ * @var [type]
+ */
+add_action('admin_menu', function() {
+	add_menu_page(
+		'外部リンクカード',
+		'外部リンクカード - デザイン設定',
+		'manage_options',
+		OPTION_GROUP,
+		function() {
+			echo '<div id="elc-admin"></div>';
+		},
+		'',
+		58
+	);
+});
+
+add_action('admin_enqueue_scripts', function($hook_suffix) {
+  // 作成したオプションページ以外では読み込まない
+  if ( 'toplevel_page_'.OPTION_GROUP !== $hook_suffix ) {
+    return;
+  }
+
+  // CSSファイルの読み込み
+  wp_enqueue_style(
+    ELC_SLUG,
+    plugin_dir_url( __FILE__ ).'/build/admin.css',
+    array('wp-components')
+  );
+
+  // JavaScriptファイルの読み込み
+  wp_enqueue_media();
+  $asset_file = include_once ( __DIR__ . '/build/admin.asset.php') ;
+  wp_enqueue_script (
+    ELC_SLUG,
+    plugin_dir_url( __FILE__ ).'build/admin.js',
+    $asset_file['dependencies'],
+    $asset_file['version'],
+    true
+  );
+});
