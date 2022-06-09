@@ -16,7 +16,7 @@
 	},
 	"devDependencies": {
 		"@wordpress/scripts": "^23.2.0",
-		"react-notifications-component": "^4.0.1"
+		"react-notifications-component": "^4.0.0"
 	},
 	"dependencies": {}
 }

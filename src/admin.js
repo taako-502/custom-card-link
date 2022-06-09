@@ -51,19 +51,19 @@ const Admin = () => {
 			const save = model.save();
 
 			save.success( ( response, status ) => {
-			// 	Store.addNotification({
-			// 		title: "Success!",
-			// 		message: "入力内容を保存しました。",
-			// 		type: "success",
-			// 		insert: "top",
-			// 		container: "top-center",
-			// 		animationIn: ["animate__animated", "animate__fadeIn"],
-			// 		animationOut: ["animate__animated", "animate__fadeOut"],
-			// 		dismiss: {
-			// 			duration: 5000,
-			// 			onScreen: true
-			// 		}
-			// 	});
+				Store.addNotification({
+					title: "Success!",
+					message: "入力内容を保存しました。",
+					type: "success",
+					insert: "top",
+					container: "top-center",
+					animationIn: ["animate__animated", "animate__fadeIn"],
+					animationOut: ["animate__animated", "animate__fadeOut"],
+					dismiss: {
+						duration: 5000,
+						onScreen: true
+					}
+				});
 			});
 
 			save.error( ( response, status ) => {
@@ -85,43 +85,46 @@ const Admin = () => {
 	};
 
 	return (
-		<div className="elc-admin">
-			<h1>外部リンクカードのデザインの設定画面です。</h1>
-			<div className="elc-admin__wrap">
-				<div className="elc-admin__settings elc-admin__col">
-					<h2>セッティング</h2>
-					<RadioControl
-							label="レイアウトデザイン"
-							help="デザインのレイアウトを決めます。"
-							selected={ layout }
-							options={ [
-									{ label: 'カード型', value: 'card' },
-									{ label: 'リスト型', value: 'list' },
-							] }
-							onChange={ ( value ) => {
-								setLayout( value );
-								changeDesign( value );
-							} }
-					/>
-				</div>
-				<div className="elc-admin__preview elc-admin__col">
-					<h2>プレビュー</h2>
-					<div className={ elcClass }>
-						<a>
-							<img className="elc__thumbnail" src={ thumbnail } />
-							<p className="elc__title">サンプルの記事カードです。</p>
-							<p className="elc__description">サンプルの記事カードの説明です。</p>
-						</a>
+		<React.Fragment>
+			<ReactNotifications />
+			<div className="elc-admin">
+				<h1>外部リンクカードのデザインの設定画面です。</h1>
+				<div className="elc-admin__wrap">
+					<div className="elc-admin__settings elc-admin__col">
+						<h2>セッティング</h2>
+						<RadioControl
+								label="レイアウトデザイン"
+								help="デザインのレイアウトを決めます。"
+								selected={ layout }
+								options={ [
+										{ label: 'カード型', value: 'card' },
+										{ label: 'リスト型', value: 'list' },
+								] }
+								onChange={ ( value ) => {
+									setLayout( value );
+									changeDesign( value );
+								} }
+						/>
 					</div>
-					<Button
-						isPrimary
-						onClick={ dataSave }
-					>
-						保存
-					</Button>
+					<div className="elc-admin__preview elc-admin__col">
+						<h2>プレビュー</h2>
+						<div className={ elcClass }>
+							<a>
+								<img className="elc__thumbnail" src={ thumbnail } />
+								<p className="elc__title">サンプルの記事カードです。</p>
+								<p className="elc__description">サンプルの記事カードの説明です。</p>
+							</a>
+						</div>
+						<Button
+							isPrimary
+							onClick={ dataSave }
+						>
+							保存
+						</Button>
+					</div>
 				</div>
 			</div>
-		</div>
+		</React.Fragment>
 	);
 }
 
