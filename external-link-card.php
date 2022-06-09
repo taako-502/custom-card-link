@@ -25,20 +25,39 @@ $myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
 $myUpdateChecker->setBranch('main');
 
 /**
-* 外部リンクカード
+* サーバ側処理
 */
-function external_link_card_dynamic_render_callback($attributes) {
-	$url = isset($attributes['url']) ? trim($attributes['url']) : '';
-	if($url == '') {
-		return 'URLを入力してください。';
-	}
-	$ogps = \Get_OGP_InWP::get($url);
-	if($ogps == []){
-		return '有効なURLを入力してください。';
-	}
-	$image       = isset($ogps['og:image']) ? $ogps['og:image'] : '';
-	$title       = isset($ogps['og:title']) ? $ogps['og:title'] : '';
-	$description = isset($ogps['og:description']) ? $ogps['og:description'] : '';
+function create_block_external_link_card_block_init() {
+	register_block_type_from_metadata(__DIR__ . '/build',
+		array(
+			'render_callback' => function($attributes) {
+				$url = isset($attributes['url']) ? trim($attributes['url']) : '';
+				if($url == '') {
+					return 'URLを入力してください。';
+				}
+				$ogps = \Get_OGP_InWP::get($url);
+				if($ogps == []){
+					return '有効なURLを入力してください。';
+				}
+				$image       = isset($ogps['og:image']) ? $ogps['og:image'] : '';
+				$title       = isset($ogps['og:title']) ? $ogps['og:title'] : '';
+				$description = isset($ogps['og:description']) ? $ogps['og:description'] : '';
+				return makeEtcCard($url, $image, $title, $description);
+			},
+		)
+	);
+}
+add_action( 'init', 'create_block_external_link_card_block_init' );
+
+/**
+ * 外部リンクカード
+ * @param  string $url
+ * @param  string $image
+ * @param  string $title
+ * @param  string $description
+ * @return string
+ */
+function makeEtcCard($url, $image, $title, $description) {
 	return sprintf(
 		'<div class="elc">
 			<a href="%s">
@@ -53,15 +72,6 @@ function external_link_card_dynamic_render_callback($attributes) {
 		$description
 	);
 }
-
-function create_block_external_link_card_block_init() {
-	register_block_type_from_metadata(__DIR__ . '/build',
-		array(
-			'render_callback' => 'external_link_card_dynamic_render_callback',
-		)
-	);
-}
-add_action( 'init', 'create_block_external_link_card_block_init' );
 
 /**
  * 管理画面追加
