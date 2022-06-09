@@ -1,14 +1,23 @@
 .elc {
-	border: 1px solid #dcdcde;
+	display: block;
 	box-sizing: border-box;
+	background: #fff;
 	margin-left: auto;
 	margin-right: auto;
-	background: #fff;
-	width: 100%;
-	display: block;
+	border: 1px solid #dcdcde;
 	max-width: 100%;
 	width: 100%;
+	outline: none;
 	text-decoration: none;
+	//ホバー
+	position: relative;
+	top: 0;
+	transition: top .3s, box-shadow .3s;
+
+	&:hover {
+		top: -5px;
+		box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
+	}
 
 	&--card {
 		padding: 25px;
