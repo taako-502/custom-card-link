@@ -46,7 +46,8 @@ add_action( 'init', function() {
 				$title       = isset($ogps['og:title']) ? $ogps['og:title'] : '';
 				$description = isset($ogps['og:description']) ? $ogps['og:description'] : '';
 				$layout = get_option('external_link_card_settings')['layout'];
-				return makeEtcCard($layout, $url, $image, $title, $description);
+				$hover = get_option('external_link_card_settings')['hover'];
+				return makeEtcCard($layout, $hover, $url, $image, $title, $description);
 			},
 		)
 	);
@@ -60,15 +61,18 @@ add_action( 'init', function() {
  * @param  string $description
  * @return string
  */
-function makeEtcCard($layout, $url, $image, $title, $description) {
+function makeEtcCard($layout, $hover, $url, $image, $title, $description) {
+	$main_class  = 'elc elc--'.$layout;
+	$main_class .= $hover != 'none' ? ' elc--hover-'.$hover : '';
 	return sprintf(
-		'<a class="elc elc--%1$s" href="%2$s">
-			<img class="elc__thumbnail elc__thumbnail--%1$s" src="%3$s">
-			<div class="elc__info elc__info--%1$s">
-				<p class="elc__title elc__title--%1$s">%4$s</p>
-				<p class="elc__description elc__description--%1$s">%5$s</p>
+		'<a class="%1$s" href="%3$s">
+			<img class="elc__thumbnail elc__thumbnail--%2$s" src="%4$s">
+			<div class="elc__info elc__info--%2$s">
+				<p class="elc__title elc__title--%2$s">%5$s</p>
+				<p class="elc__description elc__description--%2$s">%6$s</p>
 			</div>
 		</a>',
+		$main_class,
 		$layout,
 		$url,
 		$image,
