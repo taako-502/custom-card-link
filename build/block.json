@@ -1,9 +1,9 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 2,
-  "name": "external-link-card/external-link-card",
+  "name": "custom-link-card/custom-link-card",
   "version": "0.1.0",
-  "title": "External Link Card",
+  "title": "Custom Link Card",
   "category": "text",
   "icon": "flag",
   "description": "A Gutenberg block to show your pride! This block enables you to type text and style it with the color font Gilbert from Type with Pride.",
@@ -15,7 +15,7 @@
   "supports": {
     "html": false
   },
-  "textdomain": "external-link-card",
+  "textdomain": "custom-link-card",
   "editorScript": "file:./index.js",
   "editorStyle": "file:./index.css",
   "style": "file:./style-index.css"

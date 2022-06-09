@@ -1,5 +1,5 @@
-# external-link-card
-外部リンク
+# Custom Link Card
+リンクカード
 
 ## Third-party resources
 ### Get_OGP_InWP

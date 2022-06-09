@@ -23,8 +23,8 @@ const Admin = () => {
 			const model = new api.models.Settings();
 			// 設定値の取得
 			model.fetch().then( response => {
-				setLayout( response.external_link_card_settings.layout );
-				setHover( response.external_link_card_settings.hover );
+				setLayout( response.custom_link_card_settings.layout );
+				setHover( response.custom_link_card_settings.hover );
 			});
 		});
 	}, []);
@@ -32,7 +32,7 @@ const Admin = () => {
 	const dataSave = () => {
 		api.loadPromise.then( () => {
 			const model = new api.models.Settings({
-				'external_link_card_settings' : {
+				'custom_link_card_settings' : {
 					'layout': layout,
 					'hover': hover,
 				}
@@ -73,35 +73,35 @@ const Admin = () => {
 			});
 		});
 	};
-	const elcClass = {
-    'elc': true,
-    'elc--card': layout === "card",
-    'elc--list': layout === "list",
-    'elc--hover-shadow': hover === "shadow",
+	const clcClass = {
+    'clc': true,
+    'clc--card': layout === "card",
+    'clc--list': layout === "list",
+    'clc--hover-shadow': hover === "shadow",
   };
 	return (
 		<React.Fragment>
 			<ReactNotifications />
-			<div className="elc-admin">
+			<div className="clc-admin">
 				<h1>外部リンクカードのデザインの設定画面</h1>
-				<div className="elc-admin__wrap">
-					<div className="elc-admin__preview">
+				<div className="clc-admin__wrap">
+					<div className="clc-admin__preview">
 					<h2>プレビュー</h2>
 					<a
-						className={classnames(elcClass)}
+						className={classnames(clcClass)}
 					>
 						<img
-							className={ layout == 'card' ? 'elc__thumbnail' : 'elc__thumbnail elc__thumbnail--list' }
+							className={ layout == 'card' ? 'clc__thumbnail' : 'clc__thumbnail clc__thumbnail--list' }
 							src={ thumbnail }
 						/>
-						<div className='elc__info'>
+						<div className='clc__info'>
 							<p
-								className={ layout == 'card' ? 'elc__title' : 'elc__title elc__title--list' }
+								className={ layout == 'card' ? 'clc__title' : 'clc__title clc__title--list' }
 							>
 								サンプルの記事カードです。
 							</p>
 							<p
-								className={ layout == 'card' ? 'elc__description' : 'elc__description elc__description--list' }
+								className={ layout == 'card' ? 'clc__description' : 'clc__description clc__description--list' }
 							>
 								サンプルの記事カードの説明です。サンプルの記事カードの説明です。サンプルの記事カードの説明です。サンプルの記事カードの説明です。サンプルの記事カードの説明です。この文字の長さはちょうど100文字です。
 							</p>
@@ -114,7 +114,7 @@ const Admin = () => {
 				>
 					保存
 				</Button>
-				<div className="elc-admin__settings">
+				<div className="clc-admin__settings">
 						<h2>デザイン設定</h2>
 						<RadioControl
 								label="レイアウトデザイン"
@@ -146,5 +146,5 @@ const Admin = () => {
 
 render(
   <Admin />,
-  document.getElementById('elc-admin')
+  document.getElementById('clc-admin')
 );
