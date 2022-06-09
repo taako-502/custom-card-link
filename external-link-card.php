@@ -33,14 +33,15 @@ add_action( 'init', function() {
 	register_block_type_from_metadata(__DIR__ . '/build',
 		array(
 			'render_callback' => function($attributes) {
-				$url = isset($attributes['url']) ? trim($attributes['url']) : '';
-				if($url == '') {
-					return 'URLを入力してください。';
-				}
-				$ogps = \Get_OGP_InWP::get($url);
-				if($ogps == []){
-					return '有効なURLを入力してください。';
-				}
+	      $url  = isset($attributes['url']) ? trim($attributes['url']) : '';
+	      $ogps = \Get_OGP_InWP::get($url);
+	      if($url == '' && !is_singular()) {
+	      	return 'URLを入力してください。';
+	      } else if($ogps == [] && !is_singular()){
+	      	return '有効なURLを入力してください。';
+	      } else if($url == '' || $ogps == []){
+	      	return;
+	      }
 				$image       = isset($ogps['og:image']) ? $ogps['og:image'] : '';
 				$title       = isset($ogps['og:title']) ? $ogps['og:title'] : '';
 				$description = isset($ogps['og:description']) ? $ogps['og:description'] : '';
