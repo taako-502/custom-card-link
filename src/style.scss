@@ -1,38 +1,76 @@
 .elc {
-	border: 1px solid #dcdcde;
+	display: block;
 	box-sizing: border-box;
+	background: #fff;
 	margin-left: auto;
 	margin-right: auto;
-	padding: 25px;
-	background: #fff;
+	border: 1px solid #dcdcde;
+	max-width: 100%;
+	width: 100%;
+	outline: none;
+	text-decoration: none;
 
-	a {
-		display: block;
-		max-width: 100%;
-		width: 100%;
-		text-decoration: none;
+	&--hover-shadow {
+		//ホバー
+		position: relative;
+		top: 0;
+		transition: top .3s, box-shadow .3s;
+
+		&:hover {
+			top: -5px;
+			box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
+		}
 	}
 
-	&--thumbnail {
-		width: 100%;
+	&--card {
+		padding: 25px;
+		max-width: 500px;
 	}
 
-	&--title {
+	&--list {
+		padding: 10px;
+		display: flex;
+		max-width: 600px;
+	}
+
+	&__thumbnail {
+		width: 100%;
+
+		&--list {
+			object-fit: cover;
+			max-width: 30%;
+			min-width: 140px;
+			min-height: 140px;
+		}
+	}
+
+	&__info {
+		margin-left: 0.8em;
+		font-size: 18px;
+	}
+
+	&__title {
 		color: #2c3338;
 		font-weight: 600;
 		font-size: 22px;
 		line-height: 1.3;
+
+		&--list {
+			font-size: 1.2rem;
+			margin-top: 0;
+			margin-bottom: 0
+		}
 	}
 
-	&--description {
+	&__description {
 		color: #8c8f94;
 		font-weight: 400;
 		font-size: 14px;
 		line-height: 1.5;
-	}
-}
 
-div.elc {
-	max-width: 500px;
-	width: 100%;
+		&--list {
+			margin-top: 0.4em;
+			font-size: 1rem;
+		}
+	}
 }
