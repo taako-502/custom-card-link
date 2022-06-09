@@ -73,7 +73,7 @@ const Admin = () => {
 		<React.Fragment>
 			<ReactNotifications />
 			<div className="elc-admin">
-				<h1>外部リンクカードのデザインの設定画面です。</h1>
+				<h1>外部リンクカードのデザインの設定画面</h1>
 				<div className="elc-admin__wrap">
 					<div className="elc-admin__preview">
 					<h2>プレビュー</h2>

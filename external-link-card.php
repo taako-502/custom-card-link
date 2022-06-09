@@ -44,7 +44,8 @@ add_action( 'init', function() {
 				$image       = isset($ogps['og:image']) ? $ogps['og:image'] : '';
 				$title       = isset($ogps['og:title']) ? $ogps['og:title'] : '';
 				$description = isset($ogps['og:description']) ? $ogps['og:description'] : '';
-				return makeEtcCard($url, $image, $title, $description);
+				$layout = get_option('external_link_card_settings')['layout'];
+				return makeEtcCard($layout, $url, $image, $title, $description);
 			},
 		)
 	);
@@ -58,15 +59,16 @@ add_action( 'init', function() {
  * @param  string $description
  * @return string
  */
-function makeEtcCard($url, $image, $title, $description) {
+function makeEtcCard($layout, $url, $image, $title, $description) {
 	return sprintf(
-		'<div class="elc">
-			<a href="%s">
-				<img class="elc__thumbnail" src="%s">
-				<p class="elc__title">%s</p>
-				<p class="elc__description">%s</p>
-			</a>
+		'<a class="elc elc--%1$s" href="%2$s">
+			<img class="elc__thumbnail elc__thumbnail--%1$s" src="%3$s">
+			<div class="elc__info elc__info--%1$s">
+				<p class="elc__title elc__title--%1$s">%4$s</p>
+				<p class="elc__description elc__description--%1$s">%5$s</p>
+			</div>
 		</div>',
+		$layout,
 		$url,
 		$image,
 		$title,

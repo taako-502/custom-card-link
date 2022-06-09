@@ -2,12 +2,16 @@
 
 .elc-admin {
 	&__wrap {
-		max-width: 600px;
+		max-width: 800px;
 		width: 100%;
 	}
 
 	&__preview {
+		border: 1px solid #333;
+		background: #fff;
+		margin-bottom: 1em;
+		padding: 1em 0.8em;
 		//position: fixed;
-		min-height: 490px;
+		//min-height: 490px;
 	}
 }
