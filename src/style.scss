@@ -6,25 +6,28 @@
 	padding: 25px;
 	background: #fff;
 	width: 100%;
-
-	a {
-		display: block;
-		max-width: 100%;
-		width: 100%;
-		text-decoration: none;
-	}
+	display: block;
+	max-width: 100%;
+	width: 100%;
+	text-decoration: none;
 
 	&--card {
 		max-width: 500px;
 	}
 
-	&--list a {
+	&--list {
 		display: flex;
 		max-width: none;
 	}
 
 	&__thumbnail {
 		width: 100%;
+
+		&--list {
+			max-width: 30%;
+			min-width: 50px;
+			height: 1000%;
+		}
 	}
 
 	&__title {

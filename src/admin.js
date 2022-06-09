@@ -15,6 +15,7 @@ import 'react-notifications-component/dist/theme.css';
 const Admin = () => {
 	const [ layout, setLayout ]     = useState( 'card' );
 	const [ elcClass, setElcClass ] = useState( 'elc ecl--card' );
+	const [ thumbnailClass, setThumbnailClass ] = useState( 'elc__thumbnail elc__thumbnail--list' );
 	useEffect( () => {
 		api.loadPromise.then( () => {
 			// Modelの生成
@@ -23,6 +24,7 @@ const Admin = () => {
 			model.fetch().then( response => {
 				setLayout( response.external_link_card_settings.layout );
 				setElcClass( response.external_link_card_settings.elc_class );
+				setThumbnailClass( response.external_link_card_settings.thumbnail_class );
 			});
 		});
 	}, []);
@@ -31,9 +33,11 @@ const Admin = () => {
 		switch ( value ) {
 			case 'card':
 				setElcClass('elc elc--card');
+				setThumbnailClass('elc__thumbnail');
 				break;
 			case 'list':
 				setElcClass('elc elc--list');
+				setThumbnailClass('elc__thumbnail elc__thumbnail--list');
 				break;
 			default:
 		}
@@ -45,6 +49,7 @@ const Admin = () => {
 				'external_link_card_settings' : {
 					'layout': layout,
 					'elc_class': elcClass,
+					'thumbnail_class': thumbnailClass,
 				}
 			});
 
@@ -108,13 +113,11 @@ const Admin = () => {
 					</div>
 					<div className="elc-admin__preview elc-admin__col">
 						<h2>プレビュー</h2>
-						<div className={ elcClass }>
-							<a>
-								<img className="elc__thumbnail" src={ thumbnail } />
-								<p className="elc__title">サンプルの記事カードです。</p>
-								<p className="elc__description">サンプルの記事カードの説明です。</p>
-							</a>
-						</div>
+						<a className={ elcClass }>
+							<img className={ thumbnailClass } src={ thumbnail } />
+							<p className="elc__title">サンプルの記事カードです。</p>
+							<p className="elc__description">サンプルの記事カードの説明です。</p>
+						</a>
 						<Button
 							isPrimary
 							onClick={ dataSave }
