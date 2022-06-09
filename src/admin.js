@@ -14,8 +14,6 @@ import 'react-notifications-component/dist/theme.css';
  */
 const Admin = () => {
 	const [ layout, setLayout ]     = useState( 'card' );
-	const [ elcClass, setElcClass ] = useState( 'elc ecl--card' );
-	const [ thumbnailClass, setThumbnailClass ] = useState( 'elc__thumbnail elc__thumbnail--list' );
 	useEffect( () => {
 		api.loadPromise.then( () => {
 			// Modelの生成
@@ -23,33 +21,15 @@ const Admin = () => {
 			// 設定値の取得
 			model.fetch().then( response => {
 				setLayout( response.external_link_card_settings.layout );
-				setElcClass( response.external_link_card_settings.elc_class );
-				setThumbnailClass( response.external_link_card_settings.thumbnail_class );
 			});
 		});
 	}, []);
-	//全体的なデザインを構成するためのクラスを設定
-	const changeDesign = ( value ) => {
-		switch ( value ) {
-			case 'card':
-				setElcClass('elc elc--card');
-				setThumbnailClass('elc__thumbnail');
-				break;
-			case 'list':
-				setElcClass('elc elc--list');
-				setThumbnailClass('elc__thumbnail elc__thumbnail--list');
-				break;
-			default:
-		}
-	}
 	//データを保存する処理
 	const dataSave = () => {
 		api.loadPromise.then( () => {
 			const model = new api.models.Settings({
 				'external_link_card_settings' : {
 					'layout': layout,
-					'elc_class': elcClass,
-					'thumbnail_class': thumbnailClass,
 				}
 			});
 
@@ -105,16 +85,16 @@ const Admin = () => {
 										{ label: 'カード型', value: 'card' },
 										{ label: 'リスト型', value: 'list' },
 								] }
-								onChange={ ( value ) => {
-									setLayout( value );
-									changeDesign( value );
-								} }
+								onChange={ ( value ) => setLayout( value ) }
 						/>
 					</div>
 					<div className="elc-admin__preview elc-admin__col">
 						<h2>プレビュー</h2>
-						<a className={ elcClass }>
-							<img className={ thumbnailClass } src={ thumbnail } />
+						<a className={ layout == 'card' ? 'elc elc--card' : 'elc elc--list' } >
+							<img
+								className={ layout == 'card' ? 'elc__thumbnail' : 'elc__thumbnail elc__thumbnail--list' }
+								src={ thumbnail }
+							/>
 							<p className="elc__title">サンプルの記事カードです。</p>
 							<p className="elc__description">サンプルの記事カードの説明です。</p>
 						</a>

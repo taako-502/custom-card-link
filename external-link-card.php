@@ -137,16 +137,6 @@ add_action('init', function() {
               'sanitize_callback' => 'sanitize_text_field',
               'default'           => '',
             ),
-            'elc_class' => array(
-              'type'              => 'string',
-              'sanitize_callback' => 'sanitize_text_field',
-              'default'           => '',
-            ),
-            'thumbnail_class' => array(
-              'type'              => 'string',
-              'sanitize_callback' => 'sanitize_text_field',
-              'default'           => '',
-            ),
           ),
         ),
       ),
