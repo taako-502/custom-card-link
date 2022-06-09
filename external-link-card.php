@@ -67,7 +67,7 @@ function makeEtcCard($layout, $url, $image, $title, $description) {
 				<p class="elc__title elc__title--%1$s">%4$s</p>
 				<p class="elc__description elc__description--%1$s">%5$s</p>
 			</div>
-		</div>',
+		</a>',
 		$layout,
 		$url,
 		$image,
