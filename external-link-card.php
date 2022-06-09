@@ -61,9 +61,9 @@ function makeEtcCard($url, $image, $title, $description) {
 	return sprintf(
 		'<div class="elc">
 			<a href="%s">
-				<img class="elc--thumbnail" src="%s">
-				<p class="elc--title">%s</p>
-				<p class="elc--description">%s</p>
+				<img class="elc__thumbnail" src="%s">
+				<p class="elc__title">%s</p>
+				<p class="elc__description">%s</p>
 			</a>
 		</div>',
 		$url,
@@ -100,7 +100,7 @@ add_action('admin_enqueue_scripts', function($hook_suffix) {
   // CSSファイルの読み込み
   wp_enqueue_style(
     ELC_SLUG,
-    plugin_dir_url( __FILE__ ).'/build/admin.css',
+    plugin_dir_url( __FILE__ ).'build/admin.css',
     array('wp-components')
   );
 
