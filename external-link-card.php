@@ -1,4 +1,5 @@
 <?php
+Namespace Elc_Plugin;
 /*
 Plugin Name: External Link Card
 Plugin URI: https://github.com/taako-502/external-link-card
@@ -13,11 +14,12 @@ require_once __DIR__ .'/library/plugin-update-checker/plugin-update-checker.php'
 
 const OPTION_GROUP = 'external-link-card';
 const ELC_SLUG     = 'external-link-card';
+const DB_NAME      = 'external_link_card_settings';
 
 /**
  * プラグインアップデーター
  */
-$myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
+$myUpdateChecker = \Puc_v4_Factory::buildUpdateChecker(
 	'https://github.com/taako-502/external-link-card/',
 	__FILE__,
 	'external-link-card'
@@ -27,7 +29,7 @@ $myUpdateChecker->setBranch('main');
 /**
 * サーバ側処理
 */
-function create_block_external_link_card_block_init() {
+add_action( 'init', function() {
 	register_block_type_from_metadata(__DIR__ . '/build',
 		array(
 			'render_callback' => function($attributes) {
@@ -46,8 +48,7 @@ function create_block_external_link_card_block_init() {
 			},
 		)
 	);
-}
-add_action( 'init', 'create_block_external_link_card_block_init' );
+});
 
 /**
  * 外部リンクカード
@@ -113,5 +114,37 @@ add_action('admin_enqueue_scripts', function($hook_suffix) {
     $asset_file['dependencies'],
     $asset_file['version'],
     true
+  );
+});
+
+/**
+ * 設定項目の登録
+ */
+
+add_action('init', function() {
+  register_setting(
+    ELC_SLUG,
+    DB_NAME,
+    array(
+      'type'         => 'array',
+      'show_in_rest' => array(
+        'schema' => array(
+          'type'       => 'object',
+          'items'      => '', //ワーニング回避
+          'properties' => array(
+            'layout'       => array(
+              'type'              => 'string',
+              'sanitize_callback' => 'sanitize_text_field',
+              'default'           => '',
+            ),
+            'elc_class' => array(
+              'type'              => 'string',
+              'sanitize_callback' => 'sanitize_text_field',
+              'default'           => '',
+            ),
+          ),
+        ),
+      ),
+    ),
   );
 });
