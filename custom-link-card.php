@@ -152,15 +152,37 @@ add_action('init', function() {
           'type'       => 'object',
           'items'      => '', //ワーニング回避
           'properties' => array(
-            'layout'       => array(
+            'layout' => array(
               'type'              => 'string',
               'sanitize_callback' => 'sanitize_text_field',
-              'default'           => '',
             ),
-            'hover'       => array(
+            'hover' => array(
               'type'              => 'string',
               'sanitize_callback' => 'sanitize_text_field',
-              'default'           => '',
+            ),
+            'hover_top' => array(
+              'type'              => 'number',
+              'sanitize_callback' => 'sanitize_text_field',
+            ),
+            'hover_shadow_offset_x' => array(
+              'type'              => 'number',
+              'sanitize_callback' => 'sanitize_text_field',
+            ),
+            'hover_shadow_offset_y' => array(
+              'type'              => 'number',
+              'sanitize_callback' => 'sanitize_text_field',
+            ),
+            'hover_shadow_blur_radius' => array(
+              'type'              => 'number',
+              'sanitize_callback' => 'sanitize_text_field',
+            ),
+            'hover_shadow_spread_radius' => array(
+              'type'              => 'number',
+              'sanitize_callback' => 'sanitize_text_field',
+            ),
+            'hover_shadow_color' => array(
+              'type'              => 'string',
+              'sanitize_callback' => 'sanitize_text_color',
             ),
           ),
         ),

@@ -1,7 +1,7 @@
 import './admin.scss';
 import thumbnail from './../asset/img/thumbnail.jpg'
 import { render, useState, useEffect } from '@wordpress/element';
-import { RadioControl, Button } from '@wordpress/components';
+import { RadioControl, Button, RangeControl, ColorPicker } from '@wordpress/components';
 import api from '@wordpress/api';
 
 import classnames from 'classnames';
@@ -15,8 +15,14 @@ import 'react-notifications-component/dist/theme.css';
  * 管理画面
  */
 const Admin = () => {
-	const [ layout, setLayout ] = useState( 'card' );
-	const [ hover, setHover ]   = useState( 'shadow' );
+	const [ layout, setLayout ]                                   = useState( 'card' );
+	const [ hover, setHover ]                                     = useState( 'shadow' );
+	const [ hoverTop, setHoverTop ]                               = useState( -5 );
+	const [ hoverShadowOffsetX, setHoverShadowOffsetX ]           = useState( 3 );
+	const [ hoverShadowOffsetY, setHoverShadowOffsetY ]           = useState( 3 );
+	const [ hoverShadowBlurRadius, setHoverShadowBlurRadius ]     = useState( 3 );
+	const [ hoverShadowSpreadRadius, setHoverShadowSpreadRadius ] = useState( 3 );
+	const [ hoverShadowColor, setHoverShadowColor ]               = useState( '#000' );
 	useEffect( () => {
 		api.loadPromise.then( () => {
 			// Modelの生成
@@ -25,6 +31,12 @@ const Admin = () => {
 			model.fetch().then( response => {
 				setLayout( response.custom_link_card_settings.layout );
 				setHover( response.custom_link_card_settings.hover );
+				setHoverTop( response.custom_link_card_settings.hover_top );
+				setHoverShadowOffsetX( response.custom_link_card_settings.hover_shadow_offset_x );
+				setHoverShadowOffsetY( response.custom_link_card_settings.hover_shadow_offset_y );
+				setHoverShadowBlurRadius( response.custom_link_card_settings.hover_shadow_blur_radius );
+				setHoverShadowSpreadRadius( response.custom_link_card_settings.hover_shadow_spread_radius );
+				setHoverShadowColor( response.custom_link_card_settings.hover_shadow_color );
 			});
 		});
 	}, []);
@@ -35,6 +47,12 @@ const Admin = () => {
 				'custom_link_card_settings' : {
 					'layout': layout,
 					'hover': hover,
+					'hover_top': hoverTop,
+					'hover_shadow_offset_x': hoverShadowOffsetX,
+					'hover_shadow_offset_y': hoverShadowOffsetY,
+					'hover_shadow_blur_radius': hoverShadowBlurRadius,
+					'hover_shadow_spread_radius': hoverShadowSpreadRadius,
+					'hover_shadow_color': hoverShadowColor,
 				}
 			});
 
@@ -109,33 +127,73 @@ const Admin = () => {
 					</a>
 				</div>
 				<Button
-				isPrimary
-				onClick={ dataSave }
+					isPrimary
+					onClick={ dataSave }
 				>
 					保存
 				</Button>
 				<div className="clc-admin__settings">
 						<h2>デザイン設定</h2>
 						<RadioControl
-								label="レイアウトデザイン"
-								help="デザインのレイアウトを決めます。"
-								selected={ layout }
-								options={ [
-										{ label: 'カード型', value: 'card' },
-										{ label: 'リスト型', value: 'list' },
-								] }
-								onChange={ ( value ) => setLayout( value ) }
+							label="レイアウトデザイン"
+							help="デザインのレイアウトを決めます。"
+							selected={ layout }
+							options={ [
+								{ label: 'カード型', value: 'card' },
+								{ label: 'リスト型', value: 'list' },
+							] }
+							onChange={ ( value ) => setLayout( value ) }
 						/>
 						<h3>ホバー</h3>
 						<RadioControl
-								label="ホバー時の動作"
-								help="リンクカードをホバーした際の動作"
-								selected={ hover }
-								options={ [
-										{ label: 'なし', value: 'none' },
-										{ label: '影を表示する', value: 'shadow' },
-								] }
-								onChange={ ( value ) => setHover( value ) }
+							label="ホバー時の動作"
+							help="リンクカードをホバーした際の動作"
+							selected={ hover }
+							options={ [
+								{ label: 'なし', value: 'none' },
+								{ label: '影を表示する', value: 'shadow' },
+							] }
+							onChange={ ( value ) => setHover( value ) }
+						/>
+						<RangeControl
+							label="ホバー時の高さ"
+							value={ hoverTop }
+							onChange={ ( value ) => setHoverTop( value ) }
+							min={ -10 }
+							max={ 10 }
+						/>
+						<RangeControl
+							label="影の長さ（x方向）"
+							value={ hoverShadowOffsetX }
+							onChange={ ( value ) => setHoverShadowOffsetX( value ) }
+							min={ -10 }
+							max={ 10 }
+						/>
+						<RangeControl
+							label="影の長さ（y方向）"
+							value={ hoverShadowOffsetY }
+							onChange={ ( value ) => setHoverShadowOffsetY( value ) }
+							min={ -10 }
+							max={ 10 }
+						/>
+						<RangeControl
+							label="ぼかしの拡張・縮小"
+							value={ hoverShadowBlurRadius }
+							onChange={ ( value ) => setHoverShadowBlurRadius( value ) }
+							min={ -10 }
+							max={ 10 }
+						/>
+						<RangeControl
+							label="影の拡張・縮小"
+							value={ hoverShadowSpreadRadius }
+							onChange={ ( value ) => setHoverShadowSpreadRadius( value ) }
+							min={ -10 }
+							max={ 10 }
+						/>
+						<ColorPicker
+							color={hoverShadowColor}
+							onChange={setHoverShadowColor}
+							enableAlpha
 						/>
 					</div>
 				</div>
@@ -145,6 +203,6 @@ const Admin = () => {
 }
 
 render(
-  <Admin />,
-  document.getElementById('clc-admin')
+	<Admin />,
+	document.getElementById('clc-admin')
 );
