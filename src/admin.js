@@ -29,7 +29,7 @@ const Admin = () => {
 		boxShadow: 'none',
 	}
 	const hoverdStyle = {
-		top: hoverTop,
+		top: -1 * hoverTop,
 		boxShadow: hoverShadowOffsetX + 'px ' + hoverShadowOffsetY + 'px ' + hoverShadowColor,
 		//boxShadow: hoverShadowOffsetX + 'px ' + hoverShadowOffsetY + 'px ' + hoverShadowBlurRadius + 'px ' + hoverShadowSpreadRadius + 'px ' + hoverShadowColor,
 	}
@@ -180,7 +180,7 @@ const Admin = () => {
 							label="ホバー時の高さ"
 							value={ hoverTop }
 							onChange={ ( value ) => setHoverTop( value ) }
-							min={ -10 }
+							min={ 0 }
 							max={ 10 }
 						/>
 						<RangeControl
