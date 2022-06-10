@@ -10,11 +10,11 @@ import { Store } from 'react-notifications-component';
 import { ReactNotifications } from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css';
 
-
 /**
  * 管理画面
  */
 const Admin = () => {
+	//設定値
 	const [ layout, setLayout ]                                   = useState( 'card' );
 	const [ hover, setHover ]                                     = useState( 'shadow' );
 	const [ hoverTop, setHoverTop ]                               = useState( -5 );
@@ -23,6 +23,18 @@ const Admin = () => {
 	const [ hoverShadowBlurRadius, setHoverShadowBlurRadius ]     = useState( 3 );
 	const [ hoverShadowSpreadRadius, setHoverShadowSpreadRadius ] = useState( 3 );
 	const [ hoverShadowColor, setHoverShadowColor ]               = useState( '#000' );
+	//プレビュー用スタイルシート
+	const style = {
+		top: 0,
+		boxShadow: 'none',
+	}
+	const hoverdStyle = {
+		top: hoverTop,
+		boxShadow: hoverShadowOffsetX + 'px ' + hoverShadowOffsetY + 'px ' + hoverShadowColor,
+		//boxShadow: hoverShadowOffsetX + 'px ' + hoverShadowOffsetY + 'px ' + hoverShadowBlurRadius + 'px ' + hoverShadowSpreadRadius + 'px ' + hoverShadowColor,
+	}
+	//プレビューのカード型リンクにホバーしている時true
+	const [ isHover, setIsHover ] = useState( false );
 	useEffect( () => {
 		api.loadPromise.then( () => {
 			// Modelの生成
@@ -107,6 +119,15 @@ const Admin = () => {
 					<h2>プレビュー</h2>
 					<a
 						className={classnames(clcClass)}
+						style={ !isHover ? style : hoverdStyle }
+						onMouseEnter={() => {
+							//マウスホバー開始
+							setIsHover( true );
+						}}
+						onMouseLeave={() => {
+							//マウスホバー終了
+							setIsHover( false );
+						}}
 					>
 						<img
 							className={ layout == 'card' ? 'clc__thumbnail' : 'clc__thumbnail clc__thumbnail--list' }
