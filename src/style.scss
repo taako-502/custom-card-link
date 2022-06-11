@@ -74,6 +74,26 @@
 	}
 }
 
+.u-marign-top {
+	&--8px {
+		margin-top: 8px;
+	}
+}
+
+.u-display {
+	&--inline-block {
+		display: inline-block;
+	}
+
+	&--flex {
+		display: flex;
+	}
+}
+
+.u-width--50-percent {
+	width: 50%;
+}
+
 .u-border-radius {
 	&--1px {
 		border-radius: 1px;

@@ -210,6 +210,27 @@ add_action('init', function() {
 							'type'              => 'number',
 							'sanitize_callback' => 'sanitize_text_field',
 						),
+						'shadow_offset_x' => array(
+							'type'              => 'number',
+							'sanitize_callback' => 'sanitize_text_field',
+						),
+						'shadow_offset_y' => array(
+							'type'              => 'number',
+							'sanitize_callback' => 'sanitize_text_field',
+						),
+						'shadow_blur_radius' => array(
+							'type'              => 'number',
+							'sanitize_callback' => 'sanitize_text_field',
+						),
+						'shadow_spread_radius' => array(
+							'type'              => 'number',
+							'sanitize_callback' => 'sanitize_text_field',
+						),
+						'shadow_color' => array(
+							'type'              => 'string',
+							'sanitize_callback' => 'sanitize_text_color',
+						),
+						//ホバー
 						'hover' => array(
 							'type'              => 'string',
 							'sanitize_callback' => 'sanitize_text_field',
