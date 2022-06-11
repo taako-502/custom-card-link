@@ -1,5 +1,7 @@
 import './admin.scss';
-import thumbnail from './../asset/img/thumbnail.jpg'
+import thumbnail from './../asset/img/thumbnail.jpg';
+import { getSlcClass } from './admin-class.js';
+
 import { render, useState, useEffect } from '@wordpress/element';
 import { RadioControl, Button, RangeControl, ColorPicker } from '@wordpress/components';
 import api from '@wordpress/api';
@@ -123,37 +125,7 @@ const Admin = () => {
 			});
 		});
 	};
-	const clcClass = {
-		'clc': true,
-		'clc--card': layout === 'card',
-		'clc--list': layout === 'list',
-		'clc--hover-shadow': hover === 'shadow',
-		'u-border-radius--1px': borderRadius === 1,
-		'u-border-radius--2px': borderRadius === 2,
-		'u-border-radius--3px': borderRadius === 3,
-		'u-border-radius--4px': borderRadius === 4,
-		'u-border-radius--5px': borderRadius === 5,
-		'u-border-radius--6px': borderRadius === 6,
-		'u-border-radius--7px': borderRadius === 7,
-		'u-border-radius--8px': borderRadius === 8,
-		'u-border-radius--9px': borderRadius === 9,
-		'u-border-radius--10px': borderRadius === 10,
-		'u-border-radius--11px': borderRadius === 11,
-		'u-border-radius--12px': borderRadius === 12,
-		'u-border-radius--13px': borderRadius === 13,
-		'u-border-radius--14px': borderRadius === 14,
-		'u-border-radius--15px': borderRadius === 15,
-		'u-transition--top-box-shadow--point-1s': hoverTransitionTime === .1,
-		'u-transition--top-box-shadow--point-2s': hoverTransitionTime === .2,
-		'u-transition--top-box-shadow--point-3s': hoverTransitionTime === .3,
-		'u-transition--top-box-shadow--point-4s': hoverTransitionTime === .4,
-		'u-transition--top-box-shadow--point-5s': hoverTransitionTime === .5,
-		'u-transition--top-box-shadow--point-6s': hoverTransitionTime === .6,
-		'u-transition--top-box-shadow--point-7s': hoverTransitionTime === .7,
-		'u-transition--top-box-shadow--point-8s': hoverTransitionTime === .8,
-		'u-transition--top-box-shadow--point-9s': hoverTransitionTime === .9,
-		'u-transition--top-box-shadow--1s': hoverTransitionTime === 1,
-  };
+	const clcClass = getSlcClass(layout, hover, borderRadius, hoverTransitionTime);
 	return (
 		<React.Fragment>
 			<ReactNotifications />
