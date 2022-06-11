@@ -1,6 +1,7 @@
 import './admin.scss';
 import thumbnail from './../asset/img/thumbnail.jpg';
-import { getSlcClass } from './admin-class.js';
+import { getSlcClass } from './admin/class.js';
+import { settingNotification } from './admin/settingNotification.js';
 
 import { render, useState, useEffect } from '@wordpress/element';
 import { RadioControl, Button, RangeControl, ColorPicker } from '@wordpress/components';
@@ -8,7 +9,6 @@ import api from '@wordpress/api';
 
 import classnames from 'classnames';
 
-import { Store } from 'react-notifications-component';
 import { ReactNotifications } from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css';
 
@@ -92,37 +92,7 @@ const Admin = () => {
 					'hover_shadow_color': hoverShadowColor,
 				}
 			});
-			const save = model.save();
-			save.success( ( response, status ) => {
-				Store.addNotification({
-					title: 'Success!',
-					message: '入力内容を保存しました。',
-					type: 'success',
-					insert: 'top',
-					container: 'top-center',
-					animationIn: ['animate__animated', 'animate__fadeIn'],
-					animationOut: ['animate__animated', 'animate__fadeOut'],
-					dismiss: {
-						duration: 5000,
-						onScreen: true
-					}
-				});
-			});
-			save.error( ( response, status ) => {
-				Store.addNotification({
-					title: 'Error!',
-					message: '入力内容を保存できませんでした。',
-					type: 'danger',
-					insert: 'top',
-					container: 'top-center',
-					animationIn: ['animate__animated', 'animate__fadeIn'],
-					animationOut: ['animate__animated', 'animate__fadeOut'],
-					dismiss: {
-						duration: 5000,
-						onScreen: true
-					}
-				});
-			});
+			const save = settingNotification( model );
 		});
 	};
 	const clcClass = getSlcClass(layout, hover, borderRadius, hoverTransitionTime);
