@@ -13,7 +13,7 @@ require_once __DIR__ .'/library/Get_OGP_InWP/get_ogp_inwp.php';
 require_once __DIR__ .'/library/plugin-update-checker/plugin-update-checker.php';
 
 const OPTION_GROUP = 'custom-link-card';
-const clc_SLUG     = 'custom-link-card';
+const CLC_SLUG     = 'custom-link-card';
 const DB_NAME      = 'custom_link_card_settings';
 
 /**
@@ -121,7 +121,7 @@ add_action('admin_enqueue_scripts', function($hook_suffix) {
 
   // CSSファイルの読み込み
   wp_enqueue_style(
-    clc_SLUG,
+    CLC_SLUG,
     plugin_dir_url( __FILE__ ).'build/admin.css',
     array('wp-components')
   );
@@ -130,7 +130,7 @@ add_action('admin_enqueue_scripts', function($hook_suffix) {
   wp_enqueue_media();
   $asset_file = include_once ( __DIR__ . '/build/admin.asset.php') ;
   wp_enqueue_script (
-    clc_SLUG,
+    CLC_SLUG,
     plugin_dir_url( __FILE__ ).'build/admin.js',
     $asset_file['dependencies'],
     $asset_file['version'],
@@ -143,7 +143,7 @@ add_action('admin_enqueue_scripts', function($hook_suffix) {
  */
 add_action('init', function() {
   register_setting(
-    clc_SLUG,
+    CLC_SLUG,
     DB_NAME,
     array(
       'type'         => 'array',
