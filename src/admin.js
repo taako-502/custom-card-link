@@ -31,13 +31,16 @@ const Admin = () => {
 	const [ hoverShadowSpreadRadius, setHoverShadowSpreadRadius ] = useState( 3 );
 	const [ hoverShadowColor, setHoverShadowColor ]               = useState( '#000' );
 	//プレビュー用スタイルシート
-	const style = {
+	const styles = {
 		top: 0,
 		boxShadow: shadowOffsetX + 'px ' + shadowOffsetY + 'px ' + shadowBlurRadius + 'px ' + shadowSpreadRadius + 'px ' + shadowColor,
 	}
-	const hoverdStyle = {
+	const hoverdStyles = {
 		top: -1 * hoverTop,
 		boxShadow: hoverShadowOffsetX + 'px ' + hoverShadowOffsetY + 'px ' + hoverShadowBlurRadius + 'px ' + hoverShadowSpreadRadius + 'px ' + hoverShadowColor,
+	}
+	const hoverShadowSettingStyles = {
+		display: hover === 'none' ? 'none' : 'block',
 	}
 	//プレビューのカード型リンクにホバーしている時true
 	const [ isHover, setIsHover ] = useState( false );
@@ -161,7 +164,7 @@ const Admin = () => {
 					<h2>プレビュー</h2>
 					<a
 						className={classnames(clcClass)}
-						style={ !isHover ? style : hoverdStyle }
+						style={ isHover && hover !== 'none' ? hoverdStyles : styles }
 						onMouseEnter={() => {
 							//マウスホバー開始
 							setIsHover( true );
@@ -267,14 +270,23 @@ const Admin = () => {
 									] }
 									onChange={ ( value ) => setHover( value ) }
 								/>
-								<label className='u-display--inline-block u-marign-top--8px'>影の色</label>
+								<label
+									className='u-display--inline-block u-marign-top--8px'
+									style={ hoverShadowSettingStyles }
+								>
+									影の色
+								</label>
 								<ColorPicker
 									color={ hoverShadowColor }
 									onChange={ setHoverShadowColor }
 									enableAlpha
+									style={ hoverShadowSettingStyles }
 								/>
 							</div>
-							<div className='u-width--50-percent'>
+							<div
+								className='u-width--50-percent'
+								style={ hoverShadowSettingStyles }
+							>
 								<RangeControl
 									label='ホバー時の動作時間'
 									value={ hoverTransitionTime }
