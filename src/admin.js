@@ -16,6 +16,7 @@ import 'react-notifications-component/dist/theme.css';
 const Admin = () => {
 	//設定値
 	const [ layout, setLayout ]                                   = useState( 'card' );
+	const [ borderRadius, setBorderRadius ]                       = useState( 0 );
 	const [ hover, setHover ]                                     = useState( 'shadow' );
 	const [ hoverTop, setHoverTop ]                               = useState( -5 );
 	const [ hoverShadowOffsetX, setHoverShadowOffsetX ]           = useState( 3 );
@@ -66,9 +67,7 @@ const Admin = () => {
 					'hover_shadow_color': hoverShadowColor,
 				}
 			});
-
 			const save = model.save();
-
 			save.success( ( response, status ) => {
 				Store.addNotification({
 					title: 'Success!',
@@ -84,7 +83,6 @@ const Admin = () => {
 					}
 				});
 			});
-
 			save.error( ( response, status ) => {
 				Store.addNotification({
 					title: 'Error!',
@@ -103,10 +101,25 @@ const Admin = () => {
 		});
 	};
 	const clcClass = {
-    'clc': true,
-    'clc--card': layout === 'card',
-    'clc--list': layout === 'list',
-    'clc--hover-shadow': hover === 'shadow',
+		'clc': true,
+		'clc--card': layout === 'card',
+		'clc--list': layout === 'list',
+		'clc--hover-shadow': hover === 'shadow',
+		'u-border-radius--1px': borderRadius === 1,
+		'u-border-radius--2px': borderRadius === 2,
+		'u-border-radius--3px': borderRadius === 3,
+		'u-border-radius--4px': borderRadius === 4,
+		'u-border-radius--5px': borderRadius === 5,
+		'u-border-radius--6px': borderRadius === 6,
+		'u-border-radius--7px': borderRadius === 7,
+		'u-border-radius--8px': borderRadius === 8,
+		'u-border-radius--9px': borderRadius === 9,
+		'u-border-radius--10px': borderRadius === 10,
+		'u-border-radius--11px': borderRadius === 11,
+		'u-border-radius--12px': borderRadius === 12,
+		'u-border-radius--13px': borderRadius === 13,
+		'u-border-radius--14px': borderRadius === 14,
+		'u-border-radius--15px': borderRadius === 15,
   };
 	return (
 		<React.Fragment>
@@ -163,6 +176,13 @@ const Admin = () => {
 								{ label: 'リスト型', value: 'list' },
 							] }
 							onChange={ ( value ) => setLayout( value ) }
+						/>
+						<RangeControl
+							label='角の丸さ（px）'
+							value={ borderRadius }
+							onChange={ ( value ) => setBorderRadius( value ) }
+							min={ 0 }
+							max={ 15 }
 						/>
 						<h3>ホバー</h3>
 						<RadioControl
