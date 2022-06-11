@@ -30,8 +30,7 @@ const Admin = () => {
 	}
 	const hoverdStyle = {
 		top: -1 * hoverTop,
-		boxShadow: hoverShadowOffsetX + 'px ' + hoverShadowOffsetY + 'px ' + hoverShadowColor,
-		//boxShadow: hoverShadowOffsetX + 'px ' + hoverShadowOffsetY + 'px ' + hoverShadowBlurRadius + 'px ' + hoverShadowSpreadRadius + 'px ' + hoverShadowColor,
+		boxShadow: hoverShadowOffsetX + 'px ' + hoverShadowOffsetY + 'px ' + hoverShadowBlurRadius + 'px ' + hoverShadowSpreadRadius + 'px ' + hoverShadowColor,
 	}
 	//プレビューのカード型リンクにホバーしている時true
 	const [ isHover, setIsHover ] = useState( false );
@@ -72,13 +71,13 @@ const Admin = () => {
 
 			save.success( ( response, status ) => {
 				Store.addNotification({
-					title: "Success!",
-					message: "入力内容を保存しました。",
-					type: "success",
-					insert: "top",
-					container: "top-center",
-					animationIn: ["animate__animated", "animate__fadeIn"],
-					animationOut: ["animate__animated", "animate__fadeOut"],
+					title: 'Success!',
+					message: '入力内容を保存しました。',
+					type: 'success',
+					insert: 'top',
+					container: 'top-center',
+					animationIn: ['animate__animated', 'animate__fadeIn'],
+					animationOut: ['animate__animated', 'animate__fadeOut'],
 					dismiss: {
 						duration: 5000,
 						onScreen: true
@@ -88,13 +87,13 @@ const Admin = () => {
 
 			save.error( ( response, status ) => {
 				Store.addNotification({
-					title: "Error!",
-					message: "入力内容を保存できませんでした。",
-					type: "danger",
-					insert: "top",
-					container: "top-center",
-					animationIn: ["animate__animated", "animate__fadeIn"],
-					animationOut: ["animate__animated", "animate__fadeOut"],
+					title: 'Error!',
+					message: '入力内容を保存できませんでした。',
+					type: 'danger',
+					insert: 'top',
+					container: 'top-center',
+					animationIn: ['animate__animated', 'animate__fadeIn'],
+					animationOut: ['animate__animated', 'animate__fadeOut'],
 					dismiss: {
 						duration: 5000,
 						onScreen: true
@@ -105,17 +104,17 @@ const Admin = () => {
 	};
 	const clcClass = {
     'clc': true,
-    'clc--card': layout === "card",
-    'clc--list': layout === "list",
-    'clc--hover-shadow': hover === "shadow",
+    'clc--card': layout === 'card',
+    'clc--list': layout === 'list',
+    'clc--hover-shadow': hover === 'shadow',
   };
 	return (
 		<React.Fragment>
 			<ReactNotifications />
-			<div className="clc-admin">
+			<div className='clc-admin'>
 				<h1>外部リンクカードのデザインの設定画面</h1>
-				<div className="clc-admin__wrap">
-					<div className="clc-admin__preview">
+				<div className='clc-admin__wrap'>
+					<div className='clc-admin__preview'>
 					<h2>プレビュー</h2>
 					<a
 						className={classnames(clcClass)}
@@ -153,11 +152,11 @@ const Admin = () => {
 				>
 					保存
 				</Button>
-				<div className="clc-admin__settings">
+				<div className='clc-admin__settings'>
 						<h2>デザイン設定</h2>
 						<RadioControl
-							label="レイアウトデザイン"
-							help="デザインのレイアウトを決めます。"
+							label='レイアウトデザイン'
+							help='デザインのレイアウトを決めます。'
 							selected={ layout }
 							options={ [
 								{ label: 'カード型', value: 'card' },
@@ -167,8 +166,8 @@ const Admin = () => {
 						/>
 						<h3>ホバー</h3>
 						<RadioControl
-							label="ホバー時の動作"
-							help="リンクカードをホバーした際の動作"
+							label='ホバー時の動作'
+							help='リンクカードをホバーした際の動作'
 							selected={ hover }
 							options={ [
 								{ label: 'なし', value: 'none' },
@@ -177,38 +176,38 @@ const Admin = () => {
 							onChange={ ( value ) => setHover( value ) }
 						/>
 						<RangeControl
-							label="ホバー時の高さ"
+							label='ホバー時の高さ'
 							value={ hoverTop }
 							onChange={ ( value ) => setHoverTop( value ) }
 							min={ 0 }
 							max={ 10 }
 						/>
 						<RangeControl
-							label="影の長さ（x方向）"
+							label='影の長さ（x方向）'
 							value={ hoverShadowOffsetX }
 							onChange={ ( value ) => setHoverShadowOffsetX( value ) }
 							min={ -10 }
 							max={ 10 }
 						/>
 						<RangeControl
-							label="影の長さ（y方向）"
+							label='影の長さ（y方向）'
 							value={ hoverShadowOffsetY }
 							onChange={ ( value ) => setHoverShadowOffsetY( value ) }
 							min={ -10 }
 							max={ 10 }
 						/>
 						<RangeControl
-							label="ぼかしの拡張・縮小"
+							label='ぼかしの拡張・縮小'
 							value={ hoverShadowBlurRadius }
 							onChange={ ( value ) => setHoverShadowBlurRadius( value ) }
-							min={ -10 }
+							min={ 0 }
 							max={ 10 }
 						/>
 						<RangeControl
-							label="影の拡張・縮小"
+							label='影の拡張・縮小'
 							value={ hoverShadowSpreadRadius }
 							onChange={ ( value ) => setHoverShadowSpreadRadius( value ) }
-							min={ -10 }
+							min={ 0}
 							max={ 10 }
 						/>
 						<ColorPicker
