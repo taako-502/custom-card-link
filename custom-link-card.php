@@ -271,3 +271,26 @@ function getDescription($id, $len){
 	$description = preg_replace('/\[.*\]/','',$description);
 	return mb_strimwidth($description, 0, $len, '...');
 }
+
+/**
+ *
+ * @return string
+ */
+function dynamic_styles(){
+	$css  = '';
+	$css .= '<style type="text/css">';
+	$css .= '  .clc--hover-shadow:hover {';
+	$css .= '    box-shadow: '.get_setting('hover_shadow_offset_x').'px '.get_setting('hover_shadow_offset_y').'px '
+													.get_setting('hover_shadow_blur_radius').'px '.get_setting('hover_shadow_spread_radius').'px '
+													.get_setting('hover_shadow_color');
+	$css .= '  }';
+	$css .= '</style>';
+	return $css;
+}
+
+/**
+ * ヘッダーにCSSを挿入
+ */
+add_action('wp_head', function() {
+	echo dynamic_styles();
+});
