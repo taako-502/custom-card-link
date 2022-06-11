@@ -114,35 +114,35 @@ add_action('admin_menu', function() {
  * 管理画面エンキュー
  */
 add_action('admin_enqueue_scripts', function($hook_suffix) {
-  // 作成したオプションページ以外では読み込まない
-  if ( 'toplevel_page_'.OPTION_GROUP !== $hook_suffix ) {
-    return;
-  }
+	// 作成したオプションページ以外では読み込まない
+	if ( 'toplevel_page_'.OPTION_GROUP !== $hook_suffix ) {
+		return;
+	}
 
-  // CSSファイルの読み込み
-  wp_enqueue_style(
-    CLC_SLUG,
-    plugin_dir_url( __FILE__ ).'build/admin.css',
-    array('wp-components')
-  );
+	// CSSファイルの読み込み
+	wp_enqueue_style(
+		CLC_SLUG,
+		plugin_dir_url( __FILE__ ).'build/admin.css',
+		array('wp-components')
+	);
 
-  // JavaScriptファイルの読み込み
-  wp_enqueue_media();
-  $asset_file = include_once ( __DIR__ . '/build/admin.asset.php') ;
-  wp_enqueue_script (
-    CLC_SLUG,
-    plugin_dir_url( __FILE__ ).'build/admin.js',
-    $asset_file['dependencies'],
-    $asset_file['version'],
-    true
-  );
+	// JavaScriptファイルの読み込み
+	wp_enqueue_media();
+	$asset_file = include_once ( __DIR__ . '/build/admin.asset.php') ;
+	wp_enqueue_script (
+		CLC_SLUG,
+		plugin_dir_url( __FILE__ ).'build/admin.js',
+		$asset_file['dependencies'],
+		$asset_file['version'],
+		true
+	);
 });
 
 /**
  * 設定項目の登録
  */
 add_action('init', function() {
-  register_setting(
+	register_setting(
     CLC_SLUG,
     DB_NAME,
     array(
