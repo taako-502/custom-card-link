@@ -143,52 +143,52 @@ add_action('admin_enqueue_scripts', function($hook_suffix) {
  */
 add_action('init', function() {
 	register_setting(
-    CLC_SLUG,
-    DB_NAME,
-    array(
-      'type'         => 'array',
-      'show_in_rest' => array(
-        'schema' => array(
-          'type'       => 'object',
-          'items'      => '', //ワーニング回避
-          'properties' => array(
-            'layout' => array(
-              'type'              => 'string',
-              'sanitize_callback' => 'sanitize_text_field',
-            ),
-            'hover' => array(
-              'type'              => 'string',
-              'sanitize_callback' => 'sanitize_text_field',
-            ),
-            'hover_top' => array(
-              'type'              => 'number',
-              'sanitize_callback' => 'sanitize_text_field',
-            ),
-            'hover_shadow_offset_x' => array(
-              'type'              => 'number',
-              'sanitize_callback' => 'sanitize_text_field',
-            ),
-            'hover_shadow_offset_y' => array(
-              'type'              => 'number',
-              'sanitize_callback' => 'sanitize_text_field',
-            ),
-            'hover_shadow_blur_radius' => array(
-              'type'              => 'number',
-              'sanitize_callback' => 'sanitize_text_field',
-            ),
-            'hover_shadow_spread_radius' => array(
-              'type'              => 'number',
-              'sanitize_callback' => 'sanitize_text_field',
-            ),
-            'hover_shadow_color' => array(
-              'type'              => 'string',
-              'sanitize_callback' => 'sanitize_text_color',
-            ),
-          ),
-        ),
-      ),
-    ),
-  );
+		CLC_SLUG,
+		DB_NAME,
+		array(
+			'type'         => 'array',
+			'show_in_rest' => array(
+				'schema' => array(
+					'type'       => 'object',
+					'items'      => '', //ワーニング回避
+					'properties' => array(
+						'layout' => array(
+							'type'              => 'string',
+							'sanitize_callback' => 'sanitize_text_field',
+						),
+						'hover' => array(
+							'type'              => 'string',
+							'sanitize_callback' => 'sanitize_text_field',
+						),
+						'hover_top' => array(
+							'type'              => 'number',
+							'sanitize_callback' => 'sanitize_text_field',
+						),
+						'hover_shadow_offset_x' => array(
+							'type'              => 'number',
+							'sanitize_callback' => 'sanitize_text_field',
+						),
+						'hover_shadow_offset_y' => array(
+							'type'              => 'number',
+							'sanitize_callback' => 'sanitize_text_field',
+						),
+						'hover_shadow_blur_radius' => array(
+							'type'              => 'number',
+							'sanitize_callback' => 'sanitize_text_field',
+						),
+						'hover_shadow_spread_radius' => array(
+							'type'              => 'number',
+							'sanitize_callback' => 'sanitize_text_field',
+						),
+						'hover_shadow_color' => array(
+							'type'              => 'string',
+							'sanitize_callback' => 'sanitize_text_color',
+						),
+					),
+				),
+			),
+		),
+	);
 });
 
 /**
