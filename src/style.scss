@@ -122,3 +122,36 @@
 		border-radius: 15px;
 	}
 }
+
+.u-transition--top-box-shadow {
+	&--point-1s {
+		transition: top .1s, box-shadow .1s;
+	}
+	&--point-2s {
+		transition: top .2s, box-shadow .2s;
+	}
+	&--point-3s {
+		transition: top .3s, box-shadow .3s;
+	}
+	&--point-4s {
+		transition: top .4s, box-shadow .4s;
+	}
+	&--point-5s {
+		transition: top .5s, box-shadow .5s;
+	}
+	&--point-6s {
+		transition: top .6s, box-shadow .6s;
+	}
+	&--point-7s {
+		transition: top .7s, box-shadow .7s;
+	}
+	&--point-8s {
+		transition: top .8s, box-shadow .8s;
+	}
+	&--point-9s {
+		transition: top .9s, box-shadow .9s;
+	}
+	&--1s {
+		transition: top 1s, box-shadow 1s;
+	}
+}

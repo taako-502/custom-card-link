@@ -19,6 +19,7 @@ const Admin = () => {
 	const [ borderRadius, setBorderRadius ]                       = useState( 0 );
 	const [ hover, setHover ]                                     = useState( 'shadow' );
 	const [ hoverTop, setHoverTop ]                               = useState( -5 );
+	const [ hoverTransitionTime, setHoverTransitionTime ]         = useState( 0.3 );
 	const [ hoverShadowOffsetX, setHoverShadowOffsetX ]           = useState( 3 );
 	const [ hoverShadowOffsetY, setHoverShadowOffsetY ]           = useState( 3 );
 	const [ hoverShadowBlurRadius, setHoverShadowBlurRadius ]     = useState( 3 );
@@ -120,6 +121,16 @@ const Admin = () => {
 		'u-border-radius--13px': borderRadius === 13,
 		'u-border-radius--14px': borderRadius === 14,
 		'u-border-radius--15px': borderRadius === 15,
+		'u-transition--top-box-shadow--point-1s': hoverTransitionTime === .1,
+		'u-transition--top-box-shadow--point-2s': hoverTransitionTime === .2,
+		'u-transition--top-box-shadow--point-3s': hoverTransitionTime === .3,
+		'u-transition--top-box-shadow--point-4s': hoverTransitionTime === .4,
+		'u-transition--top-box-shadow--point-5s': hoverTransitionTime === .5,
+		'u-transition--top-box-shadow--point-6s': hoverTransitionTime === .6,
+		'u-transition--top-box-shadow--point-7s': hoverTransitionTime === .7,
+		'u-transition--top-box-shadow--point-8s': hoverTransitionTime === .8,
+		'u-transition--top-box-shadow--point-9s': hoverTransitionTime === .9,
+		'u-transition--top-box-shadow--1s': hoverTransitionTime === 1,
   };
 	return (
 		<React.Fragment>
@@ -194,6 +205,14 @@ const Admin = () => {
 								{ label: '影を表示する', value: 'shadow' },
 							] }
 							onChange={ ( value ) => setHover( value ) }
+						/>
+						<RangeControl
+							label='ホバー時の動作時間'
+							value={ hoverTransitionTime }
+							onChange={ ( value ) => setHoverTransitionTime( value ) }
+							min={ 0 }
+							max={ 1 }
+							step={ 0.1 }
 						/>
 						<RangeControl
 							label='ホバー時の高さ'
