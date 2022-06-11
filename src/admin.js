@@ -43,8 +43,10 @@ const Admin = () => {
 			// 設定値の取得
 			model.fetch().then( response => {
 				setLayout( response.custom_link_card_settings.layout );
+				setBorderRadius( response.custom_link_card_settings.border_radius );
 				setHover( response.custom_link_card_settings.hover );
 				setHoverTop( response.custom_link_card_settings.hover_top );
+				setHoverTransitionTime( response.custom_link_card_settings.hover_transition_time );
 				setHoverShadowOffsetX( response.custom_link_card_settings.hover_shadow_offset_x );
 				setHoverShadowOffsetY( response.custom_link_card_settings.hover_shadow_offset_y );
 				setHoverShadowBlurRadius( response.custom_link_card_settings.hover_shadow_blur_radius );
@@ -59,8 +61,10 @@ const Admin = () => {
 			const model = new api.models.Settings({
 				'custom_link_card_settings' : {
 					'layout': layout,
+					'border_radius': borderRadius,
 					'hover': hover,
 					'hover_top': hoverTop,
+					'hover_transition_time': hoverTransitionTime,
 					'hover_shadow_offset_x': hoverShadowOffsetX,
 					'hover_shadow_offset_y': hoverShadowOffsetY,
 					'hover_shadow_blur_radius': hoverShadowBlurRadius,

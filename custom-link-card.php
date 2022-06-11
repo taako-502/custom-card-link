@@ -57,9 +57,20 @@ add_action('init', function() {
 					$title       = isset($ogps['og:title']) ? $ogps['og:title'] : '';
 					$description = isset($ogps['og:description']) ? $ogps['og:description'] : '';
 				}
-				$layout = isset(get_option('custom_link_card_settings')['layout']) ? get_option('custom_link_card_settings')['layout'] : '';
-				$hover  = isset(get_option('custom_link_card_settings')['hover'])  ? get_option('custom_link_card_settings')['hover'] : '';
-				return makeEtcCard($layout, $hover, $url, $image, $title, $description);
+				$layout                = get_setting('layout');
+				$hover                 = get_setting('hover');
+				$border_radius         = get_setting('border_radius');
+				$hover_transition_time = get_setting('hover_transition_time');
+				return makeEtcCard(
+					$url,
+					$image,
+					$title,
+					$description,
+					$layout,
+					$hover,
+					$border_radius,
+					$hover_transition_time,
+				);
 			},
 		)
 	);
@@ -73,9 +84,12 @@ add_action('init', function() {
  * @param  string $description
  * @return string
  */
-function makeEtcCard($layout, $hover, $url, $image, $title, $description) {
+function makeEtcCard($url, $image, $title, $description, $layout, $hover,
+                                    $border_radius, $hover_transition_time) {
 	$main_class  = 'clc clc--'.$layout;
 	$main_class .= $hover != 'none' ? ' clc--hover-'.$hover : '';
+	$main_class .= $border_radius != 0 ? ' u-border-radius--'.$border_radius.'px' : '';
+	$main_class .= $hover_transition_time != 0 ? ' u-transition--top-box-shadow--'.number_to_class($hover_transition_time).'s' : '';
 	return sprintf(
 		'<a class="%1$s" href="%3$s">
 			<img class="clc__thumbnail clc__thumbnail--%2$s" src="%4$s">
@@ -91,6 +105,42 @@ function makeEtcCard($layout, $hover, $url, $image, $title, $description) {
 		$title,
 		$description
 	);
+}
+
+function number_to_class($num) {
+	switch ($num) {
+		case 0.1:
+			return 'point-1';
+			break;
+		case 0.2:
+			return 'point-2';
+			break;
+		case 0.3:
+			return 'point-3';
+			break;
+		case 0.4:
+			return 'point-4';
+			break;
+		case 0.5:
+			return 'point-5';
+			break;
+		case 0.6:
+			return 'point-6';
+			break;
+		case 0.7:
+			return 'point-7';
+			break;
+		case 0.8:
+			return 'point-8';
+			break;
+		case 0.9:
+			return 'point-9';
+			break;
+		case 1:
+			return '1';
+			break;
+	}
+	return;
 }
 
 /**
@@ -156,11 +206,19 @@ add_action('init', function() {
 							'type'              => 'string',
 							'sanitize_callback' => 'sanitize_text_field',
 						),
+						'border_radius' => array(
+							'type'              => 'number',
+							'sanitize_callback' => 'sanitize_text_field',
+						),
 						'hover' => array(
 							'type'              => 'string',
 							'sanitize_callback' => 'sanitize_text_field',
 						),
 						'hover_top' => array(
+							'type'              => 'number',
+							'sanitize_callback' => 'sanitize_text_field',
+						),
+						'hover_transition_time' => array(
 							'type'              => 'number',
 							'sanitize_callback' => 'sanitize_text_field',
 						),
@@ -190,6 +248,15 @@ add_action('init', function() {
 		),
 	);
 });
+
+/**
+ * 管理画面で設定したデータを取得
+ * @param  string $key
+ * @return string 設定値
+ */
+function get_setting($key) {
+	return isset(get_option(DB_NAME)[$key]) ? get_option(DB_NAME)[$key] : '';
+}
 
 /**
  * 記事情報をディスクリプションに変換
