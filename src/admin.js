@@ -207,12 +207,12 @@ const Admin = () => {
 							label='影の拡張・縮小'
 							value={ hoverShadowSpreadRadius }
 							onChange={ ( value ) => setHoverShadowSpreadRadius( value ) }
-							min={ 0}
+							min={ 0 }
 							max={ 10 }
 						/>
 						<ColorPicker
-							color={hoverShadowColor}
-							onChange={setHoverShadowColor}
+							color={ hoverShadowColor }
+							onChange={ setHoverShadowColor }
 							enableAlpha
 						/>
 					</div>
