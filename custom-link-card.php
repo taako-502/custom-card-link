@@ -4,7 +4,7 @@ Namespace Clc_Plugin;
 Plugin Name: Custom Link Card
 Plugin URI: https://github.com/taako-502/custom-link-card
 Description: 外部リンクを表示するGutenbergブロック
-Version: 20220609
+Version: 20220613
 Author: Takao
 Author URI: https://github.com/taako-502
 License: GPL2
