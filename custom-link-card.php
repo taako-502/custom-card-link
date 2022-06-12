@@ -202,6 +202,7 @@ add_action('init', function() {
 					'type'       => 'object',
 					'items'      => '', //ワーニング回避
 					'properties' => array(
+						//デザイン
 						'layout' => array(
 							'type'              => 'string',
 							'sanitize_callback' => 'sanitize_text_field',
@@ -300,10 +301,15 @@ function getDescription($id, $len){
 function dynamic_styles(){
 	$css  = '';
 	$css .= '<style type="text/css">';
+	$css .= '  .clc {';
+	$css .= '    box-shadow: '.get_setting('shadow_offset_x').'px '.get_setting('shadow_offset_y').'px '
+													.get_setting('shadow_blur_radius').'px '.get_setting('shadow_spread_radius').'px '
+													.get_setting('shadow_color').';';
+	$css .= '  }';
 	$css .= '  .clc--hover-shadow:hover {';
 	$css .= '    box-shadow: '.get_setting('hover_shadow_offset_x').'px '.get_setting('hover_shadow_offset_y').'px '
 													.get_setting('hover_shadow_blur_radius').'px '.get_setting('hover_shadow_spread_radius').'px '
-													.get_setting('hover_shadow_color');
+													.get_setting('hover_shadow_color').';';
 	$css .= '  }';
 	$css .= '</style>';
 	return $css;
