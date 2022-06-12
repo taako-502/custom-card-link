@@ -7,10 +7,11 @@
  * @param  {string} shadowColor
  * @return {string}
  */
-export const makeStyles = ( shadowOffsetX , shadowOffsetY , shadowBlurRadius , shadowSpreadRadius , shadowColor ) => {
+export const makeStyles = ( settings ) => {
 	const styles = {
 		top: 0,
-		boxShadow: shadowOffsetX + 'px ' + shadowOffsetY + 'px ' + shadowBlurRadius + 'px ' + shadowSpreadRadius + 'px ' + shadowColor,
+		boxShadow: settings.shadowOffsetX + 'px ' + settings.shadowOffsetY + 'px ' + settings.shadowBlurRadius + 'px '
+								+ settings.shadowSpreadRadius + 'px ' + settings.shadowColor,
 	}
 	return styles;
 }
@@ -25,10 +26,11 @@ export const makeStyles = ( shadowOffsetX , shadowOffsetY , shadowBlurRadius , s
  * @param  {string} hoverShadowColor
  * @return {string}
  */
-export const makeHoverdStyles = ( hoverTop , hoverShadowOffsetX , hoverShadowOffsetY , hoverShadowBlurRadius , hoverShadowSpreadRadius , hoverShadowColor ) => {
+export const makeHoverdStyles = ( settings ) => {
 	const styles = {
-		top: -1 * hoverTop,
-		boxShadow: hoverShadowOffsetX + 'px ' + hoverShadowOffsetY + 'px ' + hoverShadowBlurRadius + 'px ' + hoverShadowSpreadRadius + 'px ' + hoverShadowColor,
+		top: -1 * settings.hoverTop,
+		boxShadow: settings.hoverShadowOffsetX + 'px ' + settings.hoverShadowOffsetY + 'px ' + settings.hoverShadowBlurRadius + 'px '
+								+ settings.hoverShadowSpreadRadius + 'px ' + settings.hoverShadowColor,
 	}
 	return styles;
 }
@@ -38,9 +40,9 @@ export const makeHoverdStyles = ( hoverTop , hoverShadowOffsetX , hoverShadowOff
  * @param  {string} hover
  * @return {string}
  */
-export const makeHoverShadowSettingStyles = ( setting ) => {
+export const makeHoverShadowSettingStyles = ( settings ) => {
 	const styles = {
-		display: setting.hover === 'none' ? 'none' : 'block',
+		display: settings.hover === 'none' ? 'none' : 'block',
 	}
 	return styles;
 }
