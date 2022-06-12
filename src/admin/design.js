@@ -1,4 +1,4 @@
-export const setStandardDesign = ( setSettings ) => {
+export const setStandardDesignCard = ( setSettings ) => {
 	setSettings({
 		layout: 'card',
 		borderRadius: 6,
@@ -18,7 +18,7 @@ export const setStandardDesign = ( setSettings ) => {
 	})
 }
 
-export const setRecommendedDesign1 = ( setSettings ) => {
+export const setStandardDesignList = ( setSettings ) => {
 	setSettings({
 		layout: 'list',
 		borderRadius: 8,

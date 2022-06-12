@@ -1,15 +1,12 @@
 import './admin.scss';
-import thumbnail from './../asset/img/thumbnail.jpg';
-import { getSlcClass } from './admin/class.js';
-import { makeStyles , makeHoverdStyles , makeHoverShadowSettingStyles } from './admin/styles.js';
 import { settingNotification } from './admin/settingNotification.js';
-import { setStandardDesign , setRecommendedDesign1 , setRecommendedDesign2 } from './admin/design.js';
+import { setStandardDesignCard , setStandardDesignList , setRecommendedDesign1  } from './admin/design.js';
+import { makeHoverShadowSettingStyles } from './admin/visibility.js';
+import { Preview } from './admin/preview.js';
 
 import { render, useState, useLayoutEffect } from '@wordpress/element';
 import { RadioControl, Button, RangeControl, ColorPicker } from '@wordpress/components';
 import api from '@wordpress/api';
-
-import classnames from 'classnames';
 
 import { ReactNotifications } from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css';
@@ -20,11 +17,8 @@ import 'react-notifications-component/dist/theme.css';
 const Admin = () => {
 	//設定値
 	const [ settings , setSettings ] = useState({});
-	//プレビューのカード型リンクにホバーしている時true
 	const [ isHover, setIsHover ] = useState( false );
-	//プレビュー用スタイルシート
-	const styles = makeStyles( settings );
-	const hoverdStyles = makeHoverdStyles( settings );
+	//スタイルシート
 	const hoverShadowSettingStyles = makeHoverShadowSettingStyles( settings );
 	useLayoutEffect( () => {
 		api.loadPromise.then( () => {
@@ -81,7 +75,6 @@ const Admin = () => {
 			const save = settingNotification( model );
 		});
 	};
-	const clcClass = getSlcClass(settings);
 	return (
 		<React.Fragment>
 			<ReactNotifications />
@@ -93,35 +86,7 @@ const Admin = () => {
 						<div>
 						{ Object.keys(settings).length === 0
 							? <div></div>
-							: <a
-								className={classnames(clcClass)}
-								style={ isHover && settings.hover !== 'none' ? hoverdStyles : styles }
-								onMouseEnter={() => {
-									//マウスホバー開始
-									setIsHover( true );
-								}}
-								onMouseLeave={() => {
-									//マウスホバー終了
-									setIsHover( false );
-								}}
-							>
-								<img
-									className={ settings.layout == 'card' ? 'clc__thumbnail' : 'clc__thumbnail clc__thumbnail--list' }
-									src={ thumbnail }
-								/>
-								<div className='clc__info'>
-									<p
-										className={ settings.layout == 'card' ? 'clc__title' : 'clc__title clc__title--list' }
-									>
-										サンプルの記事カードです。
-									</p>
-									<p
-										className={ settings.layout == 'card' ? 'clc__description' : 'clc__description clc__description--list' }
-									>
-										サンプルの記事カードの説明です。サンプルの記事カードの説明です。サンプルの記事カードの説明です。サンプルの記事カードの説明です。サンプルの記事カードの説明です。この文字の長さはちょうど100文字です。
-									</p>
-								</div>
-							</a>
+							: Preview( settings , isHover , setIsHover )
 						}
 						</div>
 					</div>
@@ -134,21 +99,21 @@ const Admin = () => {
 						</Button>
 						<Button
 							className='u-marign-left--5px'
-							onClick={ () => setStandardDesign( setSettings ) }
+							onClick={ () => setStandardDesignCard( setSettings ) }
 							variant='secondary'
 						>
-							スタンダードデザイン
+							スタンダードデザイン（カード型）
+						</Button>
+						<Button
+							className='u-marign-left--5px'
+							onClick={ () => setStandardDesignList( setSettings ) }
+							variant='secondary'
+						>
+							スタンダードデザイン（リスト型）
 						</Button>
 						<Button
 							className='u-marign-left--5px'
 							onClick={ () => setRecommendedDesign1( setSettings ) }
-							variant='secondary'
-						>
-							おすすめデザイン１（リスト型）
-						</Button>
-						<Button
-							className='u-marign-left--5px'
-							onClick={ () => setRecommendedDesign2( setSettings ) }
 							variant='secondary'
 						>
 							おすすめデザイン２（リスト型）
