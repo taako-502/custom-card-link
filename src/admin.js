@@ -18,48 +18,52 @@ import 'react-notifications-component/dist/theme.css';
  */
 const Admin = () => {
 	//設定値
-	const [ layout, setLayout ]                                   = useState( 'card' );
-	const [ borderRadius, setBorderRadius ]                       = useState( 0 );
-	const [ shadowOffsetX, setShadowOffsetX ]                     = useState( 3 );
-	const [ shadowOffsetY, setShadowOffsetY ]                     = useState( 3 );
-	const [ shadowBlurRadius, setShadowBlurRadius ]               = useState( 3 );
-	const [ shadowSpreadRadius, setShadowSpreadRadius ]           = useState( 3 );
-	const [ shadowColor, setShadowColor ]                         = useState( '#000' );
-	const [ hover, setHover ]                                     = useState( 'shadow' );
-	const [ hoverTop, setHoverTop ]                               = useState( -5 );
-	const [ hoverTransitionTime, setHoverTransitionTime ]         = useState( 0.3 );
-	const [ hoverShadowOffsetX, setHoverShadowOffsetX ]           = useState( 3 );
-	const [ hoverShadowOffsetY, setHoverShadowOffsetY ]           = useState( 3 );
-	const [ hoverShadowBlurRadius, setHoverShadowBlurRadius ]     = useState( 3 );
-	const [ hoverShadowSpreadRadius, setHoverShadowSpreadRadius ] = useState( 3 );
-	const [ hoverShadowColor, setHoverShadowColor ]               = useState( '#000' );
-	//プレビュー用スタイルシート
-	const styles = makeStyles( shadowOffsetX , shadowOffsetY , shadowBlurRadius , shadowSpreadRadius , shadowColor );
-	const hoverdStyles = makeHoverdStyles( hoverTop , hoverShadowOffsetX , hoverShadowOffsetY , hoverShadowBlurRadius , hoverShadowSpreadRadius , hoverShadowColor );
-	const hoverShadowSettingStyles = makeHoverShadowSettingStyles( hover );
+	const [ setting , setSetting ] = useState({
+		layout: 'card',
+		borderRadius: 0,
+		shadowOffsetX: 3,
+		shadowOffsetY: 3,
+		shadowBlurRadius: 3,
+		shadowSpreadRadius: 3,
+		shadowColor: '#000',
+		hover: 'shadow',
+		hoverTop: -5,
+		hoverTransitionTime: 0.3,
+		hoverShadowOffsetX: 3,
+		hoverShadowOffsetY: 3,
+		hoverShadowBlurRadius: 3,
+		hoverShadowSpreadRadius: 3,
+		hoverShadowColor: '#000',
+	});
 	//プレビューのカード型リンクにホバーしている時true
 	const [ isHover, setIsHover ] = useState( false );
+	//プレビュー用スタイルシート
+	const styles = makeStyles( setting.shadowOffsetX , setting.shadowOffsetY , setting.shadowBlurRadius , setting.shadowSpreadRadius , setting.shadowColor );
+	const hoverdStyles = makeHoverdStyles( setting.hoverTop , setting.hoverShadowOffsetX , setting.hoverShadowOffsetY , setting.hoverShadowBlurRadius , setting.hoverShadowSpreadRadius , setting.hoverShadowColor );
+	const hoverShadowSettingStyles = makeHoverShadowSettingStyles( setting );
 	useEffect( () => {
 		api.loadPromise.then( () => {
 			// Modelの生成
 			const model = new api.models.Settings();
 			// 設定値の取得
 			model.fetch().then( response => {
-				setLayout( response.custom_link_card_settings.layout );
-				setBorderRadius( response.custom_link_card_settings.border_radius );
-				setShadowOffsetX( response.custom_link_card_settings.shadow_offset_x );
-				setShadowOffsetY( response.custom_link_card_settings.shadow_offset_y );
-				setShadowBlurRadius( response.custom_link_card_settings.shadow_blur_radius );
-				setShadowSpreadRadius( response.custom_link_card_settings.shadow_spread_radius );
-				setShadowColor( response.custom_link_card_settings.shadow_color );
-				setHover( response.custom_link_card_settings.hover );
-				setHoverTop( response.custom_link_card_settings.hover_top );
-				setHoverTransitionTime( response.custom_link_card_settings.hover_transition_time );
-				setHoverShadowOffsetX( response.custom_link_card_settings.hover_shadow_offset_x );
-				setHoverShadowOffsetY( response.custom_link_card_settings.hover_shadow_offset_y );
-				setHoverShadowBlurRadius( response.custom_link_card_settings.hover_shadow_blur_radius );
-				setHoverShadowSpreadRadius( response.custom_link_card_settings.hover_shadow_spread_radius );
-				setHoverShadowColor( response.custom_link_card_settings.hover_shadow_color );
+				setSetting({...setting,
+					layout: response.custom_link_card_settings.layout,
+					borderRadius: response.custom_link_card_settings.border_radius,
+					shadowOffsetX: response.custom_link_card_settings.shadow_offset_x,
+					shadowOffsetY: response.custom_link_card_settings.shadow_offset_y,
+					shadowBlurRadius: response.custom_link_card_settings.shadow_blur_radius,
+					shadowSpreadRadius: response.custom_link_card_settings.shadow_spread_radius,
+					shadowColor: response.custom_link_card_settings.shadow_color,
+					hover: response.custom_link_card_settings.hover,
+					hoverTop: response.custom_link_card_settings.hover_top,
+					hoverTransitionTime: response.custom_link_card_settings.hover_transition_time,
+					hoverShadowOffsetX: response.custom_link_card_settings.hover_shadow_offset_x,
+					hoverShadowOffsetY: response.custom_link_card_settings.hover_shadow_offset_y,
+					hoverShadowBlurRadius: response.custom_link_card_settings.hover_shadow_blur_radius,
+					hoverShadowSpreadRadius: response.custom_link_card_settings.hover_shadow_spread_radius,
+					hoverShadowColor: response.custom_link_card_settings.hover_shadow_color,
+				});
 			});
 		});
 	}, []);
@@ -68,27 +72,27 @@ const Admin = () => {
 		api.loadPromise.then( () => {
 			const model = new api.models.Settings({
 				'custom_link_card_settings' : {
-					'layout': layout,
-					'border_radius': borderRadius,
-					'shadow_offset_x': shadowOffsetX,
-					'shadow_offset_y': shadowOffsetY,
-					'shadow_blur_radius': shadowBlurRadius,
-					'shadow_spread_radius': shadowSpreadRadius,
-					'shadow_color': shadowColor,
-					'hover': hover,
-					'hover_top': hoverTop,
-					'hover_transition_time': hoverTransitionTime,
-					'hover_shadow_offset_x': hoverShadowOffsetX,
-					'hover_shadow_offset_y': hoverShadowOffsetY,
-					'hover_shadow_blur_radius': hoverShadowBlurRadius,
-					'hover_shadow_spread_radius': hoverShadowSpreadRadius,
-					'hover_shadow_color': hoverShadowColor,
+					'layout': setting.layout,
+					'border_radius': setting.borderRadius,
+					'shadow_offset_x': setting.shadowOffsetX,
+					'shadow_offset_y': setting.shadowOffsetY,
+					'shadow_blur_radius': setting.shadowBlurRadius,
+					'shadow_spread_radius': setting.shadowSpreadRadius,
+					'shadow_color': setting.shadowColor,
+					'hover': setting.hover,
+					'hover_top': setting.hoverTop,
+					'hover_transition_time': setting.hoverTransitionTime,
+					'hover_shadow_offset_x': setting.hoverShadowOffsetX,
+					'hover_shadow_offset_y': setting.hoverShadowOffsetY,
+					'hover_shadow_blur_radius': setting.hoverShadowBlurRadius,
+					'hover_shadow_spread_radius': setting.hoverShadowSpreadRadius,
+					'hover_shadow_color': setting.hoverShadowColor,
 				}
 			});
 			const save = settingNotification( model );
 		});
 	};
-	const clcClass = getSlcClass(layout, hover, borderRadius, hoverTransitionTime);
+	const clcClass = getSlcClass(setting.layout, setting.hover, setting.borderRadius, setting.hoverTransitionTime);
 	return (
 		<React.Fragment>
 			<ReactNotifications />
@@ -99,7 +103,7 @@ const Admin = () => {
 					<h2>プレビュー</h2>
 					<a
 						className={classnames(clcClass)}
-						style={ isHover && hover !== 'none' ? hoverdStyles : styles }
+						style={ isHover && setting.hover !== 'none' ? hoverdStyles : styles }
 						onMouseEnter={() => {
 							//マウスホバー開始
 							setIsHover( true );
@@ -110,17 +114,17 @@ const Admin = () => {
 						}}
 					>
 						<img
-							className={ layout == 'card' ? 'clc__thumbnail' : 'clc__thumbnail clc__thumbnail--list' }
+							className={ setting.layout == 'card' ? 'clc__thumbnail' : 'clc__thumbnail clc__thumbnail--list' }
 							src={ thumbnail }
 						/>
 						<div className='clc__info'>
 							<p
-								className={ layout == 'card' ? 'clc__title' : 'clc__title clc__title--list' }
+								className={ setting.layout == 'card' ? 'clc__title' : 'clc__title clc__title--list' }
 							>
 								サンプルの記事カードです。
 							</p>
 							<p
-								className={ layout == 'card' ? 'clc__description' : 'clc__description clc__description--list' }
+								className={ setting.layout == 'card' ? 'clc__description' : 'clc__description clc__description--list' }
 							>
 								サンプルの記事カードの説明です。サンプルの記事カードの説明です。サンプルの記事カードの説明です。サンプルの記事カードの説明です。サンプルの記事カードの説明です。この文字の長さはちょうど100文字です。
 							</p>
@@ -140,53 +144,53 @@ const Admin = () => {
 								<RadioControl
 									label='レイアウトデザイン'
 									help='デザインのレイアウトを決めます。'
-									selected={ layout }
+									selected={ setting.layout }
 									options={ [
 										{ label: 'カード型', value: 'card' },
 										{ label: 'リスト型', value: 'list' },
 									] }
-									onChange={ ( value ) => setLayout( value ) }
+									onChange={ ( value ) => setSetting({...setting, layout: value }) }
 								/>
 								<label className='u-display--inline-block u-marign-top--8px'>影の色</label>
 								<ColorPicker
-									color={ shadowColor }
-									onChange={ setShadowColor }
+									color={ setting.shadowColor }
+									onChange={ ( value ) => setSetting({...setting, shadowColor: value }) }
 									enableAlpha
 								/>
 							</div>
 							<div className='u-width--50-percent'>
 								<RangeControl
 									label='角の丸さ（px）'
-									value={ borderRadius }
-									onChange={ ( value ) => setBorderRadius( value ) }
+									value={ setting.borderRadius }
+									onChange={ ( value ) => setSetting({...setting, borderRadius: value }) }
 									min={ 0 }
 									max={ 15 }
 								/>
 								<RangeControl
 									label='影の長さ（x方向）'
-									value={ shadowOffsetX }
-									onChange={ ( value ) => setShadowOffsetX( value ) }
+									value={ setting.shadowOffsetX }
+									onChange={ ( value ) => setSetting({...setting, shadowOffsetX: value }) }
 									min={ -10 }
 									max={ 10 }
 								/>
 								<RangeControl
 									label='影の長さ（y方向）'
-									value={ shadowOffsetY }
-									onChange={ ( value ) => setShadowOffsetY( value ) }
+									value={ setting.shadowOffsetY }
+									onChange={ ( value ) => setSetting({...setting, shadowOffsetY: value }) }
 									min={ -10 }
 									max={ 10 }
 								/>
 								<RangeControl
 									label='ぼかしの拡張・縮小'
-									value={ shadowBlurRadius }
-									onChange={ ( value ) => setShadowBlurRadius( value ) }
+									value={ setting.shadowBlurRadius }
+									onChange={ ( value ) => setSetting({...setting, shadowBlurRadius: value }) }
 									min={ 0 }
 									max={ 10 }
 								/>
 								<RangeControl
 									label='影の拡張・縮小'
-									value={ shadowSpreadRadius }
-									onChange={ ( value ) => setShadowSpreadRadius( value ) }
+									value={ setting.shadowSpreadRadius }
+									onChange={ ( value ) => setSetting({...setting, shadowSpreadRadius: value }) }
 									min={ 0 }
 									max={ 10 }
 								/>
@@ -198,12 +202,12 @@ const Admin = () => {
 								<RadioControl
 									label='ホバー時の動作'
 									help='リンクカードをホバーした際の動作'
-									selected={ hover }
+									selected={ setting.hover }
 									options={ [
 										{ label: 'なし', value: 'none' },
 										{ label: '影を表示する', value: 'shadow' },
 									] }
-									onChange={ ( value ) => setHover( value ) }
+									onChange={ ( value ) => setSetting({...setting, hover: value }) }
 								/>
 								<label
 									className='u-display--inline-block u-marign-top--8px'
@@ -212,8 +216,8 @@ const Admin = () => {
 									影の色
 								</label>
 								<ColorPicker
-									color={ hoverShadowColor }
-									onChange={ setHoverShadowColor }
+									color={ setting.hoverShadowColor }
+									onChange={ ( value ) => setSetting({...setting, hoverShadowColor: value }) }
 									enableAlpha
 									style={ hoverShadowSettingStyles }
 								/>
@@ -224,44 +228,44 @@ const Admin = () => {
 							>
 								<RangeControl
 									label='ホバー時の動作時間'
-									value={ hoverTransitionTime }
-									onChange={ ( value ) => setHoverTransitionTime( value ) }
+									value={ setting.hoverTransitionTime }
+									onChange={ ( value ) => setSetting({...setting, hoverTransitionTime: value }) }
 									min={ 0 }
 									max={ 1 }
 									step={ 0.1 }
 								/>
 								<RangeControl
 									label='ホバー時の高さ'
-									value={ hoverTop }
-									onChange={ ( value ) => setHoverTop( value ) }
+									value={ setting.hoverTop }
+									onChange={ ( value ) => setSetting({...setting, hoverTop: value }) }
 									min={ 0 }
 									max={ 10 }
 								/>
 								<RangeControl
 									label='影の長さ（x方向）'
-									value={ hoverShadowOffsetX }
-									onChange={ ( value ) => setHoverShadowOffsetX( value ) }
+									value={ setting.hoverShadowOffsetX }
+									onChange={ ( value ) => setSetting({...setting, hoverShadowOffsetX: value }) }
 									min={ -10 }
 									max={ 10 }
 								/>
 								<RangeControl
 									label='影の長さ（y方向）'
-									value={ hoverShadowOffsetY }
-									onChange={ ( value ) => setHoverShadowOffsetY( value ) }
+									value={ setting.hoverShadowOffsetY }
+									onChange={ ( value ) => setSetting({...setting, hoverShadowOffsetY: value }) }
 									min={ -10 }
 									max={ 10 }
 								/>
 								<RangeControl
 									label='ぼかしの拡張・縮小'
-									value={ hoverShadowBlurRadius }
-									onChange={ ( value ) => setHoverShadowBlurRadius( value ) }
+									value={ setting.hoverShadowBlurRadius }
+									onChange={ ( value ) => setSetting({...setting, hoverShadowBlurRadius: value }) }
 									min={ 0 }
 									max={ 10 }
 								/>
 								<RangeControl
 									label='影の拡張・縮小'
-									value={ hoverShadowSpreadRadius }
-									onChange={ ( value ) => setHoverShadowSpreadRadius( value ) }
+									value={ setting.hoverShadowSpreadRadius }
+									onChange={ ( value ) => setSetting({...setting, hoverShadowSpreadRadius: value })}
 									min={ 0 }
 									max={ 10 }
 								/>

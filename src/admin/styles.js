@@ -38,9 +38,9 @@ export const makeHoverdStyles = ( hoverTop , hoverShadowOffsetX , hoverShadowOff
  * @param  {string} hover
  * @return {string}
  */
-export const makeHoverShadowSettingStyles = ( hover ) => {
+export const makeHoverShadowSettingStyles = ( setting ) => {
 	const styles = {
-		display: hover === 'none' ? 'none' : 'block',
+		display: setting.hover === 'none' ? 'none' : 'block',
 	}
 	return styles;
 }
