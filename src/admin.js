@@ -3,7 +3,7 @@ import thumbnail from './../asset/img/thumbnail.jpg';
 import { getSlcClass } from './admin/class.js';
 import { makeStyles , makeHoverdStyles , makeHoverShadowSettingStyles } from './admin/styles.js';
 import { settingNotification } from './admin/settingNotification.js';
-import { setStandardDesign } from './admin/design.js';
+import { setStandardDesign , setRecommendedDesign1 , setRecommendedDesign2 } from './admin/design.js';
 
 import { render, useState, useEffect } from '@wordpress/element';
 import { RadioControl, Button, RangeControl, ColorPicker } from '@wordpress/components';
@@ -28,7 +28,7 @@ const Admin = () => {
 		shadowSpreadRadius: 3,
 		shadowColor: '#000',
 		hover: 'shadow',
-		hoverTop: -5,
+		hoverTop: 5,
 		hoverTransitionTime: 0.3,
 		hoverShadowOffsetX: 3,
 		hoverShadowOffsetY: 3,
@@ -137,6 +137,27 @@ const Admin = () => {
 					onClick={ dataSave }
 				>
 					保存
+				</Button>
+				<Button
+					className='u-marign-left--5px'
+					onClick={ () => setStandardDesign( setSettings ) }
+					variant='secondary'
+				>
+					スタンダードデザイン
+				</Button>
+				<Button
+					className='u-marign-left--5px'
+					onClick={ () => setRecommendedDesign1( setSettings ) }
+					variant='secondary'
+				>
+					おすすめデザイン１
+				</Button>
+				<Button
+					className='u-marign-left--5px'
+					onClick={ () => setRecommendedDesign2( setSettings ) }
+					variant='secondary'
+				>
+					おすすめデザイン２
 				</Button>
 				<div className='clc-admin__settings'>
 						<h2>デザイン設定</h2>
