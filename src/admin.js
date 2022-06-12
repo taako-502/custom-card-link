@@ -5,7 +5,7 @@ import { makeStyles , makeHoverdStyles , makeHoverShadowSettingStyles } from './
 import { settingNotification } from './admin/settingNotification.js';
 import { setStandardDesign , setRecommendedDesign1 , setRecommendedDesign2 } from './admin/design.js';
 
-import { render, useState, useEffect } from '@wordpress/element';
+import { render, useState, useLayoutEffect } from '@wordpress/element';
 import { RadioControl, Button, RangeControl, ColorPicker } from '@wordpress/components';
 import api from '@wordpress/api';
 
@@ -19,52 +19,40 @@ import 'react-notifications-component/dist/theme.css';
  */
 const Admin = () => {
 	//設定値
-	const [ settings , setSettings ] = useState({
-		layout: 'card',
-		borderRadius: 0,
-		shadowOffsetX: 3,
-		shadowOffsetY: 3,
-		shadowBlurRadius: 3,
-		shadowSpreadRadius: 3,
-		shadowColor: '#000',
-		hover: 'shadow',
-		hoverTop: 5,
-		hoverTransitionTime: 0.3,
-		hoverShadowOffsetX: 3,
-		hoverShadowOffsetY: 3,
-		hoverShadowBlurRadius: 3,
-		hoverShadowSpreadRadius: 3,
-		hoverShadowColor: '#000',
-	});
+	const [ settings , setSettings ] = useState({});
 	//プレビューのカード型リンクにホバーしている時true
 	const [ isHover, setIsHover ] = useState( false );
 	//プレビュー用スタイルシート
 	const styles = makeStyles( settings );
 	const hoverdStyles = makeHoverdStyles( settings );
 	const hoverShadowSettingStyles = makeHoverShadowSettingStyles( settings );
-	useEffect( () => {
+	useLayoutEffect( () => {
 		api.loadPromise.then( () => {
 			// Modelの生成
 			const model = new api.models.Settings();
 			// 設定値の取得
 			model.fetch().then( response => {
-				setSettings({...settings,
-					layout: response.custom_link_card_settings.layout,
-					borderRadius: response.custom_link_card_settings.border_radius,
-					shadowOffsetX: response.custom_link_card_settings.shadow_offset_x,
-					shadowOffsetY: response.custom_link_card_settings.shadow_offset_y,
-					shadowBlurRadius: response.custom_link_card_settings.shadow_blur_radius,
-					shadowSpreadRadius: response.custom_link_card_settings.shadow_spread_radius,
-					shadowColor: response.custom_link_card_settings.shadow_color,
-					hover: response.custom_link_card_settings.hover,
-					hoverTop: response.custom_link_card_settings.hover_top,
-					hoverTransitionTime: response.custom_link_card_settings.hover_transition_time,
-					hoverShadowOffsetX: response.custom_link_card_settings.hover_shadow_offset_x,
-					hoverShadowOffsetY: response.custom_link_card_settings.hover_shadow_offset_y,
-					hoverShadowBlurRadius: response.custom_link_card_settings.hover_shadow_blur_radius,
-					hoverShadowSpreadRadius: response.custom_link_card_settings.hover_shadow_spread_radius,
-					hoverShadowColor: response.custom_link_card_settings.hover_shadow_color,
-				});
+				if( response.custom_link_card_settings === undefined || response.custom_link_card_settings === null ) {
+					setStandardDesign(setSettings);
+				} else {
+					setSettings({...settings,
+						layout: response.custom_link_card_settings.layout,
+						borderRadius: response.custom_link_card_settings.border_radius,
+						shadowOffsetX: response.custom_link_card_settings.shadow_offset_x,
+						shadowOffsetY: response.custom_link_card_settings.shadow_offset_y,
+						shadowBlurRadius: response.custom_link_card_settings.shadow_blur_radius,
+						shadowSpreadRadius: response.custom_link_card_settings.shadow_spread_radius,
+						shadowColor: response.custom_link_card_settings.shadow_color,
+						hover: response.custom_link_card_settings.hover,
+						hoverTop: response.custom_link_card_settings.hover_top,
+						hoverTransitionTime: response.custom_link_card_settings.hover_transition_time,
+						hoverShadowOffsetX: response.custom_link_card_settings.hover_shadow_offset_x,
+						hoverShadowOffsetY: response.custom_link_card_settings.hover_shadow_offset_y,
+						hoverShadowBlurRadius: response.custom_link_card_settings.hover_shadow_blur_radius,
+						hoverShadowSpreadRadius: response.custom_link_card_settings.hover_shadow_spread_radius,
+						hoverShadowColor: response.custom_link_card_settings.hover_shadow_color,
+					});
+				}
 			});
 		});
 	}, []);
@@ -101,65 +89,72 @@ const Admin = () => {
 				<h1>カスタムリンクカードのデザインの設定画面</h1>
 				<div className='clc-admin__wrap'>
 					<div className='clc-admin__preview'>
-					<h2>プレビュー</h2>
-					<a
-						className={classnames(clcClass)}
-						style={ isHover && settings.hover !== 'none' ? hoverdStyles : styles }
-						onMouseEnter={() => {
-							//マウスホバー開始
-							setIsHover( true );
-						}}
-						onMouseLeave={() => {
-							//マウスホバー終了
-							setIsHover( false );
-						}}
-					>
-						<img
-							className={ settings.layout == 'card' ? 'clc__thumbnail' : 'clc__thumbnail clc__thumbnail--list' }
-							src={ thumbnail }
-						/>
-						<div className='clc__info'>
-							<p
-								className={ settings.layout == 'card' ? 'clc__title' : 'clc__title clc__title--list' }
+						<h2>プレビュー</h2>
+						<div>
+						{ Object.keys(settings).length === 0
+							? <div></div>
+							: <a
+								className={classnames(clcClass)}
+								style={ isHover && settings.hover !== 'none' ? hoverdStyles : styles }
+								onMouseEnter={() => {
+									//マウスホバー開始
+									setIsHover( true );
+								}}
+								onMouseLeave={() => {
+									//マウスホバー終了
+									setIsHover( false );
+								}}
 							>
-								サンプルの記事カードです。
-							</p>
-							<p
-								className={ settings.layout == 'card' ? 'clc__description' : 'clc__description clc__description--list' }
-							>
-								サンプルの記事カードの説明です。サンプルの記事カードの説明です。サンプルの記事カードの説明です。サンプルの記事カードの説明です。サンプルの記事カードの説明です。この文字の長さはちょうど100文字です。
-							</p>
+								<img
+									className={ settings.layout == 'card' ? 'clc__thumbnail' : 'clc__thumbnail clc__thumbnail--list' }
+									src={ thumbnail }
+								/>
+								<div className='clc__info'>
+									<p
+										className={ settings.layout == 'card' ? 'clc__title' : 'clc__title clc__title--list' }
+									>
+										サンプルの記事カードです。
+									</p>
+									<p
+										className={ settings.layout == 'card' ? 'clc__description' : 'clc__description clc__description--list' }
+									>
+										サンプルの記事カードの説明です。サンプルの記事カードの説明です。サンプルの記事カードの説明です。サンプルの記事カードの説明です。サンプルの記事カードの説明です。この文字の長さはちょうど100文字です。
+									</p>
+								</div>
+							</a>
+						}
 						</div>
-					</a>
-				</div>
-				<Button
-					isPrimary
-					onClick={ dataSave }
-				>
-					保存
-				</Button>
-				<Button
-					className='u-marign-left--5px'
-					onClick={ () => setStandardDesign( setSettings ) }
-					variant='secondary'
-				>
-					スタンダードデザイン
-				</Button>
-				<Button
-					className='u-marign-left--5px'
-					onClick={ () => setRecommendedDesign1( setSettings ) }
-					variant='secondary'
-				>
-					おすすめデザイン１
-				</Button>
-				<Button
-					className='u-marign-left--5px'
-					onClick={ () => setRecommendedDesign2( setSettings ) }
-					variant='secondary'
-				>
-					おすすめデザイン２
-				</Button>
-				<div className='clc-admin__settings'>
+					</div>
+					<div className='clc-admin__buttons'>
+						<Button
+							isPrimary
+							onClick={ dataSave }
+						>
+							保存
+						</Button>
+						<Button
+							className='u-marign-left--5px'
+							onClick={ () => setStandardDesign( setSettings ) }
+							variant='secondary'
+						>
+							スタンダードデザイン
+						</Button>
+						<Button
+							className='u-marign-left--5px'
+							onClick={ () => setRecommendedDesign1( setSettings ) }
+							variant='secondary'
+						>
+							おすすめデザイン１
+						</Button>
+						<Button
+							className='u-marign-left--5px'
+							onClick={ () => setRecommendedDesign2( setSettings ) }
+							variant='secondary'
+						>
+							おすすめデザイン２
+						</Button>
+					</div>
+					<div className='clc-admin__settings'>
 						<h2>デザイン設定</h2>
 						<div className='u-display--flex'>
 							<div className='u-width--50-percent'>
