@@ -1,5 +1,10 @@
 import { Store } from 'react-notifications-component';
 
+/**
+ * react-notifications-componentのメッセージ設定
+ * @param  {object} model
+ * @return {object}
+ */
 export const settingNotification = ( model ) => {
 	const save = model.save();
 	save.success( ( response, status ) => {

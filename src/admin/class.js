@@ -1,3 +1,11 @@
+/**
+ * Custom Link Cardのプレビューのクラス
+ * @param  {string} layout
+ * @param  {string} hover
+ * @param  {number} borderRadius
+ * @param  {number} hoverTransitionTime
+ * @return {Object}
+ */
 export const getSlcClass = ( layout ,hover ,borderRadius, hoverTransitionTime ) => {
 	return ({
 		'clc': true,
