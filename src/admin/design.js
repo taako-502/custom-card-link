@@ -1,7 +1,7 @@
 export const setStandardDesign = ( setSettings ) => {
 	setSettings({
 		layout: 'card',
-		borderRadius: 0,
+		borderRadius: 6,
 		shadowOffsetX: 0,
 		shadowOffsetY: 0,
 		shadowBlurRadius: 0,
@@ -21,7 +21,7 @@ export const setStandardDesign = ( setSettings ) => {
 export const setRecommendedDesign1 = ( setSettings ) => {
 	setSettings({
 		layout: 'list',
-		borderRadius: 0,
+		borderRadius: 8,
 		shadowOffsetX: 0,
 		shadowOffsetY: 0,
 		shadowBlurRadius: 0,
