@@ -37,4 +37,21 @@
 			width: 100px;
 		}
 	}
+
+	&__settings {
+
+		h2 {
+			margin-top: 2.6em;
+			position: relative;
+
+			&::before {
+				content: '';
+				position: absolute;
+				bottom: 0;
+				width: 560px;
+				height: 1px;
+				background: #ff0060;
+			}
+		}
+	}
 }

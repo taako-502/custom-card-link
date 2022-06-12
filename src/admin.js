@@ -144,14 +144,14 @@ const Admin = () => {
 							onClick={ () => setRecommendedDesign1( setSettings ) }
 							variant='secondary'
 						>
-							おすすめデザイン１
+							おすすめデザイン１（リスト型）
 						</Button>
 						<Button
 							className='u-marign-left--5px'
 							onClick={ () => setRecommendedDesign2( setSettings ) }
 							variant='secondary'
 						>
-							おすすめデザイン２
+							おすすめデザイン２（リスト型）
 						</Button>
 					</div>
 					<div className='clc-admin__settings'>
@@ -213,7 +213,7 @@ const Admin = () => {
 								/>
 							</div>
 						</div>
-						<h3>カスタムリンクカードをホバーした時のデザインや動作</h3>
+						<h2>カスタムリンクカードをホバーした時のデザインや動作</h2>
 						<div className='u-display--flex'>
 							<div className='u-width--50-percent'>
 								<RadioControl
