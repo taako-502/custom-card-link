@@ -1,6 +1,7 @@
 import './admin.scss';
 import thumbnail from './../asset/img/thumbnail.jpg';
 import { getSlcClass } from './admin/class.js';
+import { makeStyles , makeHoverdStyles , makeHoverShadowSettingStyles } from './admin/styles.js';
 import { settingNotification } from './admin/settingNotification.js';
 
 import { render, useState, useEffect } from '@wordpress/element';
@@ -33,17 +34,9 @@ const Admin = () => {
 	const [ hoverShadowSpreadRadius, setHoverShadowSpreadRadius ] = useState( 3 );
 	const [ hoverShadowColor, setHoverShadowColor ]               = useState( '#000' );
 	//プレビュー用スタイルシート
-	const styles = {
-		top: 0,
-		boxShadow: shadowOffsetX + 'px ' + shadowOffsetY + 'px ' + shadowBlurRadius + 'px ' + shadowSpreadRadius + 'px ' + shadowColor,
-	}
-	const hoverdStyles = {
-		top: -1 * hoverTop,
-		boxShadow: hoverShadowOffsetX + 'px ' + hoverShadowOffsetY + 'px ' + hoverShadowBlurRadius + 'px ' + hoverShadowSpreadRadius + 'px ' + hoverShadowColor,
-	}
-	const hoverShadowSettingStyles = {
-		display: hover === 'none' ? 'none' : 'block',
-	}
+	const styles = makeStyles( shadowOffsetX , shadowOffsetY , shadowBlurRadius , shadowSpreadRadius , shadowColor );
+	const hoverdStyles = makeHoverdStyles( hoverTop , hoverShadowOffsetX , hoverShadowOffsetY , hoverShadowBlurRadius , hoverShadowSpreadRadius , hoverShadowColor );
+	const hoverShadowSettingStyles = makeHoverShadowSettingStyles( hover );
 	//プレビューのカード型リンクにホバーしている時true
 	const [ isHover, setIsHover ] = useState( false );
 	useEffect( () => {
