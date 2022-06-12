@@ -1,14 +1,33 @@
 @import './style.scss';
 
 .clc-admin {
-	&__wrap {
-		max-width: 800px;
-		width: 100%;
+	margin-top: 20px;
+	padding: 1em 2em;
+	max-width: 800px;
+	width: 100%;
+	background: #fff;
+	box-shadow: 4px 4px 5px 5px rgba(0, 0, 0, 5%);
+
+	h1 {
+		padding: 0.4em 0 0.4em 0.4em;
+		text-align: center;
+		position: relative;
+
+		&::before {
+			content: '';
+			position: absolute;
+			bottom: -3px;
+			left: 110px;
+			width: 580px;
+			height: 2px;
+			background: #ff0060;
+		}
 	}
 
 	&__preview {
 		border: 1px solid #333;
 		background: #fff;
+		margin-top: 3em;
 		margin-bottom: 1em;
 		padding: 1em 0.8em;
 		display: flex;
