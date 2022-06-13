@@ -1,7 +1,13 @@
 export const setStandardDesignCard = ( setSettings ) => {
 	setSettings({
 		layout: 'card',
+		thumbnailAspectRatio: 0,
+		padding: 0,
 		borderRadius: 6,
+		titleFontSize: 22,
+		descriptionFontSize: 14,
+		descriptionMarginTop: 6,
+		shadowUse: 'none',
 		shadowOffsetX: 0,
 		shadowOffsetY: 0,
 		shadowBlurRadius: 0,
@@ -21,7 +27,13 @@ export const setStandardDesignCard = ( setSettings ) => {
 export const setStandardDesignList = ( setSettings ) => {
 	setSettings({
 		layout: 'list',
+		thumbnailAspectRatio: 0,
+		padding: 0,
 		borderRadius: 8,
+		titleFontSize: 19,
+		descriptionFontSize: 16,
+		descriptionMarginTop: 6,
+		shadowUse: 'none',
 		shadowOffsetX: 0,
 		shadowOffsetY: 0,
 		shadowBlurRadius: 0,

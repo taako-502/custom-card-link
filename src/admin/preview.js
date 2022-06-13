@@ -33,11 +33,17 @@ export const Preview = ( settings , isHover, setIsHover ) => {
 			<div className='clc__info'>
 				<p
 					className={ settings.layout == 'card' ? 'clc__title' : 'clc__title clc__title--list' }
+					style={{
+						fontSize: settings.titleFontSize + 'px'
+					}}
 				>
 					サンプルの記事カードです。
 				</p>
 				<p
 					className={ settings.layout == 'card' ? 'clc__description' : 'clc__description clc__description--list' }
+					style={{
+						fontSize: settings.descriptionFontSize + 'px'
+					}}
 				>
 					サンプルの記事カードの説明です。サンプルの記事カードの説明です。サンプルの記事カードの説明です。サンプルの記事カードの説明です。サンプルの記事カードの説明です。この文字の長さはちょうど100文字です。
 				</p>

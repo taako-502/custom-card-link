@@ -172,15 +172,15 @@ const Admin = () => {
 									label='タイトル文字サイズ'
 									value={ settings.titleFontSize }
 									onChange={ ( value ) => setSettings({...settings, titleFontSize: value }) }
-									min={ 0 }
-									max={ 15 }
+									min={ 10 }
+									max={ 30 }
 								/>
 								<RangeControl
 								label='説明文字サイズ'
 								value={ settings.descriptionFontSize }
 								onChange={ ( value ) => setSettings({...settings, descriptionFontSize: value }) }
-								min={ 0 }
-								max={ 15 }
+								min={ 10 }
+								max={ 30 }
 								/>
 								<RangeControl
 									label='タイトルと説明の間の余白'
