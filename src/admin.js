@@ -31,7 +31,13 @@ const Admin = () => {
 				} else {
 					setSettings({...settings,
 						layout: response.custom_link_card_settings.layout,
+						thumbnailAspectRatio: response.custom_link_card_settings.thumbnail_aspect_ratio,
+						padding: response.custom_link_card_settings.padding,
 						borderRadius: response.custom_link_card_settings.border_radius,
+						titleFontSize: response.custom_link_card_settings.title_font_size,
+						descriptionFontSize: response.custom_link_card_settings.description_font_size,
+						descriptionMarginTop: response.custom_link_card_settings.description_margin_top,
+						shadowUse: response.custom_link_card_settings.shadow_use,
 						shadowOffsetX: response.custom_link_card_settings.shadow_offset_x,
 						shadowOffsetY: response.custom_link_card_settings.shadow_offset_y,
 						shadowBlurRadius: response.custom_link_card_settings.shadow_blur_radius,
@@ -56,7 +62,13 @@ const Admin = () => {
 			const model = new api.models.Settings({
 				'custom_link_card_settings' : {
 					'layout': settings.layout,
+					'thumbnail_aspect_ratio': settings.thumbnailAspectRatio,
+					'padding': settings.padding,
 					'border_radius': settings.borderRadius,
+					'title_font_size': settings.titleFontSize,
+					'description_font_size': settings.titleFontSize,
+					'description_margin_top': settings.descriptionMarginTop,
+					'shadow_use': settings.shadowUse,
 					'shadow_offset_x': settings.shadowOffsetX,
 					'shadow_offset_y': settings.shadowOffsetY,
 					'shadow_blur_radius': settings.shadowBlurRadius,
@@ -133,6 +145,64 @@ const Admin = () => {
 									] }
 									onChange={ ( value ) => setSettings({...settings, layout: value }) }
 								/>
+								<RangeControl
+									label='サムネイル縦横比率'
+									value={ settings.thumbnailAspectRatio }
+									onChange={ ( value ) => setSettings({...settings, thumbnailAspectRatio: value }) }
+									min={ 0 }
+									max={ 15 }
+								/>
+								<RangeControl
+									label='内側の余白'
+									value={ settings.padding }
+									onChange={ ( value ) => setSettings({...settings, padding: value }) }
+									min={ 0 }
+									max={ 15 }
+								/>
+								<RangeControl
+									label='角の丸さ（px）'
+									value={ settings.borderRadius }
+									onChange={ ( value ) => setSettings({...settings, borderRadius: value }) }
+									min={ 0 }
+									max={ 15 }
+								/>
+							</div>
+							<div className='u-width--50-percent'>
+								<RangeControl
+									label='タイトル文字サイズ'
+									value={ settings.titleFontSize }
+									onChange={ ( value ) => setSettings({...settings, titleFontSize: value }) }
+									min={ 0 }
+									max={ 15 }
+								/>
+								<RangeControl
+								label='説明文字サイズ'
+								value={ settings.descriptionFontSize }
+								onChange={ ( value ) => setSettings({...settings, descriptionFontSize: value }) }
+								min={ 0 }
+								max={ 15 }
+								/>
+								<RangeControl
+									label='タイトルと説明の間の余白'
+									value={ settings.descriptionMarginTop }
+									onChange={ ( value ) => setSettings({...settings, descriptionMarginTop: value }) }
+									min={ 0 }
+									max={ 15 }
+								/>
+							</div>
+						</div>
+						<h2>影</h2>
+						<div className='u-display--flex'>
+							<div className='u-width--50-percent'>
+								<RadioControl
+									label='影の有無'
+									selected={ settings.shadowUse }
+									options={ [
+										{ label: 'なし', value: 'none' },
+										{ label: 'あり', value: 'shadow' },
+									] }
+									onChange={ ( value ) => setSettings({...settings, shadowUse: value }) }
+								/>
 								<label className='u-display--inline-block u-marign-top--8px'>影の色</label>
 								<ColorPicker
 									color={ settings.shadowColor }
@@ -141,13 +211,6 @@ const Admin = () => {
 								/>
 							</div>
 							<div className='u-width--50-percent'>
-								<RangeControl
-									label='角の丸さ（px）'
-									value={ settings.borderRadius }
-									onChange={ ( value ) => setSettings({...settings, borderRadius: value }) }
-									min={ 0 }
-									max={ 15 }
-								/>
 								<RangeControl
 									label='影の長さ（x方向）'
 									value={ settings.shadowOffsetX }

@@ -207,8 +207,33 @@ add_action('init', function() {
 							'type'              => 'string',
 							'sanitize_callback' => 'sanitize_text_field',
 						),
+						'thumbnail_aspect_ratio' => array(
+							'type'              => 'number',
+							'sanitize_callback' => 'sanitize_text_field',
+						),
+						'padding' => array(
+							'type'              => 'number',
+							'sanitize_callback' => 'sanitize_text_field',
+						),
 						'border_radius' => array(
 							'type'              => 'number',
+							'sanitize_callback' => 'sanitize_text_field',
+						),
+						'title_font_size' => array(
+							'type'              => 'number',
+							'sanitize_callback' => 'sanitize_text_field',
+						),
+						'description_font_size' => array(
+							'type'              => 'number',
+							'sanitize_callback' => 'sanitize_text_field',
+						),
+						'description_margin_top' => array(
+							'type'              => 'number',
+							'sanitize_callback' => 'sanitize_text_field',
+						),
+						//影
+						'shadow_use' => array(
+							'type'              => 'string',
 							'sanitize_callback' => 'sanitize_text_field',
 						),
 						'shadow_offset_x' => array(
