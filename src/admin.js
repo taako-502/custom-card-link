@@ -25,7 +25,7 @@ const Admin = () => {
 			// 設定値の取得
 			model.fetch().then( response => {
 				if( response.custom_link_card_settings === undefined || response.custom_link_card_settings === null ) {
-					setStandardDesign(setSettings);
+					setStandardDesignCard(setSettings);
 				} else {
 					setSettings({...settings,
 						layout: response.custom_link_card_settings.layout,
