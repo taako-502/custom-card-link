@@ -67,7 +67,7 @@ const Admin = () => {
 					'padding': settings.padding,
 					'border_radius': settings.borderRadius,
 					'title_font_size': settings.titleFontSize,
-					'description_font_size': settings.titleFontSize,
+					'description_font_size': settings.descriptionFontSize,
 					'gap_between_title_and_thumbnail': settings.gapBetweenTitleAndThumbnail,
 					'description_margin_top': settings.descriptionMarginTop,
 					'shadow_use': settings.shadowUse,
@@ -159,7 +159,7 @@ const Admin = () => {
 									value={ settings.padding }
 									onChange={ ( value ) => setSettings({...settings, padding: value }) }
 									min={ 0 }
-									max={ 15 }
+									max={ 40 }
 								/>
 								<RangeControl
 									label='角の丸さ（px）'
@@ -189,7 +189,7 @@ const Admin = () => {
 									value={ settings.gapBetweenTitleAndThumbnail }
 									onChange={ ( value ) => setSettings({...settings, gapBetweenTitleAndThumbnail: value }) }
 									min={ 0 }
-									max={ 20 }
+									max={ 30 }
 								/>
 								<RangeControl
 									label='タイトルと説明の間の余白'

@@ -2,7 +2,7 @@ export const setStandardDesignCard = ( setSettings ) => {
 	setSettings({
 		layout: 'card',
 		thumbnailAspectRatio: 0,
-		padding: 0,
+		padding: 28,
 		borderRadius: 6,
 		titleFontSize: 22,
 		descriptionFontSize: 14,
@@ -29,11 +29,11 @@ export const setStandardDesignList = ( setSettings ) => {
 	setSettings({
 		layout: 'list',
 		thumbnailAspectRatio: 0,
-		padding: 0,
+		padding: 12,
 		borderRadius: 8,
 		titleFontSize: 19,
-		descriptionFontSize: 16,
-		gapBetweenTitleAndThumbnail: 6,
+		descriptionFontSize: 15,
+		gapBetweenTitleAndThumbnail: 12,
 		descriptionMarginTop: 6,
 		shadowUse: 'none',
 		shadowOffsetX: 0,
