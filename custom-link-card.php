@@ -261,7 +261,7 @@ add_action('init', function() {
 							'sanitize_callback' => 'sanitize_text_color',
 						),
 						//ホバー
-						'hover' => array(
+						'hover_use' => array(
 							'type'              => 'string',
 							'sanitize_callback' => 'sanitize_text_field',
 						),

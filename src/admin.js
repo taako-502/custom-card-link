@@ -44,7 +44,7 @@ const Admin = () => {
 						shadowBlurRadius: response.custom_link_card_settings.shadow_blur_radius,
 						shadowSpreadRadius: response.custom_link_card_settings.shadow_spread_radius,
 						shadowColor: response.custom_link_card_settings.shadow_color,
-						hover: response.custom_link_card_settings.hover,
+						hoverUse: response.custom_link_card_settings.hover_use,
 						hoverTop: response.custom_link_card_settings.hover_top,
 						hoverTransitionTime: response.custom_link_card_settings.hover_transition_time,
 						hoverShadowOffsetX: response.custom_link_card_settings.hover_shadow_offset_x,
@@ -76,7 +76,7 @@ const Admin = () => {
 					'shadow_blur_radius': settings.shadowBlurRadius,
 					'shadow_spread_radius': settings.shadowSpreadRadius,
 					'shadow_color': settings.shadowColor,
-					'hover': settings.hover,
+					'hover_use': settings.hoverUse,
 					'hover_top': settings.hoverTop,
 					'hover_transition_time': settings.hoverTransitionTime,
 					'hover_shadow_offset_x': settings.hoverShadowOffsetX,
@@ -256,7 +256,7 @@ const Admin = () => {
 								<RadioControl
 									label='ホバー時の動作'
 									help='リンクカードをホバーした際の動作'
-									selected={ settings.hover }
+									selected={ settings.hoverUse }
 									options={ [
 										{ label: 'なし', value: 'none' },
 										{ label: '影を表示する', value: 'shadow' },
