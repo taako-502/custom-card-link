@@ -21,7 +21,7 @@ export const setStandardDesignCard = ( setSettings ) => {
 		hoverShadowOffsetY: 2,
 		hoverShadowBlurRadius: 3,
 		hoverShadowSpreadRadius: 3,
-		hoverShadowColor: '##0000000d',
+		hoverShadowColor: '#0000000d',
 	})
 }
 
