@@ -1,11 +1,11 @@
 /**
- * ホバーした時のアクション　
+ * 影の有無による可視性制御
  * @param  {string} hover
  * @return {string}
  */
-export const makeHoverShadowSettingStyles = ( settings ) => {
+export const styleDisplayNone = ( use ) => {
 	const styles = {
-		display: settings.hover === 'none' ? 'none' : 'block',
+		display: use === 'none' ? 'none' : 'block',
 	}
 	return styles;
 }

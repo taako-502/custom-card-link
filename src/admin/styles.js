@@ -10,8 +10,10 @@
 export const makeStyles = ( settings ) => {
 	const styles = {
 		top: 0,
-		boxShadow: settings.shadowOffsetX + 'px ' + settings.shadowOffsetY + 'px ' + settings.shadowBlurRadius + 'px '
-								+ settings.shadowSpreadRadius + 'px ' + settings.shadowColor,
+		boxShadow: settings.shadowUse === 'none'
+		            ? 'none'
+								: settings.shadowOffsetX + 'px ' + settings.shadowOffsetY + 'px ' + settings.shadowBlurRadius + 'px '
+										+ settings.shadowSpreadRadius + 'px ' + settings.shadowColor,
 		padding: settings.padding + 'px',
 	}
 	return styles;

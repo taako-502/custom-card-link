@@ -1,7 +1,7 @@
 import './admin.scss';
 import { settingNotification } from './admin/settingNotification.js';
 import { setStandardDesignCard , setStandardDesignList , setRecommendedDesign1  } from './admin/design.js';
-import { makeHoverShadowSettingStyles } from './admin/visibility.js';
+import { styleDisplayNone } from './admin/visibility.js';
 import { Preview } from './admin/preview.js';
 
 import { render, useState, useLayoutEffect } from '@wordpress/element';
@@ -18,8 +18,6 @@ const Admin = () => {
 	//設定値
 	const [ settings , setSettings ] = useState({});
 	const [ isHover, setIsHover ] = useState( false );
-	//スタイルシート
-	const hoverShadowSettingStyles = makeHoverShadowSettingStyles( settings );
 	useLayoutEffect( () => {
 		api.loadPromise.then( () => {
 			// Modelの生成
@@ -212,14 +210,23 @@ const Admin = () => {
 									] }
 									onChange={ ( value ) => setSettings({...settings, shadowUse: value }) }
 								/>
-								<label className='u-display--inline-block u-marign-top--8px'>影の色</label>
+								<label
+									className='u-display--inline-block u-marign-top--8px'
+									style={ styleDisplayNone( settings.shadowUse ) }
+								>
+									影の色
+								</label>
 								<ColorPicker
 									color={ settings.shadowColor }
 									onChange={ ( value ) => setSettings({...settings, shadowColor: value }) }
 									enableAlpha
+									style={ styleDisplayNone( settings.shadowUse ) }
 								/>
 							</div>
-							<div className='u-width--50-percent'>
+							<div
+								className='u-width--50-percent'
+								style={ styleDisplayNone( settings.shadowUse ) }
+							>
 								<RangeControl
 									label='影の長さ（x方向）'
 									value={ settings.shadowOffsetX }
@@ -261,11 +268,11 @@ const Admin = () => {
 										{ label: 'なし', value: 'none' },
 										{ label: '影を表示する', value: 'shadow' },
 									] }
-									onChange={ ( value ) => setSettings({...settings, hover: value }) }
+									onChange={ ( value ) => setSettings({...settings, hoverUse: value }) }
 								/>
 								<label
 									className='u-display--inline-block u-marign-top--8px'
-									style={ hoverShadowSettingStyles }
+									style={ styleDisplayNone( settings.hoverUse ) }
 								>
 									影の色
 								</label>
@@ -273,12 +280,12 @@ const Admin = () => {
 									color={ settings.hoverShadowColor }
 									onChange={ ( value ) => setSettings({...settings, hoverShadowColor: value }) }
 									enableAlpha
-									style={ hoverShadowSettingStyles }
+									style={ styleDisplayNone( settings.hoverUse ) }
 								/>
 							</div>
 							<div
 								className='u-width--50-percent'
-								style={ hoverShadowSettingStyles }
+								style={ styleDisplayNone( settings.hoverUse ) }
 							>
 								<RangeControl
 									label='ホバー時の動作時間'
