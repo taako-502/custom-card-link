@@ -227,6 +227,10 @@ add_action('init', function() {
 							'type'              => 'number',
 							'sanitize_callback' => 'sanitize_text_field',
 						),
+						'gap_between_title_and_thumbnail' => array(
+							'type'              => 'number',
+							'sanitize_callback' => 'sanitize_text_field',
+						),
 						'description_margin_top' => array(
 							'type'              => 'number',
 							'sanitize_callback' => 'sanitize_text_field',

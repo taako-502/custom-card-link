@@ -30,7 +30,13 @@ export const Preview = ( settings , isHover, setIsHover ) => {
 				className={ settings.layout == 'card' ? 'clc__thumbnail' : 'clc__thumbnail clc__thumbnail--list' }
 				src={ thumbnail }
 			/>
-			<div className='clc__info'>
+			<div
+				className='clc__info'
+				style={{
+					marginLeft: settings.layout == 'card' ? '0' : settings.gapBetweenTitleAndThumbnail + 'px',
+					marginTop: settings.layout == 'card' ? settings.gapBetweenTitleAndThumbnail + 'px' : '0'
+				}}
+			>
 				<p
 					className={ settings.layout == 'card' ? 'clc__title' : 'clc__title clc__title--list' }
 					style={{
@@ -42,7 +48,8 @@ export const Preview = ( settings , isHover, setIsHover ) => {
 				<p
 					className={ settings.layout == 'card' ? 'clc__description' : 'clc__description clc__description--list' }
 					style={{
-						fontSize: settings.descriptionFontSize + 'px'
+						fontSize: settings.descriptionFontSize + 'px',
+						marginTop: settings.descriptionMarginTop + 'px'
 					}}
 				>
 					サンプルの記事カードの説明です。サンプルの記事カードの説明です。サンプルの記事カードの説明です。サンプルの記事カードの説明です。サンプルの記事カードの説明です。この文字の長さはちょうど100文字です。

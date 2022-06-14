@@ -36,6 +36,7 @@ const Admin = () => {
 						borderRadius: response.custom_link_card_settings.border_radius,
 						titleFontSize: response.custom_link_card_settings.title_font_size,
 						descriptionFontSize: response.custom_link_card_settings.description_font_size,
+						gapBetweenTitleAndThumbnail: response.custom_link_card_settings.gap_between_title_and_thumbnail,
 						descriptionMarginTop: response.custom_link_card_settings.description_margin_top,
 						shadowUse: response.custom_link_card_settings.shadow_use,
 						shadowOffsetX: response.custom_link_card_settings.shadow_offset_x,
@@ -67,6 +68,7 @@ const Admin = () => {
 					'border_radius': settings.borderRadius,
 					'title_font_size': settings.titleFontSize,
 					'description_font_size': settings.titleFontSize,
+					'gap_between_title_and_thumbnail': settings.gapBetweenTitleAndThumbnail,
 					'description_margin_top': settings.descriptionMarginTop,
 					'shadow_use': settings.shadowUse,
 					'shadow_offset_x': settings.shadowOffsetX,
@@ -181,6 +183,13 @@ const Admin = () => {
 								onChange={ ( value ) => setSettings({...settings, descriptionFontSize: value }) }
 								min={ 10 }
 								max={ 30 }
+								/>
+								<RangeControl
+									label='サムネイルとタイトルおよび説明の間の余白'
+									value={ settings.gapBetweenTitleAndThumbnail }
+									onChange={ ( value ) => setSettings({...settings, gapBetweenTitleAndThumbnail: value }) }
+									min={ 0 }
+									max={ 20 }
 								/>
 								<RangeControl
 									label='タイトルと説明の間の余白'
