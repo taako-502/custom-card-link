@@ -27,8 +27,10 @@ const Admin = () => {
 				if( response.custom_link_card_settings === undefined || response.custom_link_card_settings === null ) {
 					setStandardDesignCard(setSettings);
 				} else {
-					setSettings({...settings,
+					setSettings({
+						...settings,
 						layout: response.custom_link_card_settings.layout,
+						width: response.custom_link_card_settings.width,
 						thumbnailAspectRatio: response.custom_link_card_settings.thumbnail_aspect_ratio,
 						padding: response.custom_link_card_settings.padding,
 						borderRadius: response.custom_link_card_settings.border_radius,
@@ -61,6 +63,7 @@ const Admin = () => {
 			const model = new api.models.Settings({
 				'custom_link_card_settings' : {
 					'layout': settings.layout,
+					'width': settings.width,
 					'thumbnail_aspect_ratio': settings.thumbnailAspectRatio,
 					'padding': settings.padding,
 					'border_radius': settings.borderRadius,
@@ -95,7 +98,7 @@ const Admin = () => {
 				<div className='clc-admin__wrap'>
 					<div className='clc-admin__preview'>
 						<h2>プレビュー</h2>
-						<div>
+						<div className="clc-admin__preview-wrap">
 						{ Object.keys(settings).length === 0
 							? <div></div>
 							: Preview( settings , isHover , setIsHover )
@@ -144,6 +147,13 @@ const Admin = () => {
 										{ label: 'リスト型', value: 'list' },
 									] }
 									onChange={ ( value ) => setSettings({...settings, layout: value }) }
+								/>
+								<RangeControl
+									label='サムネイル縦横比率'
+									value={ settings.width }
+									onChange={ ( value ) => setSettings({...settings, width: value }) }
+									min={ 200 }
+									max={ 1200 }
 								/>
 								<RangeControl
 									label='サムネイル縦横比率'

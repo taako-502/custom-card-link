@@ -207,6 +207,10 @@ add_action('init', function() {
 							'type'              => 'string',
 							'sanitize_callback' => 'sanitize_text_field',
 						),
+						'width' => array(
+							'type'              => 'number',
+							'sanitize_callback' => 'sanitize_text_field',
+						),
 						'thumbnail_aspect_ratio' => array(
 							'type'              => 'number',
 							'sanitize_callback' => 'sanitize_text_field',

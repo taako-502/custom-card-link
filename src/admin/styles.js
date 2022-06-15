@@ -15,6 +15,7 @@ export const makeStyles = ( settings ) => {
 								: settings.shadowOffsetX + 'px ' + settings.shadowOffsetY + 'px ' + settings.shadowBlurRadius + 'px '
 										+ settings.shadowSpreadRadius + 'px ' + settings.shadowColor,
 		padding: settings.padding + 'px',
+		maxWidth: settings.width + 'px',
 	}
 	return styles;
 }
@@ -35,6 +36,7 @@ export const makeHoverdStyles = ( settings ) => {
 		boxShadow: settings.hoverShadowOffsetX + 'px ' + settings.hoverShadowOffsetY + 'px ' + settings.hoverShadowBlurRadius + 'px '
 								+ settings.hoverShadowSpreadRadius + 'px ' + settings.hoverShadowColor,
 		padding: settings.padding + 'px',
+		maxWidth: settings.width + 'px',
 	}
 	return styles;
 }
