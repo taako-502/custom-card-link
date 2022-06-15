@@ -328,30 +328,30 @@ function get_default_setting($key) {
 function get_default_settings() {
 	return array(
 		//デザイン
-		'layout'													=> 'card',
-		'thumbnail_aspect_ratio'					=> 0,
-		'padding'													=> 28,
-		'border_radius'										=> 6,
-		'title_font_size'									=> 22,
-		'description_font_size'						=> 14,
+		'layout'                          => 'card',
+		'thumbnail_aspect_ratio'          => 0,
+		'padding'                         => 28,
+		'border_radius'                   => 6,
+		'title_font_size'                 => 22,
+		'description_font_size'           => 14,
 		'gap_between_title_and_thumbnail' => 6,
-		'description_margin_top'					=> 6,
+		'description_margin_top'          => 6,
 		//影
-		'shadow_use'											=> 'none',
-		'shadow_offset_x'									=> 2,
-		'shadow_offset_y'									=> 3,
-		'shadow_blur_radius'							=> 3,
-		'shadow_spread_radius'						=> 3,
-		'shadow_color'										=> '#0000001a',
+		'shadow_use'                      => 'none',
+		'shadow_offset_x'                 => 2,
+		'shadow_offset_y'                 => 3,
+		'shadow_blur_radius'              => 3,
+		'shadow_spread_radius'            => 3,
+		'shadow_color'                    => '#0000001a',
 		//ホバー
-		'hover_use'												=> 'shadow',
-		'hover_top'												=> 5,
-		'hover_transition_time'						=> 0.3,
-		'hover_shadow_offset_x'						=> 0,
-		'hover_shadow_offset_y'						=> 2,
-		'hover_shadow_blur_radius'				=> 3,
-		'hover_shadow_spread_radius'			=> 3,
-		'hover_shadow_color'							=> '#0000000d',
+		'hover_use'                       => 'shadow',
+		'hover_top'                       => 5,
+		'hover_transition_time'           => 0.3,
+		'hover_shadow_offset_x'           => 0,
+		'hover_shadow_offset_y'           => 2,
+		'hover_shadow_blur_radius'        => 3,
+		'hover_shadow_spread_radius'      => 3,
+		'hover_shadow_color'              => '#0000000d',
 	);
 }
 
@@ -378,13 +378,13 @@ function dynamic_styles(){
 	$css .= '<style type="text/css">';
 	$css .= '  .clc {';
 	$css .= '    box-shadow: '.get_setting('shadow_offset_x').'px '.get_setting('shadow_offset_y').'px '
-													.get_setting('shadow_blur_radius').'px '.get_setting('shadow_spread_radius').'px '
-													.get_setting('shadow_color').';';
+		.get_setting('shadow_blur_radius').'px '.get_setting('shadow_spread_radius').'px '
+		.get_setting('shadow_color').';';
 	$css .= '  }';
 	$css .= '  .clc--hover-shadow:hover {';
 	$css .= '    box-shadow: '.get_setting('hover_shadow_offset_x').'px '.get_setting('hover_shadow_offset_y').'px '
-													.get_setting('hover_shadow_blur_radius').'px '.get_setting('hover_shadow_spread_radius').'px '
-													.get_setting('hover_shadow_color').';';
+		.get_setting('hover_shadow_blur_radius').'px '.get_setting('hover_shadow_spread_radius').'px '
+		.get_setting('hover_shadow_color').';';
 	$css .= '  }';
 	$css .= '</style>';
 	return $css;
