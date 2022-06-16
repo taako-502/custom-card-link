@@ -50,13 +50,17 @@ add_action('init', function() {
 					//内部リンクの場合
 					$title = get_the_title( $post_id );
 					$image = get_the_post_thumbnail_url( $post_id , 'large' );
-					$description = getDescription( $post_id, 100);
+					$description = getDescription( $post_id, get_setting('description_num_of_char'));
 				} else {
 					//外部リンク
-					$image       = isset($ogps['og:image']) ? $ogps['og:image'] : '';
-					$title       = isset($ogps['og:title']) ? $ogps['og:title'] : '';
-					$description = isset($ogps['og:description']) ? $ogps['og:description'] : '';
+					$image       = $ogps['og:image'] ?? '';
+					$title       = $ogps['og:title'] ?? '';
+					$description = $ogps['og:description'] ?? '';
 				}
+				$title                 = mb_strlen($title) > get_setting('title_num_of_char')
+					? mb_substr($title, 0, get_setting('title_num_of_char')).'...'
+					: mb_substr($title, 0, get_setting('title_num_of_char'));
+				$description           = mb_substr($description, 0, get_setting('description_num_of_char')).'...';
 				$layout                = get_setting('layout');
 				$hover                 = get_setting('hover');
 				$border_radius         = get_setting('border_radius');
@@ -227,6 +231,14 @@ add_action('init', function() {
 							'type'              => 'number',
 							'sanitize_callback' => 'sanitize_text_field',
 						),
+						'title_num_of_char' => array(
+							'type'              => 'number',
+							'sanitize_callback' => 'sanitize_text_field',
+						),
+						'description_num_of_char' => array(
+							'type'              => 'number',
+							'sanitize_callback' => 'sanitize_text_field',
+						),
 						'gap_between_title_and_thumbnail' => array(
 							'type'              => 'number',
 							'sanitize_callback' => 'sanitize_text_field',
@@ -365,11 +377,11 @@ function getDescription($id, $len){
 	$description = str_replace(array("\r\n","\r","\n","&nbsp;"),'',$description);
 	$description = wp_strip_all_tags($description);
 	$description = preg_replace('/\[.*\]/','',$description);
-	return mb_strimwidth($description, 0, $len, '...');
+	return mb_substr($description, 0, $len);
 }
 
 /**
- *
+ * 動的スタイルシート
  * @return string
  */
 function dynamic_styles(){

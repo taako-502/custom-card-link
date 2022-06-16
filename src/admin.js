@@ -35,6 +35,8 @@ const Admin = () => {
 						borderRadius: response.custom_link_card_settings.border_radius,
 						titleFontSize: response.custom_link_card_settings.title_font_size,
 						descriptionFontSize: response.custom_link_card_settings.description_font_size,
+						titleNumOfChar: response.custom_link_card_settings.title_num_of_char,
+						descriptionNumOfChar: response.custom_link_card_settings.description_num_of_char,
 						gapBetweenTitleAndThumbnail: response.custom_link_card_settings.gap_between_title_and_thumbnail,
 						descriptionMarginTop: response.custom_link_card_settings.description_margin_top,
 						shadowUse: response.custom_link_card_settings.shadow_use,
@@ -67,6 +69,8 @@ const Admin = () => {
 					'border_radius': settings.borderRadius,
 					'title_font_size': settings.titleFontSize,
 					'description_font_size': settings.descriptionFontSize,
+					'title_num_of_char': settings.titleNumOfChar,
+					'description_num_of_char': settings.descriptionNumOfChar,
 					'gap_between_title_and_thumbnail': settings.gapBetweenTitleAndThumbnail,
 					'description_margin_top': settings.descriptionMarginTop,
 					'shadow_use': settings.shadowUse,
@@ -182,6 +186,20 @@ const Admin = () => {
 								onChange={ ( value ) => setSettings({...settings, descriptionFontSize: value }) }
 								min={ 10 }
 								max={ 30 }
+								/>
+								<RangeControl
+									label='タイトルの最大文字数'
+									value={ settings.titleNumOfChar }
+									onChange={ ( value ) => setSettings({...settings, titleNumOfChar: value }) }
+									min={ 10 }
+									max={ 60 }
+								/>
+								<RangeControl
+								label='説明の最大文字数'
+								value={ settings.descriptionNumOfChar }
+								onChange={ ( value ) => setSettings({...settings, descriptionNumOfChar: value }) }
+								min={ 10 }
+								max={ 200 }
 								/>
 								<RangeControl
 									label='サムネイルとタイトルおよび説明の間の余白'

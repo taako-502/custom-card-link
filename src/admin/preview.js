@@ -43,7 +43,7 @@ export const Preview = ( settings , isHover, setIsHover ) => {
 						fontSize: settings.titleFontSize + 'px'
 					}}
 				>
-					サンプルの記事カードです。
+					{ TextPreview( 'サンプルの記事カードです。' , settings.titleNumOfChar ) }
 				</p>
 				<p
 					className={ settings.layout == 'card' ? 'clc__description' : 'clc__description clc__description--list' }
@@ -52,9 +52,20 @@ export const Preview = ( settings , isHover, setIsHover ) => {
 						marginTop: settings.descriptionMarginTop + 'px'
 					}}
 				>
-					サンプルの記事カードの説明です。サンプルの記事カードの説明です。サンプルの記事カードの説明です。サンプルの記事カードの説明です。サンプルの記事カードの説明です。この文字の長さはちょうど100文字です。
+					{ TextPreview( 'サンプルの記事カードの説明です。' , settings.descriptionNumOfChar ) }
 				</p>
 			</div>
 		</a>
+	);
+}
+
+const TextPreview = ( base , numOfChar ) => {
+	let description = '';
+	for (var i = 0; i < numOfChar; i++) {
+		const character = i % base.length;
+		description += base.charAt(character)
+	}
+	return (
+		description
 	);
 }
