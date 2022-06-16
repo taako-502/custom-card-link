@@ -141,6 +141,10 @@
 }
 
 .u-marign-top {
+	&--4px {
+		margin-top: 4px;
+	}
+
 	&--8px {
 		margin-top: 8px;
 	}
@@ -149,6 +153,12 @@
 .u-marign-left {
 	&--5px {
 		margin-left: 5px;
+	}
+}
+
+.u-marign-bottom {
+	&--0 {
+		margin-bottom: 0;
 	}
 }
 
