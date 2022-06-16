@@ -211,10 +211,6 @@ add_action('init', function() {
 							'type'              => 'number',
 							'sanitize_callback' => 'sanitize_text_field',
 						),
-						'thumbnail_aspect_ratio' => array(
-							'type'              => 'number',
-							'sanitize_callback' => 'sanitize_text_field',
-						),
 						'padding' => array(
 							'type'              => 'number',
 							'sanitize_callback' => 'sanitize_text_field',
@@ -333,7 +329,6 @@ function get_default_settings() {
 	return array(
 		//デザイン
 		'layout'                          => 'card',
-		'thumbnail_aspect_ratio'          => 0,
 		'padding'                         => 28,
 		'border_radius'                   => 6,
 		'title_font_size'                 => 22,

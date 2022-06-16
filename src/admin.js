@@ -31,7 +31,6 @@ const Admin = () => {
 						...settings,
 						layout: response.custom_link_card_settings.layout,
 						width: response.custom_link_card_settings.width,
-						thumbnailAspectRatio: response.custom_link_card_settings.thumbnail_aspect_ratio,
 						padding: response.custom_link_card_settings.padding,
 						borderRadius: response.custom_link_card_settings.border_radius,
 						titleFontSize: response.custom_link_card_settings.title_font_size,
@@ -64,7 +63,6 @@ const Admin = () => {
 				'custom_link_card_settings' : {
 					'layout': settings.layout,
 					'width': settings.width,
-					'thumbnail_aspect_ratio': settings.thumbnailAspectRatio,
 					'padding': settings.padding,
 					'border_radius': settings.borderRadius,
 					'title_font_size': settings.titleFontSize,
@@ -149,18 +147,11 @@ const Admin = () => {
 									onChange={ ( value ) => setSettings({...settings, layout: value }) }
 								/>
 								<RangeControl
-									label='サムネイル縦横比率'
+									label='横幅'
 									value={ settings.width }
 									onChange={ ( value ) => setSettings({...settings, width: value }) }
 									min={ 200 }
 									max={ 1200 }
-								/>
-								<RangeControl
-									label='サムネイル縦横比率'
-									value={ settings.thumbnailAspectRatio }
-									onChange={ ( value ) => setSettings({...settings, thumbnailAspectRatio: value }) }
-									min={ 0 }
-									max={ 15 }
 								/>
 								<RangeControl
 									label='内側の余白'
