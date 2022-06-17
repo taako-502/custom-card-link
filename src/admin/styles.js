@@ -1,11 +1,8 @@
 /**
  * デザイン
- * @param  {number} shadowOffsetX
- * @param  {number} shadowOffsetY
- * @param  {number} shadowBlurRadius
- * @param  {number} shadowSpreadRadius
- * @param  {string} shadowColor
- * @return {string}
+ * @param  {Boolean} mediaSize
+ * @param  {Object} settings
+ * @return {Object}
  */
 export const makeStyles = ( mediaSize , settings ) => {
 	let styles = { top: 0 }
@@ -31,13 +28,9 @@ export const makeStyles = ( mediaSize , settings ) => {
 
 /**
  * ホバー時のデザイン
- * @param  {number} hoverTop
- * @param  {number} hoverShadowOffsetX
- * @param  {number} hoverShadowOffsetY
- * @param  {number} hoverShadowBlurRadius
- * @param  {number} hoverShadowSpreadRadius
- * @param  {string} hoverShadowColor
- * @return {string}
+ * @param  {Boolean} mediaSize
+ * @param  {Object} settings        
+ * @return {Object}
  */
 export const makeHoverdStyles = ( mediaSize , settings ) => {
 	let styles = {
@@ -48,6 +41,13 @@ export const makeHoverdStyles = ( mediaSize , settings ) => {
 	return sharedStyle( mediaSize , settings , styles );
 }
 
+/**
+ * 共通部分
+ * @param  {Boolean} mediaSize
+ * @param  {Object} settings
+ * @param  {Object} styles
+ * @return {typObjecte}
+ */
 const sharedStyle = ( mediaSize , settings , styles ) => {
 	if ( ! mediaSize ) {
 		styles = {
