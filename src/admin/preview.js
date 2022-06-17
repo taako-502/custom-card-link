@@ -12,6 +12,14 @@ export const Preview = ( mediaSize , settings , isHover, setIsHover ) => {
 	//プレビュー用スタイルシート
 	const styles = makeStyles( mediaSize , settings );
 	const hoverdStyles = makeHoverdStyles( mediaSize , settings );
+	//設定値
+	const layout                      = ! mediaSize ? settings.layout : settings.layoutSp;
+	const gapBetweenTitleAndThumbnail = ! mediaSize ? settings.gapBetweenTitleAndThumbnail : settings.gapBetweenTitleAndThumbnailSp;
+	const titleFontSize               = ! mediaSize ? settings.titleFontSize : settings.titleFontSizeSp;
+	const descriptionFontSize         = ! mediaSize ? settings.descriptionFontSize : settings.descriptionFontSizeSp;
+	const descriptionMarginTop        = ! mediaSize ? settings.descriptionMarginTop : settings.descriptionMarginTopSp;
+	const titleNumOfChar              = ! mediaSize ? settings.titleNumOfChar : settings.titleNumOfCharSp;
+	const descriptionNumOfChar        = ! mediaSize ? settings.descriptionNumOfChar : settings.descriptionNumOfCharSp;
 	//プレビューのカード型リンクにホバーしている時true
 	return (
 		<a
@@ -27,32 +35,32 @@ export const Preview = ( mediaSize , settings , isHover, setIsHover ) => {
 			}}
 		>
 			<img
-				className={ settings.layout == 'card' ? 'clc__thumbnail' : 'clc__thumbnail clc__thumbnail--list' }
+				className={ layout == 'card' ? 'clc__thumbnail' : 'clc__thumbnail clc__thumbnail--list' }
 				src={ thumbnail }
 			/>
 			<div
 				className='clc__info'
 				style={{
-					marginLeft: settings.layout == 'card' ? '0' : settings.gapBetweenTitleAndThumbnail + 'px',
-					marginTop: settings.layout == 'card' ? settings.gapBetweenTitleAndThumbnail + 'px' : '0'
+					marginLeft: layout == 'card' ? '0' : gapBetweenTitleAndThumbnail + 'px',
+					marginTop: layout == 'card' ? gapBetweenTitleAndThumbnail + 'px' : '0'
 				}}
 			>
 				<p
-					className={ settings.layout == 'card' ? 'clc__title' : 'clc__title clc__title--list' }
+					className={ layout == 'card' ? 'clc__title' : 'clc__title clc__title--list' }
 					style={{
-						fontSize: settings.titleFontSize + 'px'
+						fontSize: titleFontSize + 'px'
 					}}
 				>
-					{ TextPreview( 'サンプルの記事カードです。' , settings.titleNumOfChar ) }
+					{ TextPreview( 'サンプルの記事カードです。' , titleNumOfChar ) }
 				</p>
 				<p
-					className={ settings.layout == 'card' ? 'clc__description' : 'clc__description clc__description--list' }
+					className={ layout == 'card' ? 'clc__description' : 'clc__description clc__description--list' }
 					style={{
-						fontSize: settings.descriptionFontSize + 'px',
-						marginTop: settings.descriptionMarginTop + 'px'
+						fontSize: descriptionFontSize + 'px',
+						marginTop: descriptionMarginTop + 'px'
 					}}
 				>
-					{ TextPreview( 'サンプルの記事カードの説明です。' , settings.descriptionNumOfChar ) }
+					{ TextPreview( 'サンプルの記事カードの説明です。' , descriptionNumOfChar ) }
 				</p>
 			</div>
 		</a>
