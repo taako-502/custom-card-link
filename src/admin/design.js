@@ -1,7 +1,7 @@
 export const setStandardDesignCard = ( setSettings ) => {
 	setSettings({
 		layout: 'card',
-		width: 500,
+		maxWidth: 500,
 		padding: 28,
 		borderRadius: 6,
 		titleFontSize: 22,
@@ -30,7 +30,7 @@ export const setStandardDesignCard = ( setSettings ) => {
 export const setStandardDesignList = ( setSettings ) => {
 	setSettings({
 		layout: 'list',
-		width: 600,
+		maxWidth: 600,
 		padding: 12,
 		borderRadius: 8,
 		titleFontSize: 19,

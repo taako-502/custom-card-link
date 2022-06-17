@@ -21,8 +21,8 @@ export const SettingsPc = ( settings , setSettings ) => {
 					/>
 					<RangeControl
 						label='横幅'
-						value={ settings.width }
-						onChange={ ( value ) => setSettings({...settings, width: value }) }
+						value={ settings.maxWidth }
+						onChange={ ( value ) => setSettings({...settings, maxWidth: value }) }
 						min={ 200 }
 						max={ 1200 }
 					/>

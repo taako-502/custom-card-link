@@ -211,7 +211,7 @@ add_action('init', function() {
 							'type'              => 'string',
 							'sanitize_callback' => 'sanitize_text_field',
 						),
-						'width' => array(
+						'max_width' => array(
 							'type'              => 'number',
 							'sanitize_callback' => 'sanitize_text_field',
 						),
@@ -269,6 +269,77 @@ add_action('init', function() {
 							'sanitize_callback' => 'sanitize_text_field',
 						),
 						'shadow_color' => array(
+							'type'              => 'string',
+							'sanitize_callback' => 'sanitize_text_color',
+						),
+						//レスポンシブ
+						'breakpoint' => array(
+							'type'              => 'number',
+							'sanitize_callback' => 'sanitize_text_field',
+						),
+						//デザイン（スマホ）
+						'layout_sp' => array(
+							'type'              => 'string',
+							'sanitize_callback' => 'sanitize_text_field',
+						),
+						'max_width_sp' => array(
+							'type'              => 'number',
+							'sanitize_callback' => 'sanitize_text_field',
+						),
+						'padding_sp' => array(
+							'type'              => 'number',
+							'sanitize_callback' => 'sanitize_text_field',
+						),
+						'border_radius_sp' => array(
+							'type'              => 'number',
+							'sanitize_callback' => 'sanitize_text_field',
+						),
+						'title_font_size_sp' => array(
+							'type'              => 'number',
+							'sanitize_callback' => 'sanitize_text_field',
+						),
+						'description_font_size_sp' => array(
+							'type'              => 'number',
+							'sanitize_callback' => 'sanitize_text_field',
+						),
+						'title_num_of_char_sp' => array(
+							'type'              => 'number',
+							'sanitize_callback' => 'sanitize_text_field',
+						),
+						'description_num_of_char_sp' => array(
+							'type'              => 'number',
+							'sanitize_callback' => 'sanitize_text_field',
+						),
+						'gap_between_title_and_thumbnail_sp' => array(
+							'type'              => 'number',
+							'sanitize_callback' => 'sanitize_text_field',
+						),
+						'description_margin_top_sp' => array(
+							'type'              => 'number',
+							'sanitize_callback' => 'sanitize_text_field',
+						),
+						//影（スマホ）
+						'shadow_use_sp' => array(
+							'type'              => 'string',
+							'sanitize_callback' => 'sanitize_text_field',
+						),
+						'shadow_offset_x_sp' => array(
+							'type'              => 'number',
+							'sanitize_callback' => 'sanitize_text_field',
+						),
+						'shadow_offset_y_sp' => array(
+							'type'              => 'number',
+							'sanitize_callback' => 'sanitize_text_field',
+						),
+						'shadow_blur_radius_sp' => array(
+							'type'              => 'number',
+							'sanitize_callback' => 'sanitize_text_field',
+						),
+						'shadow_spread_radius_sp' => array(
+							'type'              => 'number',
+							'sanitize_callback' => 'sanitize_text_field',
+						),
+						'shadow_color_sp' => array(
 							'type'              => 'string',
 							'sanitize_callback' => 'sanitize_text_color',
 						),
