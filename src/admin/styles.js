@@ -8,14 +8,10 @@
  * @return {string}
  */
 export const makeStyles = ( mediaSize , settings ) => {
-	let styles = {
-			top: 0,
-		}
+	let styles = { top: 0 }
 	if ( ! mediaSize ) {
 		styles = {
 			...styles,
-			maxWidth: settings.maxWidth + 'px',
-			padding: settings.padding + 'px',
 			boxShadow: settings.shadowUse === 'none'
 				? 'none'
 				: settings.shadowOffsetX + 'px ' + settings.shadowOffsetY + 'px ' + settings.shadowBlurRadius + 'px '
@@ -24,15 +20,13 @@ export const makeStyles = ( mediaSize , settings ) => {
 	} else {
 		styles = {
 			...styles,
-			maxWidth: settings.maxWidthSp + 'px',
-			padding: settings.paddingSp + 'px',
 			boxShadow: settings.shadowUseSp === 'none'
 				? 'none'
 				: settings.shadowOffsetXSp + 'px ' + settings.shadowOffsetYSp + 'px ' + settings.shadowBlurRadiusSp + 'px '
 					+ settings.shadowSpreadRadiusSp + 'px ' + settings.shadowColorSp,
 		}
 	}
-	return styles;
+	return sharedStyle( mediaSize , settings , styles );
 }
 
 /**
@@ -51,11 +45,15 @@ export const makeHoverdStyles = ( mediaSize , settings ) => {
 		boxShadow: settings.hoverShadowOffsetX + 'px ' + settings.hoverShadowOffsetY + 'px ' + settings.hoverShadowBlurRadius + 'px '
 			+ settings.hoverShadowSpreadRadius + 'px ' + settings.hoverShadowColor,
 	}
+	return sharedStyle( mediaSize , settings , styles );
+}
+
+const sharedStyle = ( mediaSize , settings , styles ) => {
 	if ( ! mediaSize ) {
 		styles = {
 			...styles,
 			padding: settings.padding + 'px',
-			maxWidth: settings.width + 'px',
+			maxWidth: settings.maxWidth + 'px',
 		}
 	} else {
 		styles = {
