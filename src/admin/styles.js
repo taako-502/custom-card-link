@@ -7,15 +7,30 @@
  * @param  {string} shadowColor
  * @return {string}
  */
-export const makeStyles = ( settings ) => {
-	const styles = {
-		top: 0,
-		boxShadow: settings.shadowUse === 'none'
-		            ? 'none'
-								: settings.shadowOffsetX + 'px ' + settings.shadowOffsetY + 'px ' + settings.shadowBlurRadius + 'px '
-										+ settings.shadowSpreadRadius + 'px ' + settings.shadowColor,
-		padding: settings.padding + 'px',
-		maxWidth: settings.width + 'px',
+export const makeStyles = ( mediaSize , settings ) => {
+	let styles = {
+			top: 0,
+		}
+	if ( ! mediaSize ) {
+		styles = {
+			...styles,
+			maxWidth: settings.maxWidth + 'px',
+			padding: settings.padding + 'px',
+			boxShadow: settings.shadowUse === 'none'
+				? 'none'
+				: settings.shadowOffsetX + 'px ' + settings.shadowOffsetY + 'px ' + settings.shadowBlurRadius + 'px '
+					+ settings.shadowSpreadRadius + 'px ' + settings.shadowColor,
+		}
+	} else {
+		styles = {
+			...styles,
+			maxWidth: settings.maxWidthSp + 'px',
+			padding: settings.paddingSp + 'px',
+			boxShadow: settings.shadowUseSp === 'none'
+				? 'none'
+				: settings.shadowOffsetXSp + 'px ' + settings.shadowOffsetYSp + 'px ' + settings.shadowBlurRadiusSp + 'px '
+					+ settings.shadowSpreadRadiusSp + 'px ' + settings.shadowColorSp,
+		}
 	}
 	return styles;
 }
@@ -30,13 +45,24 @@ export const makeStyles = ( settings ) => {
  * @param  {string} hoverShadowColor
  * @return {string}
  */
-export const makeHoverdStyles = ( settings ) => {
-	const styles = {
+export const makeHoverdStyles = ( mediaSize , settings ) => {
+	let styles = {
 		top: -1 * settings.hoverTop,
 		boxShadow: settings.hoverShadowOffsetX + 'px ' + settings.hoverShadowOffsetY + 'px ' + settings.hoverShadowBlurRadius + 'px '
-								+ settings.hoverShadowSpreadRadius + 'px ' + settings.hoverShadowColor,
-		padding: settings.padding + 'px',
-		maxWidth: settings.width + 'px',
+			+ settings.hoverShadowSpreadRadius + 'px ' + settings.hoverShadowColor,
+	}
+	if ( ! mediaSize ) {
+		styles = {
+			...styles,
+			padding: settings.padding + 'px',
+			maxWidth: settings.width + 'px',
+		}
+	} else {
+		styles = {
+			...styles,
+			padding: settings.paddingSp + 'px',
+			maxWidth: settings.maxWidthSp + 'px',
+		}
 	}
 	return styles;
 }

@@ -20,6 +20,8 @@ const Admin = () => {
 	//設定値
 	const [ settings , setSettings ] = useState({});
 	const [ isHover, setIsHover ] = useState( false );
+	const [ mediaSize, setmediaSize ] = useState( false );
+
 	useLayoutEffect( () => {
 		api.loadPromise.then( () => {
 			// Modelの生成
@@ -110,10 +112,10 @@ const Admin = () => {
 					'gap_between_title_and_thumbnail_sp': settings.gapBetweenTitleAndThumbnail,
 					'description_margin_top_sp': settings.descriptionMarginTop,
 					'shadow_use_sp': settings.shadowUseSp,
-					'shadow_offset_x_sp': settings.shadowOffsetX,
-					'shadow_offset_y_sp': settings.shadowOffsetY,
-					'shadow_blur_radius_sp': settings.shadowBlurRadius,
-					'shadow_spread_radius_sp': settings.shadowSpreadRadius,
+					'shadow_offset_x_sp': settings.shadowOffsetXSp,
+					'shadow_offset_y_sp': settings.shadowOffsetYSp,
+					'shadow_blur_radius_sp': settings.shadowBlurRadiusSp,
+					'shadow_spread_radius_sp': settings.shadowSpreadRadiusSp,
 					'shadow_color_sp': settings.shadowColorSp,
 					'hover_use': settings.hoverUse,
 					'hover_top': settings.hoverTop,
@@ -128,8 +130,6 @@ const Admin = () => {
 			const save = settingNotification( model );
 		});
 	};
-
-	const [ mediaSize, setmediaSize ] = useState( false );
 
 	return (
 		<React.Fragment>
@@ -149,7 +149,7 @@ const Admin = () => {
 						<div className="clc-admin__preview-wrap">
 						{ Object.keys(settings).length === 0
 							? <div></div>
-							: Preview( settings , isHover , setIsHover )
+							: Preview( mediaSize , settings , isHover , setIsHover )
 						}
 						</div>
 					</div>

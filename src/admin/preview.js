@@ -6,12 +6,12 @@ import { useState } from '@wordpress/element';
 
 import classnames from 'classnames';
 
-export const Preview = ( settings , isHover, setIsHover ) => {
+export const Preview = ( mediaSize , settings , isHover, setIsHover ) => {
 	//クラス
 	const clcClass = getSlcClass(settings);
 	//プレビュー用スタイルシート
-	const styles = makeStyles( settings );
-	const hoverdStyles = makeHoverdStyles( settings );
+	const styles = makeStyles( mediaSize , settings );
+	const hoverdStyles = makeHoverdStyles( mediaSize , settings );
 	//プレビューのカード型リンクにホバーしている時true
 	return (
 		<a
