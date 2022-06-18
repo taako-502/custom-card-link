@@ -398,10 +398,10 @@ function get_setting($key) {
  * @return string デフォルト値
  */
 function get_default_setting($key) {
-  if(!isset(get_default_settings()[$key])) {
-    return '';
-  }
-  return get_default_settings()[$key];
+	if(!isset(get_default_settings()[$key])) {
+		return '';
+	}
+	return get_default_settings()[$key];
 }
 
 /**
