@@ -38,6 +38,23 @@
 		}
 	}
 
+	&__info {
+		position: relative;
+
+		.components-base-control {
+			position: absolute;
+			bottom: 0;
+			display: block;
+			margin-top: auto;
+
+			&__field ,
+			&__help{
+				margin-top: 0;
+				margin-bottom: 0;
+			}
+		}
+	}
+
 	&__preview-wrap {
 		width: 100%;
 	}

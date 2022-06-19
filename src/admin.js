@@ -135,17 +135,20 @@ const Admin = () => {
 		<React.Fragment>
 			<ReactNotifications />
 			<div className='clc-admin'>
-				<ToggleControl
-					label={ mediaSize ? 'スマホサイズ' : 'PCサイズ' }
-					checked={ mediaSize }
-					onChange={ () => {
-						setmediaSize( ( state ) => ! state );
-					} }
-				/>
 				<h1>カスタムリンクカードのデザインの設定画面</h1>
 				<div className='clc-admin__wrap'>
 					<div className='clc-admin__preview'>
-						<h2>プレビュー</h2>
+						<div className='clc-admin__info'>
+							<h2>プレビュー</h2>
+							<ToggleControl
+								label={ ! mediaSize ? 'パソコン' : 'スマホ' }
+								help='スマホサイズの設定を行う場合はチェックする。'
+								checked={ mediaSize }
+								onChange={ () => {
+									setmediaSize( ( state ) => ! state );
+								} }
+							/>
+						</div>
 						<div className="clc-admin__preview-wrap">
 						{ Object.keys(settings).length === 0
 							? <div></div>
