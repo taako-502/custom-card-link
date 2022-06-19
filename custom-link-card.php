@@ -278,6 +278,14 @@ function dynamic_styles(){
 		.get_setting('hover_shadow_blur_radius').'px '.get_setting('hover_shadow_spread_radius').'px '
 		.get_setting('hover_shadow_color').';';
 	$css .= '  }';
+	//レスポンシブ
+	$css .= '@media screen and (max-width: '.get_setting('breakpoint').'px) {';
+	$css .= '  .clc {';
+	$css .= '    box-shadow: '.get_setting('shadow_offset_x_sp').'px '.get_setting('shadow_offset_y_sp').'px '
+		.get_setting('shadow_blur_radius_sp').'px '.get_setting('shadow_spread_radius_sp').'px '
+		.get_setting('shadow_color_sp').';';
+	$css .= '  }';
+	$css .= '}';
 	$css .= '</style>';
 	return $css;
 }
