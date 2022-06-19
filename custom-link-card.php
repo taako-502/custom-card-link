@@ -62,22 +62,26 @@ add_action('init', function() {
 					$title       = $ogps['og:title'] ?? '';
 					$description = $ogps['og:description'] ?? '';
 				}
-				$title                 = mb_strlen($title) > get_setting('title_num_of_char')
+				$title                    = mb_strlen($title) > get_setting('title_num_of_char')
 					? mb_substr($title, 0, get_setting('title_num_of_char')).'...'
 					: mb_substr($title, 0, get_setting('title_num_of_char'));
-				$description           = mb_substr($description, 0, get_setting('description_num_of_char')).'...';
-				$layout                = get_setting('layout');
-				$hover                 = get_setting('hover');
-				$border_radius         = get_setting('border_radius');
-				$hover_transition_time = get_setting('hover_transition_time');
+				$description              = mb_substr($description, 0, get_setting('description_num_of_char')).'...';
+				$layout                   = get_setting('layout');
+				$layout_sp                = get_setting('layout_sp');
+				$border_radius            = get_setting('border_radius');
+				$border_radius_sp         = get_setting('border_radius_sp');
+				$hover                    = get_setting('hover');
+				$hover_transition_time    = get_setting('hover_transition_time');
 				return makeEtcCard(
 					$url,
 					$image,
 					$title,
 					$description,
 					$layout,
-					$hover,
+					$layout_sp,
 					$border_radius,
+					$border_radius_sp,
+					$hover,
 					$hover_transition_time,
 				);
 			},
@@ -93,11 +97,13 @@ add_action('init', function() {
  * @param  string $description
  * @return string
  */
-function makeEtcCard($url, $image, $title, $description, $layout, $hover,
-                                    $border_radius, $hover_transition_time) {
+function makeEtcCard($url, $image, $title, $description, $layout, $layout_sp,
+                                    $border_radius, $border_radius_sp, $hover, $hover_transition_time) {
 	$main_class  = 'clc clc--'.$layout;
-	$main_class .= $hover != 'none' ? ' clc--hover-'.$hover : '';
+	$main_class .= ' clc-sp--'.$layout_sp;
 	$main_class .= $border_radius != 0 ? ' u-border-radius--'.$border_radius.'px' : '';
+	$main_class .= $border_radius_sp != 0 ? ' u-border-radius-sp--'.$border_radius_sp.'px' : '';
+	$main_class .= $hover != 'none' ? ' clc--hover-'.$hover : '';
 	$main_class .= $hover_transition_time != 0 ? ' u-transition--top-box-shadow--'.number_to_class($hover_transition_time).'s' : '';
 	return sprintf(
 		'<a class="%1$s" href="%3$s">
