@@ -101,7 +101,7 @@ const Admin = () => {
 					'shadow_spread_radius': settings.shadowSpreadRadius,
 					'shadow_color': settings.shadowColor,
 					'breakpoint': settings.breakpoint,
-					'layout_sp': settings.layout,
+					'layout_sp': settings.layoutSp,
 					'max_width_sp': settings.maxWidth,
 					'padding_sp': settings.padding,
 					'border_radius_sp': settings.borderRadius,

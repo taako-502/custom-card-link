@@ -22,7 +22,7 @@ export const SettingsSp = ( settings , setSettings ) => {
 					<RadioControl
 						label='レイアウトデザイン'
 						help='デザインのレイアウトを決めます。'
-						selected={ settings.layout }
+						selected={ settings.layoutSp }
 						options={ [
 							{ label: 'カード型', value: 'card' },
 							{ label: 'リスト型', value: 'list' },

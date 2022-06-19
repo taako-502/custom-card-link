@@ -29,7 +29,7 @@ export const makeStyles = ( mediaSize , settings ) => {
 /**
  * ホバー時のデザイン
  * @param  {Boolean} mediaSize
- * @param  {Object} settings        
+ * @param  {Object} settings
  * @return {Object}
  */
 export const makeHoverdStyles = ( mediaSize , settings ) => {
