@@ -1,7 +1,7 @@
 <?php
 namespace Clc_Plugin\functions\rest_api;
 
-use function Clc_Plugin\get_setting;
+use function Clc_Plugin\functions\data\get_setting;
 
 /**
  * 動的スタイルシート
