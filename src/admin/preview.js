@@ -8,7 +8,7 @@ import classnames from 'classnames';
 
 export const Preview = ( mediaSize , settings , isHover, setIsHover ) => {
 	//クラス
-	const clcClass = getSlcClass(settings);
+	const clcClass = getSlcClass( mediaSize , settings );
 	//プレビュー用スタイルシート
 	const styles = makeStyles( mediaSize , settings );
 	const hoverdStyles = makeHoverdStyles( mediaSize , settings );
