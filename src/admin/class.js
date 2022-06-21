@@ -42,3 +42,15 @@ export const getSlcClass = ( mediaSize , settings ) => {
 		'u-transition--top-box-shadow--1s': settings.hoverTransitionTime === 1,
 	})
 };
+
+export const getSlcThumbnailClass = ( mediaSize , settings ) => {
+	const layout = ! mediaSize ? settings.layout : settings.layoutSp;
+
+	return ({
+		'clc__thumbnail': true,
+		'clc__thumbnail--card': ! mediaSize && layout === 'card',
+		'clc__thumbnail--list': ! mediaSize && layout === 'list',
+		'clc-sp__thumbnail--card': mediaSize && layout === 'card',
+		'clc-sp__thumbnail--list': mediaSize && layout === 'list',
+	})
+};

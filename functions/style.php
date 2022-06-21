@@ -33,6 +33,14 @@ function dynamic_styles(){
 	$css .= '  .clc-sp--list {';
 	$css .= '    display: flex;';
 	$css .= '  }';
+	$css .= '  .clc-sp__thumbnail--card {';
+	$css .= '  }';
+	$css .= '  .clc-sp__thumbnail--list {';
+	$css .= '  		object-fit: cover;';
+	$css .= '  		max-width: 30%;';
+	$css .= '  		min-width: 140px;';
+	$css .= '  		min-height: 140px;';
+	$css .= '  }';
 	$css .= '  .clc__title {';
 	$css .= '    font-size: '.get_setting('title_font_size_sp').'px;';
 	$css .= '  }';

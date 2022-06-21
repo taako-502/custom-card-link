@@ -1,6 +1,6 @@
 import thumbnail from './../../asset/img/thumbnail.jpg';
-import { getSlcClass } from './class.js';
-import { makeStyles , makeHoverdStyles } from './styles.js';
+import { getSlcClass , getSlcThumbnailClass } from './class.js';
+import { makeStyles , makeThumbnailSpStyles , makeHoverdStyles } from './styles.js';
 
 import { useState } from '@wordpress/element';
 
@@ -9,8 +9,10 @@ import classnames from 'classnames';
 export const Preview = ( mediaSize , settings , isHover, setIsHover ) => {
 	//クラス
 	const clcClass = getSlcClass( mediaSize , settings );
+	const clcThumbnailClass = getSlcThumbnailClass( mediaSize , settings );
 	//プレビュー用スタイルシート
 	const styles = makeStyles( mediaSize , settings );
+	const thumbnailSpStyles = makeThumbnailSpStyles( mediaSize , settings );
 	const hoverdStyles = makeHoverdStyles( mediaSize , settings );
 	//設定値
 	const layout                      = ! mediaSize ? settings.layout : settings.layoutSp;
@@ -35,7 +37,8 @@ export const Preview = ( mediaSize , settings , isHover, setIsHover ) => {
 			}}
 		>
 			<img
-				className={ layout == 'card' ? 'clc__thumbnail' : 'clc__thumbnail clc__thumbnail--list' }
+				className={ classnames(clcThumbnailClass) }
+				style={ mediaSize ? thumbnailSpStyles : {} }
 				src={ thumbnail }
 			/>
 			<div
