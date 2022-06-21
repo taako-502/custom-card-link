@@ -49,10 +49,10 @@ function dynamic_styles(){
 	$css .= '    margin-top: '.get_setting('description_margin_top_sp').'px;';
 	$css .= '  }';
 	$css .= '  .clc-sp__info--card {';
-	$css .= '    margin-top: '.get_setting('gapBetweenTitleAndThumbnailSp').'px;';
+	$css .= '    margin-top: '.get_setting('gap_between_title_and_thumbnail_sp').'px;';
 	$css .= '  }';
 	$css .= '  .clc-sp__info--list {';
-	$css .= '    margin-top: '.get_setting('gapBetweenTitleAndThumbnailSp').'px;';
+	$css .= '    margin-left: '.get_setting('gap_between_title_and_thumbnail_sp').'px;';
 	$css .= '  }';
 	$css .= '}';
 	$css .= '</style>';
