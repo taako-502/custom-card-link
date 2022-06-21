@@ -105,9 +105,10 @@ function makeEtcCard($url, $image, $title, $description, $layout, $layout_sp,
 	$main_class .= $border_radius_sp != 0 ? ' u-border-radius-sp--'.$border_radius_sp.'px' : '';
 	$main_class .= $hover != 'none' ? ' clc--hover-'.$hover : '';
 	$main_class .= $hover_transition_time != 0 ? ' u-transition--top-box-shadow--'.number_to_class($hover_transition_time).'s' : '';
+	$thumnail    = $image === '' ? '<img class="clc__thumbnail clc__thumbnail--'.$layout.'" src="'.$image.'">' : '';
 	return sprintf(
 		'<a class="%1$s" href="%3$s">
-			<img class="clc__thumbnail clc__thumbnail--%2$s" src="%4$s">
+			%4$s
 			<div class="clc__info clc__info--%2$s">
 				<p class="clc__title clc__title--%2$s">%5$s</p>
 				<p class="clc__description clc__description--%2$s">%6$s</p>
@@ -116,7 +117,7 @@ function makeEtcCard($url, $image, $title, $description, $layout, $layout_sp,
 		$main_class,
 		$layout,
 		$url,
-		$image,
+		$thumnail,
 		$title,
 		$description
 	);
