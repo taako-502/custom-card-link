@@ -68,6 +68,7 @@ add_action('init', function() {
 				$description              = mb_substr($description, 0, get_setting('description_num_of_char')).'...';
 				$layout                   = get_setting('layout');
 				$layout_sp                = get_setting('layout_sp');
+				$padding                  = get_setting('padding');
 				$border_radius            = get_setting('border_radius');
 				$border_radius_sp         = get_setting('border_radius_sp');
 				$hover                    = get_setting('hover');
@@ -79,6 +80,7 @@ add_action('init', function() {
 					$description,
 					$layout,
 					$layout_sp,
+					$padding,
 					$border_radius,
 					$border_radius_sp,
 					$hover,
@@ -97,25 +99,26 @@ add_action('init', function() {
  * @param  string $description
  * @return string
  */
-function makeEtcCard($url, $image, $title, $description, $layout, $layout_sp,
+function makeEtcCard($url, $image, $title, $description, $layout, $layout_sp, $padding,
                                     $border_radius, $border_radius_sp, $hover, $hover_transition_time) {
 	$main_class  = 'clc clc--'.$layout;
 	$main_class .= ' clc-sp--'.$layout_sp;
 	$main_class .= $border_radius != 0 ? ' u-border-radius--'.$border_radius.'px' : '';
-	$main_class .= $border_radius_sp != 0 ? ' u-border-radius-sp--'.$border_radius_sp.'px' : '';
+	$main_class .= ' u-padding--'.$padding.'px';
 	$main_class .= $hover != 'none' ? ' clc--hover-'.$hover : '';
 	$main_class .= $hover_transition_time != 0 ? ' u-transition--top-box-shadow--'.number_to_class($hover_transition_time).'s' : '';
 	$thumnail    = trim($image) !== '' ? '<img class="clc__thumbnail clc__thumbnail--'.$layout.'" src="'.$image.'">' : '';
 	return sprintf(
-		'<a class="%1$s" href="%3$s">
-			%4$s
-			<div class="clc__info clc__info--%2$s">
-				<p class="clc__title clc__title--%2$s">%5$s</p>
-				<p class="clc__description clc__description--%2$s">%6$s</p>
+		'<a class="%1$s" href="%4$s">
+			%5$s
+			<div class="clc__info clc__info--%2$s clc-sp__info--%3$s">
+				<p class="clc__title clc__title--%2$s">%6$s</p>
+				<p class="clc__description clc__description--%2$s">%7$s</p>
 			</div>
 		</a>',
 		$main_class,
 		$layout,
+		$layout_sp,
 		$url,
 		$thumnail,
 		$title,
