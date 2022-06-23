@@ -1,7 +1,7 @@
 <?php
 namespace Ccl_Plugin\functions\rest_api;
 
-use const Ccl_Plugin\CLC_SLUG;
+use const Ccl_Plugin\CCL_SLUG;
 use const Ccl_Plugin\DB_NAME;
 
 /**
@@ -9,7 +9,7 @@ use const Ccl_Plugin\DB_NAME;
  */
 add_action('init', function() {
 	register_setting(
-		CLC_SLUG,
+		CCL_SLUG,
 		DB_NAME,
 		array(
 			'type'         => 'array',

@@ -10,7 +10,7 @@ Author URI: https://github.com/taako-502
 License: GPL2
 */
 const OPTION_GROUP = 'custom-card-link';
-const CLC_SLUG     = 'custom-card-link';
+const CCL_SLUG     = 'custom-card-link';
 const DB_NAME      = 'custom_link_card_settings';
 
 require_once __DIR__ .'/library/Get_OGP_InWP/get_ogp_inwp.php';
@@ -53,19 +53,25 @@ add_action('init', function() {
 
 				if($post_id != 0) {
 					//内部リンクの場合
-					$title = get_the_title( $post_id );
-					$image = get_the_post_thumbnail_url( $post_id , 'large' );
-					$description = getDescription( $post_id, get_setting('description_num_of_char'));
+					$image          = get_the_post_thumbnail_url( $post_id , 'large' );
+					$post_title     = get_the_title( $post_id );
+					$description    = getDescription( $post_id, get_setting('description_num_of_char'));
+					$description_sp = getDescription( $post_id, get_setting('description_num_of_char_sp'));
 				} else {
 					//外部リンク
-					$image       = $ogps['og:image'] ?? '';
-					$title       = $ogps['og:title'] ?? '';
-					$description = $ogps['og:description'] ?? '';
+					$image          = $ogps['og:image'] ?? '';
+					$post_title     = $ogps['og:title'] ?? '';
+					$description    = $ogps['og:description'] ?? '';
+					$description_sp = $description;
 				}
-				$title                    = mb_strlen($title) > get_setting('title_num_of_char')
-					? mb_substr($title, 0, get_setting('title_num_of_char')).'...'
-					: mb_substr($title, 0, get_setting('title_num_of_char'));
+				$title                    = mb_strlen($post_title) > get_setting('title_num_of_char')
+					? mb_substr($post_title, 0, get_setting('title_num_of_char')).'...'
+					: mb_substr($post_title, 0, get_setting('title_num_of_char'));
+				$title_sp                 = mb_strlen($post_title) > get_setting('title_num_of_char_sp')
+					? mb_substr($post_title, 0, get_setting('title_num_of_char_sp')).'...'
+					: mb_substr($post_title, 0, get_setting('title_num_of_char_sp'));
 				$description              = mb_substr($description, 0, get_setting('description_num_of_char')).'...';
+				$description_sp           = mb_substr($description_sp, 0, get_setting('description_num_of_char_sp')).'...';
 				$layout                   = get_setting('layout');
 				$layout_sp                = get_setting('layout_sp');
 				$padding                  = get_setting('padding');
@@ -77,7 +83,9 @@ add_action('init', function() {
 					$url,
 					$image,
 					$title,
+					$title_sp,
 					$description,
+					$description_sp,
 					$layout,
 					$layout_sp,
 					$padding,
@@ -99,21 +107,23 @@ add_action('init', function() {
  * @param  string $description
  * @return string
  */
-function makeEtcCard($url, $image, $title, $description, $layout, $layout_sp, $padding,
+function makeEtcCard($url, $image, $title, $title_sp, $description, $description_sp, $layout, $layout_sp, $padding,
                                     $border_radius, $border_radius_sp, $hover_use, $hover_transition_time) {
-	$main_class  = 'clc clc--'.$layout;
-	$main_class .= ' clc-sp--'.$layout_sp;
+	$main_class  = 'ccl ccl--'.$layout;
+	$main_class .= ' ccl-sp--'.$layout_sp;
 	$main_class .= $border_radius != 0 ? ' u-border-radius--'.$border_radius.'px' : '';
 	$main_class .= ' u-padding--'.$padding.'px';
-	$main_class .= $hover_use != 'none' ? ' clc--hover-'.$hover_use : '';
+	$main_class .= $hover_use != 'none' ? ' ccl--hover-'.$hover_use : '';
 	$main_class .= $hover_transition_time != 0 ? ' u-transition--top-box-shadow--'.number_to_class($hover_transition_time).'s' : '';
-	$thumnail    = trim($image) !== '' ? '<img class="clc__thumbnail clc__thumbnail--'.$layout.' clc-sp__thumbnail--'.$layout_sp.'" src="'.$image.'">' : '';
+	$thumnail    = trim($image) !== '' ? '<img class="ccl__thumbnail ccl__thumbnail--'.$layout.' ccl-sp__thumbnail--'.$layout_sp.'" src="'.$image.'">' : '';
 	return sprintf(
 		'<a class="%1$s" href="%4$s">
 			%5$s
-			<div class="clc__info clc__info--%2$s clc-sp__info--%3$s">
-				<p class="clc__title clc__title--%2$s">%6$s</p>
-				<p class="clc__description clc__description--%2$s">%7$s</p>
+			<div class="ccl__info ccl__info--%2$s ccl-sp__info--%3$s">
+				<p class="ccl__title ccl__title--%2$s">%6$s</p>
+				<p class="ccl-sp__title ccl-sp__title--%2$s">%7$s</p>
+				<p class="ccl__description ccl__description--%2$s">%8$s</p>
+				<p class="ccl-sp__description ccl-sp__description--%2$s">%9$s</p>
 			</div>
 		</a>',
 		$main_class,
@@ -122,7 +132,9 @@ function makeEtcCard($url, $image, $title, $description, $layout, $layout_sp, $p
 		$url,
 		$thumnail,
 		$title,
-		$description
+		$title_sp,
+		$description,
+		$description_sp
 	);
 }
 
@@ -172,7 +184,7 @@ add_action('admin_menu', function() {
 		'manage_options',
 		OPTION_GROUP,
 		function() {
-			echo '<div id="clc-admin"></div>';
+			echo '<div id="ccl-admin"></div>';
 		},
 		'',
 		58
@@ -190,7 +202,7 @@ add_action('admin_enqueue_scripts', function($hook_suffix) {
 
 	// CSSファイルの読み込み
 	wp_enqueue_style(
-		CLC_SLUG,
+		CCL_SLUG,
 		plugin_dir_url( __FILE__ ).'build/admin.css',
 		array('wp-components')
 	);
@@ -199,7 +211,7 @@ add_action('admin_enqueue_scripts', function($hook_suffix) {
 	wp_enqueue_media();
 	$asset_file = include_once ( __DIR__ . '/build/admin.asset.php') ;
 	wp_enqueue_script (
-		CLC_SLUG,
+		CCL_SLUG,
 		plugin_dir_url( __FILE__ ).'build/admin.js',
 		$asset_file['dependencies'],
 		$asset_file['version'],
