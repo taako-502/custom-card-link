@@ -1,16 +1,16 @@
 <?php
 Namespace Ccl_Plugin;
 /*
-Plugin Name: Custom Link Card
-Plugin URI: https://github.com/taako-502/custom-link-card
+Plugin Name: Custom Card Link
+Plugin URI: https://github.com/taako-502/custom-card-link
 Description: 外部リンクを表示するGutenbergブロック
 Version: 20220613
 Author: Takao
 Author URI: https://github.com/taako-502
 License: GPL2
 */
-const OPTION_GROUP = 'custom-link-card';
-const CLC_SLUG     = 'custom-link-card';
+const OPTION_GROUP = 'custom-card-link';
+const CLC_SLUG     = 'custom-card-link';
 const DB_NAME      = 'custom_link_card_settings';
 
 require_once __DIR__ .'/library/Get_OGP_InWP/get_ogp_inwp.php';
@@ -25,9 +25,9 @@ use function Ccl_Plugin\functions\data\get_setting;
  * プラグインアップデーター
  */
 $myUpdateChecker = \Puc_v4_Factory::buildUpdateChecker(
-	'https://github.com/taako-502/custom-link-card/',
+	'https://github.com/taako-502/custom-card-link/',
 	__FILE__,
-	'custom-link-card'
+	'custom-card-link'
 );
 $myUpdateChecker->setBranch('main');
 
