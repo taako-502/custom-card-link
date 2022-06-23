@@ -1,8 +1,8 @@
 <?php
-namespace Clc_Plugin\functions\rest_api;
+namespace Ccl_Plugin\functions\rest_api;
 
-use const Clc_Plugin\CLC_SLUG;
-use const Clc_Plugin\DB_NAME;
+use const Ccl_Plugin\CLC_SLUG;
+use const Ccl_Plugin\DB_NAME;
 
 /**
  * 設定項目の登録

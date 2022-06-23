@@ -1,7 +1,7 @@
 <?php
-namespace Clc_Plugin\functions\data;
+namespace Ccl_Plugin\functions\data;
 
-use const Clc_Plugin\DB_NAME;
+use const Ccl_Plugin\DB_NAME;
 
 /**
  * 管理画面で設定したデータを取得

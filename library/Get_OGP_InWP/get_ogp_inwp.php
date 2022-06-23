@@ -1,5 +1,5 @@
 <?php
-namespace Clc_Plugin\library;
+namespace Ccl_Plugin\library;
 
 /**
  * Copyright 2020 Ryo Yamasaki.

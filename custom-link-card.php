@@ -1,5 +1,5 @@
 <?php
-Namespace Clc_Plugin;
+Namespace Ccl_Plugin;
 /*
 Plugin Name: Custom Link Card
 Plugin URI: https://github.com/taako-502/custom-link-card
@@ -19,7 +19,7 @@ require_once __DIR__ .'/functions/rest_api.php';
 require_once __DIR__ .'/functions/style.php';
 require_once __DIR__ .'/functions/data.php';
 
-use function Clc_Plugin\functions\data\get_setting;
+use function Ccl_Plugin\functions\data\get_setting;
 
 /**
  * プラグインアップデーター
@@ -39,7 +39,7 @@ add_action('init', function() {
 		array(
 			'render_callback' => function($attributes) {
 				$url     = isset($attributes['url']) ? trim($attributes['url']) : '';
-				$ogps    = \Clc_Plugin\library\Get_OGP_InWP::get($url);
+				$ogps    = \Ccl_Plugin\library\Get_OGP_InWP::get($url);
 				$post_id = url_to_postid($url);
 				if($url == '' && !is_singular()) {
 					return 'URLを入力してください。';
