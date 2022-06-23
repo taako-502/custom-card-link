@@ -39,7 +39,7 @@ add_action('init', function() {
 		array(
 			'render_callback' => function($attributes) {
 				$url     = isset($attributes['url']) ? trim($attributes['url']) : '';
-				$ogps    = \Get_OGP_InWP::get($url);
+				$ogps    = \Clc_Plugin\library\Get_OGP_InWP::get($url);
 				$post_id = url_to_postid($url);
 				if($url == '' && !is_singular()) {
 					return 'URLを入力してください。';

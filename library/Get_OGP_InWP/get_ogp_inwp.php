@@ -1,4 +1,6 @@
 <?php
+namespace Clc_Plugin\library;
+
 /**
  * Copyright 2020 Ryo Yamasaki.
  *
@@ -93,7 +95,7 @@ class Get_OGP_InWP {
 		$old_libxml_error = libxml_use_internal_errors( true );
 
 		// Load HTML
-		$doc = new DOMDocument();
+		$doc = new \DOMDocument();
 		$doc->loadHTML( $response_body );
 
 		libxml_use_internal_errors( $old_libxml_error );
