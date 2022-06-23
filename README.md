@@ -1,4 +1,4 @@
-# Custom Link Card
+# Custom Card Link
 リンクカード
 
 ## Third-party resources
