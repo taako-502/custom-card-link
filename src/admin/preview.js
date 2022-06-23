@@ -1,5 +1,5 @@
 import thumbnail from './../../asset/img/thumbnail.jpg';
-import { getSlcClass , getSlcThumbnailClass } from './class.js';
+import { getCclClass , getSlcThumbnailClass } from './class.js';
 import { makeStyles , makeThumbnailSpStyles , makeHoverdStyles } from './styles.js';
 
 import { useState } from '@wordpress/element';
@@ -8,8 +8,8 @@ import classnames from 'classnames';
 
 export const Preview = ( mediaSize , settings , isHover, setIsHover ) => {
 	//クラス
-	const clcClass = getSlcClass( mediaSize , settings );
-	const clcThumbnailClass = getSlcThumbnailClass( mediaSize , settings );
+	const cclClass = getCclClass( mediaSize , settings );
+	const cclThumbnailClass = getSlcThumbnailClass( mediaSize , settings );
 	//プレビュー用スタイルシート
 	const styles = makeStyles( mediaSize , settings );
 	const thumbnailSpStyles = makeThumbnailSpStyles( mediaSize , settings );
@@ -25,7 +25,7 @@ export const Preview = ( mediaSize , settings , isHover, setIsHover ) => {
 	//プレビューのカード型リンクにホバーしている時true
 	return (
 		<a
-			className={ classnames(clcClass) }
+			className={ classnames(cclClass) }
 			style={ isHover && settings.hover !== 'none' ? hoverdStyles : styles }
 			onMouseEnter={() => {
 				//マウスホバー開始
@@ -37,19 +37,19 @@ export const Preview = ( mediaSize , settings , isHover, setIsHover ) => {
 			}}
 		>
 			<img
-				className={ classnames(clcThumbnailClass) }
+				className={ classnames(cclThumbnailClass) }
 				style={ mediaSize ? thumbnailSpStyles : {} }
 				src={ thumbnail }
 			/>
 			<div
-				className='clc__info'
+				className='ccl__info'
 				style={{
 					marginLeft: layout == 'card' ? '0' : gapBetweenTitleAndThumbnail + 'px',
 					marginTop: layout == 'card' ? gapBetweenTitleAndThumbnail + 'px' : '0'
 				}}
 			>
 				<p
-					className={ layout == 'card' ? 'clc__title' : 'clc__title clc__title--list' }
+					className={ layout == 'card' ? 'ccl__title' : 'ccl__title ccl__title--list' }
 					style={{
 						fontSize: titleFontSize + 'px'
 					}}
@@ -57,7 +57,7 @@ export const Preview = ( mediaSize , settings , isHover, setIsHover ) => {
 					{ TextPreview( 'サンプルの記事カードです。' , titleNumOfChar ) }
 				</p>
 				<p
-					className={ layout == 'card' ? 'clc__description' : 'clc__description clc__description--list' }
+					className={ layout == 'card' ? 'ccl__description' : 'ccl__description ccl__description--list' }
 					style={{
 						fontSize: descriptionFontSize + 'px',
 						marginTop: descriptionMarginTop + 'px'

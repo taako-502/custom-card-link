@@ -134,11 +134,11 @@ const Admin = () => {
 	return (
 		<React.Fragment>
 			<ReactNotifications />
-			<div className='clc-admin'>
+			<div className='ccl-admin'>
 				<h1>カスタムリンクカードのデザインの設定画面</h1>
-				<div className='clc-admin__wrap'>
-					<div className='clc-admin__preview'>
-						<div className='clc-admin__info'>
+				<div className='ccl-admin__wrap'>
+					<div className='ccl-admin__preview'>
+						<div className='ccl-admin__info'>
 							<h2>プレビュー</h2>
 							<ToggleControl
 								label={ ! mediaSize ? 'パソコン' : 'スマホ' }
@@ -149,14 +149,14 @@ const Admin = () => {
 								} }
 							/>
 						</div>
-						<div className="clc-admin__preview-wrap">
+						<div className="ccl-admin__preview-wrap">
 						{ Object.keys(settings).length === 0
 							? <div></div>
 							: Preview( mediaSize , settings , isHover , setIsHover )
 						}
 						</div>
 					</div>
-					<div className='clc-admin__buttons'>
+					<div className='ccl-admin__buttons'>
 						<Button
 							isPrimary
 							onClick={ dataSave }
@@ -185,7 +185,7 @@ const Admin = () => {
 							おすすめデザイン２（リスト型）
 						</Button>
 					</div>
-					<div className='clc-admin__settings'>
+					<div className='ccl-admin__settings'>
 						{ mediaSize ? SettingsSp( settings , setSettings ) : SettingsPc( settings , setSettings ) }
 					</div>
 				</div>
@@ -196,5 +196,5 @@ const Admin = () => {
 
 render(
 	<Admin />,
-	document.getElementById('clc-admin')
+	document.getElementById('ccl-admin')
 );

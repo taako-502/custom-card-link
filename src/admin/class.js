@@ -1,20 +1,20 @@
 /**
- * Custom Link Cardのプレビューのクラス
+ * Custom Card Linkのプレビューのクラス
  * @param  {string} layout
  * @param  {string} hover
  * @param  {number} borderRadius
  * @param  {number} hoverTransitionTime
  * @return {Object}
  */
-export const getSlcClass = ( mediaSize , settings ) => {
+export const getCclClass = ( mediaSize , settings ) => {
 	const layout       = ! mediaSize ? settings.layout : settings.layoutSp;
 	const borderRadius = ! mediaSize ? settings.borderRadius : settings.borderRadiusSp;
 
 	return ({
-		'clc': true,
-		'clc--card': layout === 'card',
-		'clc--list': layout === 'list',
-		'clc--hover-shadow': settings.hover === 'shadow',
+		'ccl': true,
+		'ccl--card': layout === 'card',
+		'ccl--list': layout === 'list',
+		'ccl--hover-shadow': settings.hover === 'shadow',
 		'u-border-radius--1px': borderRadius === 1,
 		'u-border-radius--2px': borderRadius === 2,
 		'u-border-radius--3px': borderRadius === 3,
@@ -47,10 +47,10 @@ export const getSlcThumbnailClass = ( mediaSize , settings ) => {
 	const layout = ! mediaSize ? settings.layout : settings.layoutSp;
 
 	return ({
-		'clc__thumbnail': true,
-		'clc__thumbnail--card': ! mediaSize && layout === 'card',
-		'clc__thumbnail--list': ! mediaSize && layout === 'list',
-		'clc-sp__thumbnail--card': mediaSize && layout === 'card',
-		'clc-sp__thumbnail--list': mediaSize && layout === 'list',
+		'ccl__thumbnail': true,
+		'ccl__thumbnail--card': ! mediaSize && layout === 'card',
+		'ccl__thumbnail--list': ! mediaSize && layout === 'list',
+		'ccl-sp__thumbnail--card': mediaSize && layout === 'card',
+		'ccl-sp__thumbnail--list': mediaSize && layout === 'list',
 	})
 };

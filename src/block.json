@@ -3,7 +3,7 @@
 	"apiVersion": 2,
 	"name": "custom-card-link/custom-card-link",
 	"version": "0.1.0",
-	"title": "Custom Link Card",
+	"title": "Custom Card Link",
 	"category": "text",
 	"icon": "flag",
 	"description": "A Gutenberg block to show your pride! This block enables you to type text and style it with the color font Gilbert from Type with Pride.",

@@ -11,7 +11,7 @@ registerBlockType( metadata.name, {
 	attributes: metadata.attributes,
 	example: {
 		attributes: {
-			url: 'custom Link Card',
+			url: 'Custom Card Link',
 		},
 	},
 	edit: Edit,
