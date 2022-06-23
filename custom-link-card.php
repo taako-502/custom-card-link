@@ -71,7 +71,7 @@ add_action('init', function() {
 				$padding                  = get_setting('padding');
 				$border_radius            = get_setting('border_radius');
 				$border_radius_sp         = get_setting('border_radius_sp');
-				$hover                    = get_setting('hover');
+				$hover_use                = get_setting('hover_use');
 				$hover_transition_time    = get_setting('hover_transition_time');
 				return makeEtcCard(
 					$url,
@@ -83,7 +83,7 @@ add_action('init', function() {
 					$padding,
 					$border_radius,
 					$border_radius_sp,
-					$hover,
+					$hover_use,
 					$hover_transition_time,
 				);
 			},
@@ -100,12 +100,12 @@ add_action('init', function() {
  * @return string
  */
 function makeEtcCard($url, $image, $title, $description, $layout, $layout_sp, $padding,
-                                    $border_radius, $border_radius_sp, $hover, $hover_transition_time) {
+                                    $border_radius, $border_radius_sp, $hover_use, $hover_transition_time) {
 	$main_class  = 'clc clc--'.$layout;
 	$main_class .= ' clc-sp--'.$layout_sp;
 	$main_class .= $border_radius != 0 ? ' u-border-radius--'.$border_radius.'px' : '';
 	$main_class .= ' u-padding--'.$padding.'px';
-	$main_class .= $hover != 'none' ? ' clc--hover-'.$hover : '';
+	$main_class .= $hover_use != 'none' ? ' clc--hover-'.$hover_use : '';
 	$main_class .= $hover_transition_time != 0 ? ' u-transition--top-box-shadow--'.number_to_class($hover_transition_time).'s' : '';
 	$thumnail    = trim($image) !== '' ? '<img class="clc__thumbnail clc__thumbnail--'.$layout.' clc-sp__thumbnail--'.$layout_sp.'" src="'.$image.'">' : '';
 	return sprintf(
