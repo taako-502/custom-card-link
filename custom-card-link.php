@@ -70,8 +70,12 @@ add_action('init', function() {
 				$title_sp                 = mb_strlen($post_title) > get_setting('title_num_of_char_sp')
 					? mb_substr($post_title, 0, get_setting('title_num_of_char_sp')).'...'
 					: mb_substr($post_title, 0, get_setting('title_num_of_char_sp'));
-				$description              = mb_substr($description, 0, get_setting('description_num_of_char')).'...';
-				$description_sp           = mb_substr($description_sp, 0, get_setting('description_num_of_char_sp')).'...';
+				$description              = get_setting('description_num_of_char') == 0
+					? mb_substr($description, 0, get_setting('description_num_of_char'))
+					: mb_substr($description, 0, get_setting('description_num_of_char')).'...';
+				$description_sp           = get_setting('description_num_of_char_sp') == 0
+					? mb_substr($description_sp, 0, get_setting('description_num_of_char_sp'))
+					: mb_substr($description_sp, 0, get_setting('description_num_of_char_sp')).'...';
 				$layout                   = get_setting('layout');
 				$layout_sp                = get_setting('layout_sp');
 				$padding                  = get_setting('padding');

@@ -34,7 +34,7 @@ function dynamic_styles(){
 			.get_setting('shadow_color_sp').';';
 	}
 	$css .= '    padding: '.get_setting('padding_sp').'px;';
-	$css .= '    border-radius: '.get_setting('border_radius_sp').';';
+	$css .= '    border-radius: '.get_setting('border_radius_sp').'px;';
 	$css .= '  }';
 	$css .= '  a.ccl {';
 	$css .= '    max-width: '.get_setting('max_width_sp').'px;';

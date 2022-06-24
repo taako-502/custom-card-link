@@ -67,7 +67,7 @@ export const SettingsPc = ( settings , setSettings ) => {
 					label='説明の最大文字数'
 					value={ settings.descriptionNumOfChar }
 					onChange={ ( value ) => setSettings({...settings, descriptionNumOfChar: value }) }
-					min={ 10 }
+					min={ 0 }
 					max={ 200 }
 					/>
 					<RangeControl
