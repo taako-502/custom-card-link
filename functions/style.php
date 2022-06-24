@@ -15,6 +15,9 @@ function dynamic_styles(){
 		.get_setting('shadow_blur_radius').'px '.get_setting('shadow_spread_radius').'px '
 		.get_setting('shadow_color').';';
 	$css .= '  }';
+	$css .= '  a.ccl {';
+	$css .= '    max-width: '.get_setting('max_width').'px;';
+	$css .= '  }';
 	$css .= '  .ccl--hover-shadow:hover {';
 	$css .= '    box-shadow: '.get_setting('hover_shadow_offset_x').'px '.get_setting('hover_shadow_offset_y').'px '
 		.get_setting('hover_shadow_blur_radius').'px '.get_setting('hover_shadow_spread_radius').'px '
@@ -26,9 +29,11 @@ function dynamic_styles(){
 	$css .= '    box-shadow: '.get_setting('shadow_offset_x_sp').'px '.get_setting('shadow_offset_y_sp').'px '
 		.get_setting('shadow_blur_radius_sp').'px '.get_setting('shadow_spread_radius_sp').'px '
 		.get_setting('shadow_color_sp').';';
-	$css .= '    max-width: '.get_setting('max_width_sp').';';
 	$css .= '    padding: '.get_setting('padding_sp').'px;';
 	$css .= '    border-radius: '.get_setting('border_radius_sp').';';
+	$css .= '  }';
+	$css .= '  a.ccl {';
+	$css .= '    max-width: '.get_setting('max_width_sp').'px;';
 	$css .= '  }';
 	$css .= '  .ccl-sp--list {';
 	$css .= '    display: flex;';
