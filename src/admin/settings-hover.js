@@ -48,8 +48,8 @@ export const Hover = ( settings , setSettings ) => {
 						label='ホバー時の高さ'
 						value={ settings.hoverTop }
 						onChange={ ( value ) => setSettings({...settings, hoverTop: value }) }
-						min={ 0 }
-						max={ 10 }
+						min={ -20 }
+						max={ 20 }
 					/>
 					<RangeControl
 						label='影の長さ（x方向）'

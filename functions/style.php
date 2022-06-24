@@ -10,13 +10,13 @@ use function Ccl_Plugin\functions\data\get_setting;
 function dynamic_styles(){
 	$css  = '';
 	$css .= '<style type="text/css">';
-	$css .= '  .ccl {';
 	if( get_setting('shadow_use') == 'shadow' ) {
+		$css .= '  .ccl {';
 		$css .= '    box-shadow: '.get_setting('shadow_offset_x').'px '.get_setting('shadow_offset_y').'px '
 			.get_setting('shadow_blur_radius').'px '.get_setting('shadow_spread_radius').'px '
 			.get_setting('shadow_color').';';
+		$css .= '  }';
 	}
-	$css .= '  }';
 	$css .= '  a.ccl {';
 	$css .= '    max-width: '.get_setting('max_width').'px;';
 	$css .= '  }';
