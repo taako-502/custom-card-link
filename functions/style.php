@@ -10,19 +10,19 @@ use function Ccl_Plugin\functions\data\get_setting;
 function dynamic_styles(){
 	$css  = '';
 	$css .= '<style type="text/css">';
-	$css .= '  .clc {';
+	$css .= '  .ccl {';
 	$css .= '    box-shadow: '.get_setting('shadow_offset_x').'px '.get_setting('shadow_offset_y').'px '
 		.get_setting('shadow_blur_radius').'px '.get_setting('shadow_spread_radius').'px '
 		.get_setting('shadow_color').';';
 	$css .= '  }';
-	$css .= '  .clc--hover-shadow:hover {';
+	$css .= '  .ccl--hover-shadow:hover {';
 	$css .= '    box-shadow: '.get_setting('hover_shadow_offset_x').'px '.get_setting('hover_shadow_offset_y').'px '
 		.get_setting('hover_shadow_blur_radius').'px '.get_setting('hover_shadow_spread_radius').'px '
 		.get_setting('hover_shadow_color').';';
 	$css .= '  }';
 	//レスポンシブ設定は動的CSSで設定する
 	$css .= '@media screen and (max-width: '.get_setting('breakpoint').'px) {';
-	$css .= '  .clc {';
+	$css .= '  .ccl {';
 	$css .= '    box-shadow: '.get_setting('shadow_offset_x_sp').'px '.get_setting('shadow_offset_y_sp').'px '
 		.get_setting('shadow_blur_radius_sp').'px '.get_setting('shadow_spread_radius_sp').'px '
 		.get_setting('shadow_color_sp').';';
@@ -30,28 +30,34 @@ function dynamic_styles(){
 	$css .= '    padding: '.get_setting('padding_sp').'px;';
 	$css .= '    border-radius: '.get_setting('border_radius_sp').';';
 	$css .= '  }';
-	$css .= '  .clc-sp--list {';
+	$css .= '  .ccl-sp--list {';
 	$css .= '    display: flex;';
 	$css .= '  }';
-	$css .= '  .clc-sp__thumbnail--card {';
+	$css .= '  .ccl-sp__thumbnail--card {';
 	$css .= '  }';
-	$css .= '  .clc-sp__thumbnail--list {';
+	$css .= '  .ccl-sp__thumbnail--list {';
 	$css .= '  		object-fit: cover;';
 	$css .= '  		max-width: 30%;';
 	$css .= '  		min-width: 140px;';
 	$css .= '  		min-height: 140px;';
 	$css .= '  }';
-	$css .= '  .clc__title {';
+	$css .= '  .ccl__title , .ccl__description {';
+	$css .= '    display: none;';
+	$css .= '  }';
+	$css .= '  .ccl-sp__title , .ccl-sp__description {';
+	$css .= '    display: block;';
+	$css .= '  }';
+	$css .= '  .ccl-sp__title {';
 	$css .= '    font-size: '.get_setting('title_font_size_sp').'px;';
 	$css .= '  }';
-	$css .= '  .clc__description {';
+	$css .= '  .ccl-sp__description {';
 	$css .= '    font-size: '.get_setting('description_font_size_sp').'px;';
 	$css .= '    margin-top: '.get_setting('description_margin_top_sp').'px;';
 	$css .= '  }';
-	$css .= '  .clc-sp__info--card {';
+	$css .= '  .ccl-sp__info--card {';
 	$css .= '    margin-top: '.get_setting('gap_between_title_and_thumbnail_sp').'px;';
 	$css .= '  }';
-	$css .= '  .clc-sp__info--list {';
+	$css .= '  .ccl-sp__info--list {';
 	$css .= '    margin-left: '.get_setting('gap_between_title_and_thumbnail_sp').'px;';
 	$css .= '  }';
 	$css .= '}';

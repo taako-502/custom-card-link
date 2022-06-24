@@ -64,6 +64,16 @@
 	}
 }
 
+.ccl-sp {
+	&__title {
+		display: none;
+	}
+
+	&__description {
+		display: none;
+	}
+}
+
 .u-font-size {
 	&--10px {
 		font-size: 10px;

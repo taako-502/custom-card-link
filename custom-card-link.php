@@ -121,9 +121,9 @@ function makeEtcCard($url, $image, $title, $title_sp, $description, $description
 			%5$s
 			<div class="ccl__info ccl__info--%2$s ccl-sp__info--%3$s">
 				<p class="ccl__title ccl__title--%2$s">%6$s</p>
-				<p class="ccl-sp__title ccl-sp__title--%2$s">%7$s</p>
+				<p class="ccl__title ccl-sp__title ccl-sp__title--%2$s">%7$s</p>
 				<p class="ccl__description ccl__description--%2$s">%8$s</p>
-				<p class="ccl-sp__description ccl-sp__description--%2$s">%9$s</p>
+				<p class="ccl__description ccl-sp__description ccl-sp__description--%2$s">%9$s</p>
 			</div>
 		</a>',
 		$main_class,
