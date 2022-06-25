@@ -1,9 +1,7 @@
 /**
  * Custom Card Linkのプレビューのクラス
- * @param  {string} layout
- * @param  {string} hover
- * @param  {number} borderRadius
- * @param  {number} hoverTransitionTime
+ * @param  {String} mediaSize
+ * @param  {Object} settings
  * @return {Object}
  */
 export const getCclClass = ( mediaSize , settings ) => {
@@ -14,7 +12,7 @@ export const getCclClass = ( mediaSize , settings ) => {
 		'ccl': true,
 		'ccl--card': layout === 'card',
 		'ccl--list': layout === 'list',
-		'ccl--hover-shadow': settings.hover === 'shadow',
+		'ccl--hover-shadow': settings.hoverUse === 'shadow',
 		'u-border-radius--1px': borderRadius === 1,
 		'u-border-radius--2px': borderRadius === 2,
 		'u-border-radius--3px': borderRadius === 3,
