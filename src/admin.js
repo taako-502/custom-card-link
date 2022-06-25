@@ -2,7 +2,7 @@ import './admin.scss';
 import 'react-notifications-component/dist/theme.css';
 
 import { settingNotification } from './admin/settingNotification.js';
-import { setStandardDesignCard , setStandardDesignList , setRecommendedDesign1  } from './admin/design.js';
+import { setStandardDesignCard , setStandardDesignList } from './admin/design.js';
 import { Preview } from './admin/preview.js';
 import { SettingsPc } from './admin/settings-pc.js';
 import { SettingsSp } from './admin/settings-sp.js';
@@ -176,13 +176,6 @@ const Admin = () => {
 							variant='secondary'
 						>
 							スタンダードデザイン（リスト型）
-						</Button>
-						<Button
-							className='u-marign-left--5px'
-							onClick={ () => setRecommendedDesign1( setSettings ) }
-							variant='secondary'
-						>
-							おすすめデザイン２（リスト型）
 						</Button>
 					</div>
 					<div className='ccl-admin__settings'>
