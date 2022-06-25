@@ -46,12 +46,14 @@ add_action('init', function() {
 					$post_title     = get_the_title( $post_id );
 					$description    = getDescription( $post_id, get_setting('description_num_of_char'));
 					$description_sp = getDescription( $post_id, get_setting('description_num_of_char_sp'));
+					$link_type      = 'internal';
 				} else {
 					//外部リンク
 					$image          = $ogps['og:image'] ?? '';
 					$post_title     = $ogps['og:title'] ?? '';
 					$description    = $ogps['og:description'] ?? '';
 					$description_sp = $description;
+					$link_type      = 'external';
 				}
 				$title                    = mb_strlen($post_title) > get_setting('title_num_of_char')
 					? mb_substr($post_title, 0, get_setting('title_num_of_char')).'...'
@@ -75,6 +77,7 @@ add_action('init', function() {
 				$hover_transition_time    = get_setting('hover_transition_time');
 				return makeEtcCard(
 					$url,
+					$link_type,
 					$image,
 					$title,
 					$title_sp,
@@ -102,7 +105,7 @@ add_action('init', function() {
  * @param  string $description
  * @return string
  */
-function makeEtcCard($url, $image, $title, $title_sp, $description, $description_sp, $layout, $layout_sp, $padding,
+function makeEtcCard($url, $link_type, $image, $title, $title_sp, $description, $description_sp, $layout, $layout_sp, $padding,
                                     $border_radius, $border_radius_sp, $hover_use, $hover_top, $hover_transition_time) {
 	$main_class  = 'ccl ccl--'.$layout;
 	$main_class .= ' ccl-sp--'.$layout_sp;
@@ -112,26 +115,18 @@ function makeEtcCard($url, $image, $title, $title_sp, $description, $description
 	$main_class .= ' u-hover-top--'.( $hover_top * -1 ).'px';
 	$main_class .= $hover_transition_time != 0 ? ' u-transition--top-box-shadow--'.number_to_class($hover_transition_time).'s' : '';
 	$thumnail    = trim($image) !== '' ? '<img class="ccl__thumbnail ccl__thumbnail--'.$layout.' ccl-sp__thumbnail--'.$layout_sp.'" src="'.$image.'">' : '';
-	return sprintf(
-		'<a class="%1$s" href="%4$s">
-			%5$s
-			<div class="ccl__info ccl__info--%2$s ccl-sp__info--%3$s">
-				<p class="ccl__title ccl__title--%2$s">%6$s</p>
-				<p class="ccl__title ccl-sp__title ccl-sp__title--%2$s">%7$s</p>
-				<p class="ccl__description ccl__description--%2$s">%8$s</p>
-				<p class="ccl__description ccl-sp__description ccl-sp__description--%2$s">%9$s</p>
+	$target      = $link_type == 'external' ? 'target="_blanck"' : '';
+	$rel         = $target !== '' ? 'rel="noopener noreferrer"' : '';
+	return '
+		<a class="'.$main_class.'" href="'.$url.'" '.$target.' '.$rel.'>
+			'.$thumnail.'
+			<div class="ccl__info ccl__info--'.$layout.' ccl-sp__info--'.$layout_sp.'">
+				<p class="ccl__title ccl__title--'.$layout.'">'.$title.'</p>
+				<p class="ccl__title ccl-sp__title ccl-sp__title--'.$layout.'">'.$title_sp.'</p>
+				<p class="ccl__description ccl__description--'.$layout.'">'.$description.'</p>
+				<p class="ccl__description ccl-sp__description ccl-sp__description--'.$layout.'">'.$description_sp.'</p>
 			</div>
-		</a>',
-		$main_class,
-		$layout,
-		$layout_sp,
-		$url,
-		$thumnail,
-		$title,
-		$title_sp,
-		$description,
-		$description_sp
-	);
+		</a>';
 }
 
 function number_to_class($num) {
