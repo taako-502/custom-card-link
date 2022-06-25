@@ -175,8 +175,8 @@ function number_to_class($num) {
  */
 add_action('admin_menu', function() {
 	add_menu_page(
-		'外部リンクカード',
-		'外部リンクカード - デザイン設定',
+		'カスタムカードリンク',
+		'カスタムカードリンク - デザイン設定',
 		'manage_options',
 		OPTION_GROUP,
 		function() {
