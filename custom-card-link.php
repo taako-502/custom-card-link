@@ -11,7 +11,7 @@ License: GPL2
 */
 const OPTION_GROUP = 'custom-card-link';
 const CCL_SLUG     = 'custom-card-link';
-const DB_NAME      = 'custom_link_card_settings';
+const DB_NAME      = 'custom_card_link_settings';
 
 require_once __DIR__ .'/library/Get_OGP_InWP/get_ogp_inwp.php';
 require_once __DIR__ .'/functions/rest_api.php';
@@ -75,6 +75,7 @@ add_action('init', function() {
 				$hover_use                = get_setting('hover_use');
 				$hover_top                = get_setting('hover_top');
 				$hover_transition_time    = get_setting('hover_transition_time');
+
 				return makeEtcCard(
 					$url,
 					$link_type,
