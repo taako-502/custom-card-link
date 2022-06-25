@@ -73,6 +73,7 @@ add_action('init', function() {
 	register_block_type_from_metadata(__DIR__ . '/build',
 		array(
 			'render_callback' => function($attributes) {
+				//入力チェック
 				$url     = $attributes['url'] ?? '';
 				$ogps    = \Ccl_Plugin\library\Get_OGP_InWP::get(trim($url));
 				$post_id = url_to_postid($url);
@@ -81,36 +82,77 @@ add_action('init', function() {
 				} else if(($ogps == [] && $post_id == 0) && !is_singular()){
 					return '有効なURLを入力してください。';
 				}
-				//全部空
 				if($url == '' || ($ogps == [] && $post_id == 0)){
 					return;
 				}
 
-				if($post_id != 0) {
-					//内部リンクの場合
-					$image          = get_the_post_thumbnail_url( $post_id , 'large' );
-					$post_title     = get_the_title( $post_id );
-					$description    = getDescription( $post_id, get_setting('description_num_of_char'));
-					$description_sp = getDescription( $post_id, get_setting('description_num_of_char_sp'));
-					$link_type      = 'internal';
-				} else {
-					//外部リンク
-					$image          = $ogps['og:image'] ?? '';
-					$post_title     = $ogps['og:title'] ?? '';
-					$description    = $ogps['og:description'] ?? '';
-					$description_sp = $description;
-					$link_type      = 'external';
-				}
-				$title          = format_title($post_title, get_setting('title_num_of_char'));
-				$title_sp       = format_title($post_title, get_setting('title_num_of_char_sp'));
-				$description    = format_description($description, get_setting('description_num_of_char'));
-				$description_sp = format_description($description_sp, get_setting('description_num_of_char_sp'));
-				$ccl = new \Ccl_Plugin\classes\CustomCardLink(get_setting());
-				return $ccl->make_ccl($url, $link_type, $image, $title, $title_sp, $description, $description_sp);
+				//リンク先の情報と設定画面の設定情報をマージ
+				$settings = array_merge(get_setting(), getLinkInfo(
+					$post_id,
+					$ogps,
+					get_setting('title_num_of_char'),
+					get_setting('title_num_of_char_sp'),
+					get_setting('description_num_of_char'),
+					get_setting('description_num_of_char_sp')
+				));
+
+				//HTMLの作成
+				$ccl = new \Ccl_Plugin\classes\CustomCardLink($url, $settings);
+				return $ccl->make_ccl();
 			},
 		)
 	);
 });
+
+/**
+ * リンク先の情報を取得する
+ * @param  string $post_id
+ * @param  array  $ogps
+ * @param  string $title_num
+ * @param  string $title_num_sp
+ * @param  string $description_num
+ * @param  string $description_num_sp
+ * @return array
+ */
+function getLinkInfo($post_id, $ogps, $title_num, $title_num_sp, $description_num, $description_num_sp) {
+	if($post_id != 0) {
+		//内部リンクの場合
+		$image          = get_the_post_thumbnail_url( $post_id , 'large' );
+		$post_title     = get_the_title( $post_id );
+		$description    = getDescription( $post_id, $description_num);
+		$description_sp = getDescription( $post_id, $description_num_sp);
+		$link_type      = 'internal';
+	} else {
+		//外部リンク
+		$image          = $ogps['og:image'] ?? '';
+		$post_title     = $ogps['og:title'] ?? '';
+		$description    = $ogps['og:description'] ?? '';
+		$description_sp = $description;
+		$link_type      = 'external';
+	}
+	return array(
+		'image'          => $image,
+		'link_type'      => $link_type,
+		'title'          => format_title($post_title, $title_num),
+		'title_sp'       => format_title($post_title, $title_num_sp),
+		'description'    => format_description($description, $description_num),
+		'description_sp' => format_description($description_sp, $description_num_sp),
+	);
+}
+
+/**
+ * 記事情報をディスクリプションに変換
+ * @param  string  $content 記事情報
+ * @param  integer $len     文字数
+ * @return string           ディスクリプション
+ */
+function getDescription($id, $len){
+	$description = get_post($id)->post_content;
+	$description = str_replace(array("\r\n","\r","\n","&nbsp;"),'',$description);
+	$description = wp_strip_all_tags($description);
+	$description = preg_replace('/\[.*\]/','',$description);
+	return mb_substr($description, 0, $len);
+}
 
 /**
  * タイトルの整形
@@ -130,18 +172,4 @@ function format_title($title, $num) {
  */
 function format_description($description, $num) {
 	return $num == 0 ? mb_substr($description, 0, $num) : mb_substr($description, 0, $num).'...';
-}
-
-/**
- * 記事情報をディスクリプションに変換
- * @param  string  $content 記事情報
- * @param  integer $len     文字数
- * @return string           ディスクリプション
- */
-function getDescription($id, $len){
-	$description = get_post($id)->post_content;
-	$description = str_replace(array("\r\n","\r","\n","&nbsp;"),'',$description);
-	$description = wp_strip_all_tags($description);
-	$description = preg_replace('/\[.*\]/','',$description);
-	return mb_substr($description, 0, $len);
 }
