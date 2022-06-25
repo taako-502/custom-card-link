@@ -1,6 +1,6 @@
 import thumbnail from './../../asset/img/thumbnail.jpg';
 import { getCclClass , getSlcThumbnailClass } from './class.js';
-import { makeStyles , makeThumbnailSpStyles , makeHoverdStyles } from './styles.js';
+import { makeStyles , makeHoverdStyles } from './styles.js';
 
 import { useState } from '@wordpress/element';
 
@@ -12,7 +12,6 @@ export const Preview = ( mediaSize , settings , isHover, setIsHover ) => {
 	const cclThumbnailClass = getSlcThumbnailClass( mediaSize , settings );
 	//プレビュー用スタイルシート
 	const styles = makeStyles( mediaSize , settings );
-	const thumbnailSpStyles = makeThumbnailSpStyles( mediaSize , settings );
 	const hoverdStyles = makeHoverdStyles( mediaSize , settings );
 	//設定値
 	const layout                      = ! mediaSize ? settings.layout : settings.layoutSp;
@@ -38,7 +37,6 @@ export const Preview = ( mediaSize , settings , isHover, setIsHover ) => {
 		>
 			<img
 				className={ classnames(cclThumbnailClass) }
-				style={ mediaSize ? thumbnailSpStyles : {} }
 				src={ thumbnail }
 			/>
 			<div

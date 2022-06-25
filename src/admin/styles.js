@@ -27,24 +27,6 @@ export const makeStyles = ( mediaSize , settings ) => {
 }
 
 /**
- * スマホ版サムネイルのスタイルシート
- * @param  {Boolean} mediaSize
- * @param  {Object} settings
- * @return {Object}
- */
-export const makeThumbnailSpStyles = ( mediaSize , settings ) => {
-	let styles = {}
-	styles = {
-		...styles,
-		objectFit: 'cover',
-		maxWidth: '30%',
-		minWidth: '140px',
-		minHeight: '140px',
-	}
-	return styles;
-}
-
-/**
  * ホバー時のデザイン
  * @param  {Boolean} mediaSize
  * @param  {Object} settings
