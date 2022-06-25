@@ -14,22 +14,11 @@ const CCL_SLUG     = 'custom-card-link';
 const DB_NAME      = 'custom_link_card_settings';
 
 require_once __DIR__ .'/library/Get_OGP_InWP/get_ogp_inwp.php';
-require_once __DIR__ .'/library/plugin-update-checker/plugin-update-checker.php';
 require_once __DIR__ .'/functions/rest_api.php';
 require_once __DIR__ .'/functions/style.php';
 require_once __DIR__ .'/functions/data.php';
 
 use function Ccl_Plugin\functions\data\get_setting;
-
-/**
- * プラグインアップデーター
- */
-$myUpdateChecker = \Puc_v4_Factory::buildUpdateChecker(
-	'https://github.com/taako-502/custom-card-link/',
-	__FILE__,
-	'custom-card-link'
-);
-$myUpdateChecker->setBranch('main');
 
 /**
 * サーバ側処理
