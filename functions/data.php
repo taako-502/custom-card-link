@@ -8,7 +8,10 @@ use const Ccl_Plugin\DB_NAME;
  * @param  string $key
  * @return string 設定値
  */
-function get_setting($key) {
+function get_setting($key = '') {
+	if( $key === '' ) {
+		return get_option(DB_NAME) ? get_option(DB_NAME) : get_default_settings();
+	}
 	return get_option(DB_NAME)[$key] ?? get_default_setting($key);
 }
 

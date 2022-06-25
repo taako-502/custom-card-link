@@ -13,6 +13,7 @@ const OPTION_GROUP = 'custom-card-link';
 const CCL_SLUG     = 'custom-card-link';
 const DB_NAME      = 'custom_card_link_settings';
 
+require_once __DIR__ .'/classes/CustomCardLink.php';
 require_once __DIR__ .'/library/Get_OGP_InWP/get_ogp_inwp.php';
 require_once __DIR__ .'/functions/rest_api.php';
 require_once __DIR__ .'/functions/style.php';
@@ -67,104 +68,13 @@ add_action('init', function() {
 				$description_sp           = get_setting('description_num_of_char_sp') == 0
 					? mb_substr($description_sp, 0, get_setting('description_num_of_char_sp'))
 					: mb_substr($description_sp, 0, get_setting('description_num_of_char_sp')).'...';
-				$layout                   = get_setting('layout');
-				$layout_sp                = get_setting('layout_sp');
-				$padding                  = get_setting('padding');
-				$border_radius            = get_setting('border_radius');
-				$border_radius_sp         = get_setting('border_radius_sp');
-				$hover_use                = get_setting('hover_use');
-				$hover_top                = get_setting('hover_top');
-				$hover_transition_time    = get_setting('hover_transition_time');
 
-				return makeEtcCard(
-					$url,
-					$link_type,
-					$image,
-					$title,
-					$title_sp,
-					$description,
-					$description_sp,
-					$layout,
-					$layout_sp,
-					$padding,
-					$border_radius,
-					$border_radius_sp,
-					$hover_use,
-					$hover_top,
-					$hover_transition_time,
-				);
+				$ccl = new \Ccl_Plugin\classes\CustomCardLink(get_setting());
+				return $ccl->make_ccl($url, $link_type, $image, $title, $title_sp, $description, $description_sp);
 			},
 		)
 	);
 });
-
-/**
- * 外部リンクカード
- * @param  string $url
- * @param  string $image
- * @param  string $title
- * @param  string $description
- * @return string
- */
-function makeEtcCard($url, $link_type, $image, $title, $title_sp, $description, $description_sp, $layout, $layout_sp, $padding,
-                                    $border_radius, $border_radius_sp, $hover_use, $hover_top, $hover_transition_time) {
-	$main_class  = 'ccl ccl--'.$layout;
-	$main_class .= ' ccl-sp--'.$layout_sp;
-	$main_class .= $border_radius != 0 ? ' u-border-radius--'.$border_radius.'px' : '';
-	$main_class .= ' u-padding--'.$padding.'px';
-	$main_class .= ' ccl--hover-'.$hover_use;
-	$main_class .= ' u-hover-top--'.( $hover_top * -1 ).'px';
-	$main_class .= $hover_transition_time != 0 ? ' u-transition--top-box-shadow--'.number_to_class($hover_transition_time).'s' : '';
-	$thumnail    = trim($image) !== '' ? '<img class="ccl__thumbnail ccl__thumbnail--'.$layout.' ccl-sp__thumbnail--'.$layout_sp.'" src="'.$image.'">' : '';
-	$target      = $link_type == 'external' ? 'target="_blanck"' : '';
-	$rel         = $target !== '' ? 'rel="noopener noreferrer"' : '';
-	return '
-		<a class="'.$main_class.'" href="'.$url.'" '.$target.' '.$rel.'>
-			'.$thumnail.'
-			<div class="ccl__info ccl__info--'.$layout.' ccl-sp__info--'.$layout_sp.'">
-				<p class="ccl__title ccl__title--'.$layout.'">'.$title.'</p>
-				<p class="ccl__title ccl-sp__title ccl-sp__title--'.$layout.'">'.$title_sp.'</p>
-				<p class="ccl__description ccl__description--'.$layout.'">'.$description.'</p>
-				<p class="ccl__description ccl-sp__description ccl-sp__description--'.$layout.'">'.$description_sp.'</p>
-			</div>
-		</a>';
-}
-
-function number_to_class($num) {
-	switch ($num) {
-		case 0.1:
-			return 'point-1';
-			break;
-		case 0.2:
-			return 'point-2';
-			break;
-		case 0.3:
-			return 'point-3';
-			break;
-		case 0.4:
-			return 'point-4';
-			break;
-		case 0.5:
-			return 'point-5';
-			break;
-		case 0.6:
-			return 'point-6';
-			break;
-		case 0.7:
-			return 'point-7';
-			break;
-		case 0.8:
-			return 'point-8';
-			break;
-		case 0.9:
-			return 'point-9';
-			break;
-		case 1:
-			return '1';
-			break;
-	}
-	return;
-}
 
 /**
  * 管理画面追加
