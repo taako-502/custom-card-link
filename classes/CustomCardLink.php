@@ -62,18 +62,19 @@ class CustomCardLink {
 	 * @return string
 	 */
 	public function make_ccl() {
-		$main_class = $this->get_main_class();
-		$info_class = $this->get_info_class();
-		$thumbnail  = trim($this->image) !== '' ? '<img class="ccl__thumbnail ccl__thumbnail--'.$this->layout.' ccl-sp__thumbnail--'.$this->layout_sp.'" src="'.$this->image.'">' : '';
-		$target     = $this->link_type == 'external' ? 'target="_blanck"' : '';
-		$rel        = $target !== '' ? 'rel="noopener noreferrer"' : '';
+		$main_class        = $this->get_main_class();
+		$info_class        = $this->get_info_class();
+		$description_class = $this->get_description_class();
+		$thumbnail         = trim($this->image) !== '' ? '<img class="ccl__thumbnail ccl__thumbnail--'.$this->layout.' ccl-sp__thumbnail--'.$this->layout_sp.'" src="'.$this->image.'">' : '';
+		$target            = $this->link_type == 'external' ? 'target="_blanck"' : '';
+		$rel               = $target !== '' ? 'rel="noopener noreferrer"' : '';
 		return '
 			<a class="'.$main_class.'" href="'.$this->url.'" '.$target.' '.$rel.'>
 				'.$thumbnail.'
 				<div class="'.$info_class.'">
 					<p class="ccl__title ccl__title--'.$this->layout.'">'.$this->title.'</p>
 					<p class="ccl__title ccl-sp__title ccl-sp__title--'.$this->layout.'">'.$this->title_sp.'</p>
-					<p class="ccl__description ccl__description--'.$this->layout.'">'.$this->description.'</p>
+					<p class="'.$description_class.'">'.$this->description.'</p>
 					<p class="ccl__description ccl-sp__description ccl-sp__description--'.$this->layout.'">'.$this->description_sp.'</p>
 				</div>
 			</a>';
@@ -103,6 +104,14 @@ class CustomCardLink {
 			? 'u-margin-top--' . $this->gap_between_title_and_thumbnail.'px'
 			: 'u-margin-left--' . $this->gap_between_title_and_thumbnail.'px';
 		return 'ccl__info ccl__info--'.$this->layout.' ccl-sp__info--'.$this->layout_sp.' '.$gap;
+	}
+
+	/**
+	 * descriptionのclass
+	 * @return string
+	 */
+	private function get_description_class() {
+		return 'ccl__description ccl__description--'.$this->layout.' u-margin-top--'.$this->description_margin_top.'px';
 	}
 
 	private function number_to_class($num) {

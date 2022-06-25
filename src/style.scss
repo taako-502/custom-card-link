@@ -11,19 +11,9 @@
 	outline: none;
 	text-decoration: none;
 
-	p {
-		margin: 0;
-	}
-
 	&--hover-shadow {
-		//ホバー
 		position: relative;
 		top: 0;
-
-		&:hover {
-			top: -5px;
-			box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
-		}
 	}
 
 	&__thumbnail {
@@ -72,7 +62,6 @@
 	}
 
 	&__description--list {
-		margin-top: 0.4em;
 		font-size: 1rem;
 	}
 }
