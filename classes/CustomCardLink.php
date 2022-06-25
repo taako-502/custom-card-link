@@ -2,12 +2,6 @@
 Namespace Ccl_Plugin\classes;
 
 class CustomCardLink {
-	private string $url                = '';
-	private string $link_type          = 'internal';
-	private string $title              = '';
-	private string $title_sp           = '';
-	private string $description        = '';
-	private string $description_sp     = '';
 	private string $layout             = 'card';
 	private string $layout_sp          = 'card';
 	private int $padding               = 0;
@@ -23,7 +17,7 @@ class CustomCardLink {
 		$this->padding               = $settings['padding'] ?? 0;
 		$this->border_radius         = $settings['border_radius'] ?? 0;
 		$this->border_radius_sp      = $settings['border_radius_sp'] ?? 0;
-		$this->hover_use             = $settings['hover_use'] ?? 0;
+		$this->hover_use             = $settings['hover_use'] ?? '';
 		$this->hover_top             = $settings['hover_top'] ?? 0;
 		$this->hover_transition_time = $settings['hover_transition_time'] ?? 0;
 	}
