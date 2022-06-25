@@ -2,35 +2,48 @@
 Namespace Ccl_Plugin\classes;
 
 class CustomCardLink {
-	private string $url                = '';
-	private string $image              = '';
-	private string $link_type          = '';
-	private string $title              = '';
-	private string $title_sp           = '';
-	private string $description        = '';
-	private string $description_sp     = '';
-	private string $layout             = 'card';
-	private string $layout_sp          = 'card';
-	private int $padding               = 0;
-	private int $border_radius         = 0;
-	private int $border_radius_sp      = 0;
-	private string $hover_use          = 'none';
-	private int $hover_top             = 0;
-	private int $hover_transition_time = 0;
+	private string $url                             = '';
+	private string $image                           = '';
+	private string $link_type                       = '';
+	//PC
+	private string $title                           = '';
+	private string $description                     = '';
+	private string $layout                          = 'card';
+	private int $padding                            = 0;
+	private int $border_radius                      = 0;
+	private int $title_font_size                    = 0;
+	private int $description_font_size              = 0;
+	private int $gap_between_title_and_thumbnail    = 0;
+	private int $description_margin_top_sp          = 0;
+	//スマホ
+	private string $title_sp                        = '';
+	private string $description_sp                  = '';
+	private string $layout_sp                       = 'card';
+	//ホバー時
+	private string $hover_use                       = 'none';
+	private int $hover_top                          = 0;
+	private int $hover_transition_time              = 0;
 
 	public function __construct($url, $settings) {
 		//初期化
-		$this->url                   = $url;
-		$this->image                 = $settings['image']                 ?? '';
-		$this->link_type             = $settings['link_type']             ?? '';
-		$this->layout                = $settings['layout']                ?? '';
-		$this->layout_sp             = $settings['layout_sp']             ?? '';
-		$this->padding               = $settings['padding']               ?? 0;
-		$this->border_radius         = $settings['border_radius']         ?? 0;
-		$this->border_radius_sp      = $settings['border_radius_sp']      ?? 0;
-		$this->hover_use             = $settings['hover_use']             ?? '';
-		$this->hover_top             = $settings['hover_top']             ?? 0;
-		$this->hover_transition_time = $settings['hover_transition_time'] ?? 0;
+		$this->url                                = $url;
+		$this->image                              = $settings['image']                              ?? '';
+		$this->link_type                          = $settings['link_type']                          ?? '';
+		//PC
+		$this->layout                             = $settings['layout']                             ?? '';
+		$this->padding                            = $settings['padding']                            ?? 0;
+		$this->border_radius                      = $settings['border_radius']                      ?? 0;
+		$this->title_font_size                    = $settings['title_font_size']                    ?? 0;
+		$this->description_font_size              = $settings['description_font_size']              ?? 0;
+		$this->gap_between_title_and_thumbnail    = $settings['gap_between_title_and_thumbnail']    ?? 0;
+		$this->description_margin_top             = $settings['description_margin_top']             ?? 0;
+		//スマホ
+		$this->layout_sp                          = $settings['layout_sp']                          ?? '';
+		$this->padding_sp                         = $settings['padding_sp']                         ?? 0;
+		//ホバー時
+		$this->hover_use                          = $settings['hover_use']                          ?? '';
+		$this->hover_top                          = $settings['hover_top']                          ?? 0;
+		$this->hover_transition_time              = $settings['hover_transition_time']              ?? 0;
 
 		//タイトル、ディスクリプションの整形
 		$title_num_of_char          = $settings['title_num_of_char']          ?? 0;
@@ -50,13 +63,14 @@ class CustomCardLink {
 	 */
 	public function make_ccl() {
 		$main_class = $this->get_main_class();
+		$info_class = $this->get_info_class();
 		$thumbnail  = trim($this->image) !== '' ? '<img class="ccl__thumbnail ccl__thumbnail--'.$this->layout.' ccl-sp__thumbnail--'.$this->layout_sp.'" src="'.$this->image.'">' : '';
 		$target     = $this->link_type == 'external' ? 'target="_blanck"' : '';
 		$rel        = $target !== '' ? 'rel="noopener noreferrer"' : '';
 		return '
 			<a class="'.$main_class.'" href="'.$this->url.'" '.$target.' '.$rel.'>
 				'.$thumbnail.'
-				<div class="ccl__info ccl__info--'.$this->layout.' ccl-sp__info--'.$this->layout_sp.'">
+				<div class="'.$info_class.'">
 					<p class="ccl__title ccl__title--'.$this->layout.'">'.$this->title.'</p>
 					<p class="ccl__title ccl-sp__title ccl-sp__title--'.$this->layout.'">'.$this->title_sp.'</p>
 					<p class="ccl__description ccl__description--'.$this->layout.'">'.$this->description.'</p>
@@ -78,6 +92,17 @@ class CustomCardLink {
 		$class .= ' u-hover-top--'.( $this->hover_top * -1 ).'px';
 		$class .= $this->hover_transition_time != 0 ? ' u-transition--top-box-shadow--'.number_to_class($this->hover_transition_time).'s' : '';
 		return $class;
+	}
+
+	/**
+	 * infoのclass
+	 * @return string
+	 */
+	private function get_info_class() {
+		$gap = $this->layout === 'card'
+			? 'u-margin-top--' . $this->gap_between_title_and_thumbnail.'px'
+			: 'u-margin-left--' . $this->gap_between_title_and_thumbnail.'px';
+		return 'ccl__info ccl__info--'.$this->layout.' ccl-sp__info--'.$this->layout_sp.' '.$gap;
 	}
 
 	private function number_to_class($num) {

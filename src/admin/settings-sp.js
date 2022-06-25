@@ -92,7 +92,7 @@ export const SettingsSp = ( settings , setSettings ) => {
 						value={ settings.descriptionMarginTopSp }
 						onChange={ ( value ) => setSettings({...settings, descriptionMarginTopSp: value }) }
 						min={ 0 }
-						max={ 15 }
+						max={ 30 }
 					/>
 				</div>
 			</div>
