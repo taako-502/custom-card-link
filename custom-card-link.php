@@ -9,9 +9,10 @@ Author: Takao
 Author URI: https://github.com/taako-502
 License: GPL2
 */
-const OPTION_GROUP = 'custom-card-link';
-const CCL_SLUG     = 'custom-card-link';
-const DB_NAME      = 'custom_card_link_settings';
+const OPTION_GROUP                = 'custom-card-link';
+const CCL_SLUG                    = 'custom-card-link';
+const DB_NAME                     = 'custom_card_link_settings';
+const MAX_DESCRIPTION_CHAR_OF_NUM = 200; //setting-pc.jsおよびsetting-sp.jsとあわせる
 
 require_once __DIR__ .'/classes/CustomCardLink.php';
 require_once __DIR__ .'/library/Get_OGP_InWP/get_ogp_inwp.php';
@@ -87,14 +88,7 @@ add_action('init', function() {
 				}
 
 				//リンク先の情報と設定画面の設定情報をマージ
-				$settings = array_merge(get_setting(), getLinkInfo(
-					$post_id,
-					$ogps,
-					get_setting('title_num_of_char'),
-					get_setting('title_num_of_char_sp'),
-					get_setting('description_num_of_char'),
-					get_setting('description_num_of_char_sp')
-				));
+				$settings = array_merge(get_setting(), getLinkInfo($post_id, $ogps));
 
 				//HTMLの作成
 				$ccl = new \Ccl_Plugin\classes\CustomCardLink($url, $settings);
@@ -114,13 +108,13 @@ add_action('init', function() {
  * @param  string $description_num_sp
  * @return array
  */
-function getLinkInfo($post_id, $ogps, $title_num, $title_num_sp, $description_num, $description_num_sp) {
+function getLinkInfo($post_id, $ogps) {
 	if($post_id != 0) {
 		//内部リンクの場合
 		$image          = get_the_post_thumbnail_url( $post_id , 'large' );
 		$post_title     = get_the_title( $post_id );
-		$description    = getDescription( $post_id, $description_num);
-		$description_sp = getDescription( $post_id, $description_num_sp);
+		$description    = getDescription( $post_id, MAX_DESCRIPTION_CHAR_OF_NUM);
+		$description_sp = getDescription( $post_id, MAX_DESCRIPTION_CHAR_OF_NUM);
 		$link_type      = 'internal';
 	} else {
 		//外部リンク
@@ -131,12 +125,10 @@ function getLinkInfo($post_id, $ogps, $title_num, $title_num_sp, $description_nu
 		$link_type      = 'external';
 	}
 	return array(
-		'image'          => $image,
-		'link_type'      => $link_type,
-		'title'          => format_title($post_title, $title_num),
-		'title_sp'       => format_title($post_title, $title_num_sp),
-		'description'    => format_description($description, $description_num),
-		'description_sp' => format_description($description_sp, $description_num_sp),
+		'image'       => $image,
+		'link_type'   => $link_type,
+		'title'       => $post_title,
+		'description' => $description,
 	);
 }
 
@@ -152,24 +144,4 @@ function getDescription($id, $len){
 	$description = wp_strip_all_tags($description);
 	$description = preg_replace('/\[.*\]/','',$description);
 	return mb_substr($description, 0, $len);
-}
-
-/**
- * タイトルの整形
- * @param  string $title
- * @param  int $num
- * @return string
- */
-function format_title($title, $num) {
-	return mb_strlen($title) <= $num ? mb_substr($title, 0, $num) : mb_substr($title, 0, $num).'...';
-}
-
-/**
- * ディスクリプションの整形
- * @param  string $title
- * @param  int $num
- * @return string
- */
-function format_description($description, $num) {
-	return $num == 0 ? mb_substr($description, 0, $num) : mb_substr($description, 0, $num).'...';
 }

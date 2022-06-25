@@ -19,13 +19,10 @@ class CustomCardLink {
 	private int $hover_transition_time = 0;
 
 	public function __construct($url, $settings) {
+		//初期化
 		$this->url                   = $url;
 		$this->image                 = $settings['image']                 ?? '';
 		$this->link_type             = $settings['link_type']             ?? '';
-		$this->title                 = $settings['title']                 ?? '';
-		$this->title_sp              = $settings['title_sp']              ?? '';
-		$this->description           = $settings['description']           ?? '';
-		$this->description_sp        = $settings['description_sp']        ?? '';
 		$this->layout                = $settings['layout']                ?? '';
 		$this->layout_sp             = $settings['layout_sp']             ?? '';
 		$this->padding               = $settings['padding']               ?? 0;
@@ -35,6 +32,15 @@ class CustomCardLink {
 		$this->hover_top             = $settings['hover_top']             ?? 0;
 		$this->hover_transition_time = $settings['hover_transition_time'] ?? 0;
 
+		//タイトル、ディスクリプションの整形
+		$title_num_of_char          = $settings['title_num_of_char']          ?? 0;
+		$title_num_of_char_sp       = $settings['title_num_of_char_sp']       ?? 0;
+		$description_num_of_char    = $settings['description_num_of_char']    ?? 0;
+		$description_num_of_char_sp = $settings['description_num_of_char_sp'] ?? 0;
+		$this->title                = isset($settings['title'])       ? $this->format_title($settings['title'], $title_num_of_char)                : '';
+		$this->title_sp             = isset($settings['title'])       ? $this->format_title($settings['title'], $title_num_of_char_sp)             : '';
+		$this->description          = isset($settings['description']) ? $this->format_title($settings['description'], $description_num_of_char)    : '';
+		$this->description_sp       = isset($settings['description']) ? $this->format_title($settings['description'], $description_num_of_char_sp) : '';
 	}
 
 	/**
@@ -43,16 +49,10 @@ class CustomCardLink {
 	 * @return string
 	 */
 	public function make_ccl() {
-		$main_class  = 'ccl ccl--'.$this->layout;
-		$main_class .= ' ccl-sp--'.$this->layout_sp;
-		$main_class .= $this->border_radius != 0 ? ' u-border-radius--'.$this->border_radius.'px' : '';
-		$main_class .= ' u-padding--'.$this->padding.'px';
-		$main_class .= ' ccl--hover-'.$this->hover_use;
-		$main_class .= ' u-hover-top--'.( $this->hover_top * -1 ).'px';
-		$main_class .= $this->hover_transition_time != 0 ? ' u-transition--top-box-shadow--'.number_to_class($this->hover_transition_time).'s' : '';
-		$thumbnail   = trim($this->image) !== '' ? '<img class="ccl__thumbnail ccl__thumbnail--'.$this->layout.' ccl-sp__thumbnail--'.$this->layout_sp.'" src="'.$this->image.'">' : '';
-		$target      = $this->link_type == 'external' ? 'target="_blanck"' : '';
-		$rel         = $target !== '' ? 'rel="noopener noreferrer"' : '';
+		$main_class = $this->get_main_class();
+		$thumbnail  = trim($this->image) !== '' ? '<img class="ccl__thumbnail ccl__thumbnail--'.$this->layout.' ccl-sp__thumbnail--'.$this->layout_sp.'" src="'.$this->image.'">' : '';
+		$target     = $this->link_type == 'external' ? 'target="_blanck"' : '';
+		$rel        = $target !== '' ? 'rel="noopener noreferrer"' : '';
 		return '
 			<a class="'.$main_class.'" href="'.$this->url.'" '.$target.' '.$rel.'>
 				'.$thumbnail.'
@@ -63,6 +63,21 @@ class CustomCardLink {
 					<p class="ccl__description ccl-sp__description ccl-sp__description--'.$this->layout.'">'.$this->description_sp.'</p>
 				</div>
 			</a>';
+	}
+
+	/**
+	 * カードリンクの一番外側のclass
+	 * @return string
+	 */
+	private function get_main_class() {
+		$class  = 'ccl ccl--'.$this->layout;
+		$class .= ' ccl-sp--'.$this->layout_sp;
+		$class .= $this->border_radius != 0 ? ' u-border-radius--'.$this->border_radius.'px' : '';
+		$class .= ' u-padding--'.$this->padding.'px';
+		$class .= ' ccl--hover-'.$this->hover_use;
+		$class .= ' u-hover-top--'.( $this->hover_top * -1 ).'px';
+		$class .= $this->hover_transition_time != 0 ? ' u-transition--top-box-shadow--'.number_to_class($this->hover_transition_time).'s' : '';
+		return $class;
 	}
 
 	private function number_to_class($num) {
@@ -99,5 +114,25 @@ class CustomCardLink {
 				break;
 		}
 		return;
+	}
+
+	/**
+	 * タイトルの整形
+	 * @param  string $title
+	 * @param  int $num
+	 * @return string
+	 */
+	private function format_title($title, $num) {
+		return mb_strlen($title) <= $num ? mb_substr($title, 0, $num) : mb_substr($title, 0, $num).'...';
+	}
+
+	/**
+	 * ディスクリプションの整形
+	 * @param  string $title
+	 * @param  int $num
+	 * @return string
+	 */
+	private function format_description($description, $num) {
+		return $num == 0 ? mb_substr($description, 0, $num) : mb_substr($description, 0, $num).'...';
 	}
 }
