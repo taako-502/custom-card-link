@@ -111,10 +111,10 @@ add_action('init', function() {
 function getLinkInfo($post_id, $ogps) {
 	if($post_id != 0) {
 		//内部リンクの場合
-		$image          = get_the_post_thumbnail_url( $post_id , 'large' );
-		$post_title     = get_the_title( $post_id );
-		$description    = getDescription( $post_id, MAX_DESCRIPTION_CHAR_OF_NUM);
-		$description_sp = getDescription( $post_id, MAX_DESCRIPTION_CHAR_OF_NUM);
+		$image          = get_the_post_thumbnail_url($post_id , 'large' );
+		$post_title     = get_the_title($post_id );
+		$description    = getDescription($post_id, MAX_DESCRIPTION_CHAR_OF_NUM);
+		$description_sp = getDescription($post_id, MAX_DESCRIPTION_CHAR_OF_NUM);
 		$link_type      = 'internal';
 	} else {
 		//外部リンク
