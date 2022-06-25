@@ -1,3 +1,5 @@
+@use 'style/utility';
+
 .ccl {
 	display: block;
 	box-sizing: border-box;
@@ -74,6 +76,3 @@
 		font-size: 1rem;
 	}
 }
-
-//ユーティリティの読み込み
-@use 'style/utility';
