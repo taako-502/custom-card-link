@@ -64,6 +64,7 @@ class CustomCardLink {
 	public function make_ccl() {
 		$main_class        = $this->get_main_class();
 		$info_class        = $this->get_info_class();
+		$title_class       = $this->get_title_class();
 		$description_class = $this->get_description_class();
 		$thumbnail         = trim($this->image) !== '' ? '<img class="ccl__thumbnail ccl__thumbnail--'.$this->layout.' ccl-sp__thumbnail--'.$this->layout_sp.'" src="'.$this->image.'">' : '';
 		$target            = $this->link_type == 'external' ? 'target="_blanck"' : '';
@@ -72,7 +73,7 @@ class CustomCardLink {
 			<a class="'.$main_class.'" href="'.$this->url.'" '.$target.' '.$rel.'>
 				'.$thumbnail.'
 				<div class="'.$info_class.'">
-					<p class="ccl__title ccl__title--'.$this->layout.'">'.$this->title.'</p>
+					<p class="'.$title_class.'">'.$this->title.'</p>
 					<p class="ccl__title ccl-sp__title ccl-sp__title--'.$this->layout.'">'.$this->title_sp.'</p>
 					<p class="'.$description_class.'">'.$this->description.'</p>
 					<p class="ccl__description ccl-sp__description ccl-sp__description--'.$this->layout.'">'.$this->description_sp.'</p>
@@ -107,11 +108,19 @@ class CustomCardLink {
 	}
 
 	/**
+	 * titleのclass
+	 * @return string
+	 */
+	private function get_title_class() {
+		return 'ccl__title ccl__title--'.$this->layout.' u-font-size--'.$this->title_font_size.'px';
+	}
+
+	/**
 	 * descriptionのclass
 	 * @return string
 	 */
 	private function get_description_class() {
-		return 'ccl__description ccl__description--'.$this->layout.' u-margin-top--'.$this->description_margin_top.'px';
+		return 'ccl__description ccl__description--'.$this->layout.' u-margin-top--'.$this->description_margin_top.'px'.' u-font-size--'.$this->description_font_size.'px';
 	}
 
 	private function number_to_class($num) {
