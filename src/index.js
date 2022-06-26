@@ -8,6 +8,7 @@ import metadata from './block.json';
 
 registerBlockType( metadata.name, {
 	title: metadata.title,
+	category: metadata.category,
 	attributes: metadata.attributes,
 	example: {
 		attributes: {
