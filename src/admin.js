@@ -2,13 +2,13 @@ import './admin.scss';
 import 'react-notifications-component/dist/theme.css';
 
 import { settingNotification } from './admin/settingNotification.js';
-import { setStandardDesignCard , setStandardDesignList } from './admin/design.js';
 import { Preview } from './admin/preview.js';
+import { Buttons } from './admin/buttons.js';
 import { SettingsPc } from './admin/settings-pc.js';
 import { SettingsSp } from './admin/settings-sp.js';
 
 import { render, useState, useLayoutEffect } from '@wordpress/element';
-import { Button , ToggleControl } from '@wordpress/components';
+import { ToggleControl } from '@wordpress/components';
 import api from '@wordpress/api';
 
 import { ReactNotifications } from 'react-notifications-component'
@@ -157,26 +157,11 @@ const Admin = () => {
 						</div>
 					</div>
 					<div className='ccl-admin__buttons'>
-						<Button
-							isPrimary
-							onClick={ dataSave }
-						>
-							保存
-						</Button>
-						<Button
-							className='u-margin-left--5px'
-							onClick={ () => setStandardDesignCard( setSettings ) }
-							variant='secondary'
-						>
-							スタンダードデザイン（カード型）
-						</Button>
-						<Button
-							className='u-margin-left--5px'
-							onClick={ () => setStandardDesignList( setSettings ) }
-							variant='secondary'
-						>
-							スタンダードデザイン（リスト型）
-						</Button>
+						<Buttons
+							dataSave={dataSave}
+							settings={settings}
+							setSettings={setSettings}
+						/>
 					</div>
 					<div className='ccl-admin__settings'>
 						{ mediaSize ? SettingsSp( settings , setSettings ) : SettingsPc( settings , setSettings ) }
