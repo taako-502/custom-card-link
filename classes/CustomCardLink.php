@@ -22,7 +22,7 @@ class CustomCardLink {
 	//ホバー時
 	private string $hover_use                       = 'none';
 	private int $hover_top                          = 0;
-	private int $hover_transition_time              = 0;
+	private float $hover_transition_time            = 0;
 
 	public function __construct($url, $settings) {
 		//初期化
@@ -92,7 +92,7 @@ class CustomCardLink {
 		$class .= ' u-padding--'.$this->padding.'px';
 		$class .= ' ccl--hover-'.$this->hover_use;
 		$class .= ' u-hover-top--'.( $this->hover_top * -1 ).'px';
-		$class .= $this->hover_transition_time != 0 ? ' u-transition--top-box-shadow--'.number_to_class($this->hover_transition_time).'s' : '';
+		$class .= $this->hover_transition_time != 0 ? ' u-transition--top-box-shadow--'.$this->number_to_class($this->hover_transition_time).'s' : '';
 		return $class;
 	}
 
