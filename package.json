@@ -8,6 +8,7 @@
 	"scripts": {
 		"build": "wp-scripts build",
 		"format": "wp-scripts format",
+		"lint": "wp-scripts lint-style && wp-scripts lint-js",
 		"lint:css": "wp-scripts lint-style",
 		"lint--fix:css": "wp-scripts lint-style --fix",
 		"lint:js": "wp-scripts lint-js",
