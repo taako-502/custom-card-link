@@ -55,18 +55,18 @@ export const Preview = ( mediaSize, settings, isHover, setIsHover ) => {
 				className="ccl__info"
 				style={ {
 					marginLeft:
-						layout == 'card'
+						layout === 'card'
 							? '0'
 							: gapBetweenTitleAndThumbnail + 'px',
 					marginTop:
-						layout == 'card'
+						layout === 'card'
 							? gapBetweenTitleAndThumbnail + 'px'
 							: '0',
 				} }
 			>
 				<p
 					className={
-						layout == 'card'
+						layout === 'card'
 							? 'ccl__title'
 							: 'ccl__title ccl__title--list'
 					}
@@ -81,7 +81,7 @@ export const Preview = ( mediaSize, settings, isHover, setIsHover ) => {
 				</p>
 				<p
 					className={
-						layout == 'card'
+						layout === 'card'
 							? 'ccl__description'
 							: 'ccl__description ccl__description--list'
 					}

@@ -137,12 +137,12 @@ export const SettingsPc = ( settings, setSettings ) => {
 							setSettings( { ...settings, shadowUse: value } )
 						}
 					/>
-					<label
-						className="u-display--inline-block u-marign-top--8px"
+					<p
+						className="u-display--inline-block u-marign-top--8px u-margin-bottom--0"
 						style={ styleDisplayNone( settings.shadowUse ) }
 					>
 						影の色
-					</label>
+					</p>
 					<ColorPicker
 						color={ settings.shadowColor }
 						onChange={ ( value ) =>

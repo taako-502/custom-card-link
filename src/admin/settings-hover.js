@@ -27,12 +27,12 @@ export const Hover = ( settings, setSettings ) => {
 							setSettings( { ...settings, hoverUse: value } )
 						}
 					/>
-					<label
-						className="u-display--inline-block u-marign-top--8px"
+					<p
+						className="u-display--inline-block u-marign-top--8px u-margin-bottom--0"
 						style={ styleDisplayNone( settings.hoverUse ) }
 					>
 						影の色
-					</label>
+					</p>
 					<ColorPicker
 						color={ settings.hoverShadowColor }
 						onChange={ ( value ) =>
