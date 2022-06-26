@@ -1,4 +1,4 @@
-@import './style.scss';
+@import "./style.scss";
 
 .ccl-admin {
 	margin-top: 20px;
@@ -19,7 +19,7 @@
 		position: relative;
 
 		&::before {
-			content: '';
+			content: "";
 			position: absolute;
 			bottom: -3px;
 			left: 12%;
@@ -71,7 +71,7 @@
 			display: block;
 			margin-top: auto;
 
-			&__field ,
+			&__field,
 			&__help {
 				margin-top: 0;
 				margin-bottom: 0;
@@ -84,12 +84,13 @@
 	}
 
 	&__settings {
+
 		h2 {
 			margin-top: 2.6em;
 			position: relative;
 
 			&::before {
-				content: '';
+				content: "";
 				position: absolute;
 				bottom: 0;
 				width: 560px;
@@ -126,9 +127,11 @@
 }
 
 #wpcontent {
+
 	@media screen and (max-width: 960px) {
 		padding: 20px;
 	}
+
 	@media screen and (max-width: 782px) {
 		padding: 10px;
 	}

@@ -20,7 +20,7 @@
 		object-fit: cover;
 	}
 
-	&__title ,
+	&__title,
 	&__description {
 		margin-top: 0;
 		margin-bottom: 0;
@@ -40,6 +40,7 @@
 }
 
 .ccl-sp {
+
 	&__title {
 		display: none;
 	}
@@ -49,7 +50,9 @@
 	}
 }
 
-.ccl, .ccl-sp {
+.ccl,
+.ccl-sp {
+
 	&--list {
 		display: flex;
 	}
@@ -63,6 +66,6 @@
 
 	&__title--list {
 		margin-top: 0;
-		margin-bottom: 0
+		margin-bottom: 0;
 	}
 }

@@ -9,6 +9,7 @@
 		"build": "wp-scripts build",
 		"format": "wp-scripts format",
 		"lint:css": "wp-scripts lint-style",
+		"lint--fix:css": "wp-scripts lint-style --fix",
 		"lint:js": "wp-scripts lint-js",
 		"lint--fix:js": "wp-scripts lint-js --fix",
 		"packages-update": "wp-scripts packages-update",
