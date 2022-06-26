@@ -2,7 +2,7 @@
 
 .ccl-admin {
 	margin-top: 20px;
-	padding: 1em 2em;
+	padding: 1em 26px;
 	max-width: 800px;
 	width: 100%;
 	background: #fff;
@@ -22,13 +22,19 @@
 			content: '';
 			position: absolute;
 			bottom: -3px;
-			left: 110px;
+			left: 12%;
 			width: 580px;
 			height: 2px;
 			background: #ff0060;
 
-			@media screen and (max-width: 800px) {
-				width: 80%;
+			@media screen and (max-width: 880px) {
+				width: 240px;
+				left: 34.5%;
+			}
+
+			@media screen and (max-width: 600px) {
+				width: 100%;
+				left: 0;
 			}
 		}
 	}
