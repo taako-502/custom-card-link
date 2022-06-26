@@ -164,14 +164,14 @@ const Admin = () => {
 							保存
 						</Button>
 						<Button
-							className='u-marign-left--5px'
+							className='u-margin-left--5px'
 							onClick={ () => setStandardDesignCard( setSettings ) }
 							variant='secondary'
 						>
 							スタンダードデザイン（カード型）
 						</Button>
 						<Button
-							className='u-marign-left--5px'
+							className='u-margin-left--5px'
 							onClick={ () => setStandardDesignList( setSettings ) }
 							variant='secondary'
 						>
