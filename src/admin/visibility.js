@@ -1,7 +1,7 @@
 /**
  * 影の有無による可視性制御
  *
- * @param  {string} use
+ * @param {string} use
  * @return {Object} スタイルシート
  */
 export const styleDisplayNone = ( use ) => {

@@ -1,5 +1,5 @@
 export const setStandardDesignCard = ( setSettings ) => {
-	setSettings({
+	setSettings( {
 		layout: 'card',
 		maxWidth: 500,
 		padding: 28,
@@ -41,11 +41,11 @@ export const setStandardDesignCard = ( setSettings ) => {
 		hoverShadowBlurRadius: 3,
 		hoverShadowSpreadRadius: 3,
 		hoverShadowColor: '#0000000d',
-	})
-}
+	} );
+};
 
 export const setStandardDesignList = ( setSettings ) => {
-	setSettings({
+	setSettings( {
 		layout: 'list',
 		maxWidth: 600,
 		padding: 12,
@@ -87,5 +87,5 @@ export const setStandardDesignList = ( setSettings ) => {
 		hoverShadowBlurRadius: 3,
 		hoverShadowSpreadRadius: 3,
 		hoverShadowColor: '#0000001a',
-	})
-}
+	} );
+};

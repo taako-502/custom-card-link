@@ -1,54 +1,81 @@
 /**
  * デザイン
- * @param  {Boolean} mediaSize
- * @param  {Object} settings
+ *
+ * @param {boolean} mediaSize
+ * @param {Object}  settings
  * @return {Object}
  */
-export const makeStyles = ( mediaSize , settings ) => {
-	let styles = { top: 0 }
+export const makeStyles = ( mediaSize, settings ) => {
+	let styles = { top: 0 };
 	if ( ! mediaSize ) {
 		styles = {
 			...styles,
-			boxShadow: settings.shadowUse === 'none'
-				? 'none'
-				: settings.shadowOffsetX + 'px ' + settings.shadowOffsetY + 'px ' + settings.shadowBlurRadius + 'px '
-					+ settings.shadowSpreadRadius + 'px ' + settings.shadowColor,
+			boxShadow:
+				settings.shadowUse === 'none'
+					? 'none'
+					: settings.shadowOffsetX +
+					  'px ' +
+					  settings.shadowOffsetY +
+					  'px ' +
+					  settings.shadowBlurRadius +
+					  'px ' +
+					  settings.shadowSpreadRadius +
+					  'px ' +
+					  settings.shadowColor,
 		};
 	} else {
 		styles = {
 			...styles,
-			boxShadow: settings.shadowUseSp === 'none'
-				? 'none'
-				: settings.shadowOffsetXSp + 'px ' + settings.shadowOffsetYSp + 'px ' + settings.shadowBlurRadiusSp + 'px '
-					+ settings.shadowSpreadRadiusSp + 'px ' + settings.shadowColorSp,
+			boxShadow:
+				settings.shadowUseSp === 'none'
+					? 'none'
+					: settings.shadowOffsetXSp +
+					  'px ' +
+					  settings.shadowOffsetYSp +
+					  'px ' +
+					  settings.shadowBlurRadiusSp +
+					  'px ' +
+					  settings.shadowSpreadRadiusSp +
+					  'px ' +
+					  settings.shadowColorSp,
 		};
 	}
-	return sharedStyle( mediaSize , settings , styles );
-}
+	return sharedStyle( mediaSize, settings, styles );
+};
 
 /**
  * ホバー時のデザイン
- * @param  {Boolean} mediaSize
- * @param  {Object} settings
+ *
+ * @param {boolean} mediaSize
+ * @param {Object}  settings
  * @return {Object}
  */
-export const makeHoverdStyles = ( mediaSize , settings ) => {
-	let styles = {
+export const makeHoverdStyles = ( mediaSize, settings ) => {
+	const styles = {
 		top: -1 * settings.hoverTop,
-		boxShadow: settings.hoverShadowOffsetX + 'px ' + settings.hoverShadowOffsetY + 'px ' + settings.hoverShadowBlurRadius + 'px '
-			+ settings.hoverShadowSpreadRadius + 'px ' + settings.hoverShadowColor,
+		boxShadow:
+			settings.hoverShadowOffsetX +
+			'px ' +
+			settings.hoverShadowOffsetY +
+			'px ' +
+			settings.hoverShadowBlurRadius +
+			'px ' +
+			settings.hoverShadowSpreadRadius +
+			'px ' +
+			settings.hoverShadowColor,
 	};
-	return sharedStyle( mediaSize , settings , styles );
-}
+	return sharedStyle( mediaSize, settings, styles );
+};
 
 /**
  * 共通部分
- * @param  {Boolean} mediaSize
- * @param  {Object} settings
- * @param  {Object} styles
+ *
+ * @param {boolean} mediaSize
+ * @param {Object}  settings
+ * @param {Object}  styles
  * @return {typObjecte}
  */
-const sharedStyle = ( mediaSize , settings , styles ) => {
+const sharedStyle = ( mediaSize, settings, styles ) => {
 	if ( ! mediaSize ) {
 		styles = {
 			...styles,
@@ -63,4 +90,4 @@ const sharedStyle = ( mediaSize , settings , styles ) => {
 		};
 	}
 	return styles;
-}
+};

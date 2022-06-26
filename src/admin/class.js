@@ -1,15 +1,18 @@
 /**
  * Custom Card Linkのプレビューのクラス
- * @param  {String} mediaSize
- * @param  {Object} settings
+ *
+ * @param {string} mediaSize
+ * @param {Object} settings
  * @return {Object}
  */
-export const getCclClass = ( mediaSize , settings ) => {
-	const layout       = ! mediaSize ? settings.layout : settings.layoutSp;
-	const borderRadius = ! mediaSize ? settings.borderRadius : settings.borderRadiusSp;
+export const getCclClass = ( mediaSize, settings ) => {
+	const layout = ! mediaSize ? settings.layout : settings.layoutSp;
+	const borderRadius = ! mediaSize
+		? settings.borderRadius
+		: settings.borderRadiusSp;
 
-	return ({
-		'ccl': true,
+	return {
+		ccl: true,
 		'ccl--card': layout === 'card',
 		'ccl--list': layout === 'list',
 		'ccl--hover-shadow': settings.hoverUse === 'shadow',
@@ -28,27 +31,36 @@ export const getCclClass = ( mediaSize , settings ) => {
 		'u-border-radius--13px': borderRadius === 13,
 		'u-border-radius--14px': borderRadius === 14,
 		'u-border-radius--15px': borderRadius === 15,
-		'u-transition--top-box-shadow--point-1s': settings.hoverTransitionTime === .1,
-		'u-transition--top-box-shadow--point-2s': settings.hoverTransitionTime === .2,
-		'u-transition--top-box-shadow--point-3s': settings.hoverTransitionTime === .3,
-		'u-transition--top-box-shadow--point-4s': settings.hoverTransitionTime === .4,
-		'u-transition--top-box-shadow--point-5s': settings.hoverTransitionTime === .5,
-		'u-transition--top-box-shadow--point-6s': settings.hoverTransitionTime === .6,
-		'u-transition--top-box-shadow--point-7s': settings.hoverTransitionTime === .7,
-		'u-transition--top-box-shadow--point-8s': settings.hoverTransitionTime === .8,
-		'u-transition--top-box-shadow--point-9s': settings.hoverTransitionTime === .9,
+		'u-transition--top-box-shadow--point-1s':
+			settings.hoverTransitionTime === 0.1,
+		'u-transition--top-box-shadow--point-2s':
+			settings.hoverTransitionTime === 0.2,
+		'u-transition--top-box-shadow--point-3s':
+			settings.hoverTransitionTime === 0.3,
+		'u-transition--top-box-shadow--point-4s':
+			settings.hoverTransitionTime === 0.4,
+		'u-transition--top-box-shadow--point-5s':
+			settings.hoverTransitionTime === 0.5,
+		'u-transition--top-box-shadow--point-6s':
+			settings.hoverTransitionTime === 0.6,
+		'u-transition--top-box-shadow--point-7s':
+			settings.hoverTransitionTime === 0.7,
+		'u-transition--top-box-shadow--point-8s':
+			settings.hoverTransitionTime === 0.8,
+		'u-transition--top-box-shadow--point-9s':
+			settings.hoverTransitionTime === 0.9,
 		'u-transition--top-box-shadow--1s': settings.hoverTransitionTime === 1,
-	})
+	};
 };
 
-export const getSlcThumbnailClass = ( mediaSize , settings ) => {
+export const getSlcThumbnailClass = ( mediaSize, settings ) => {
 	const layout = ! mediaSize ? settings.layout : settings.layoutSp;
 
-	return ({
-		'ccl__thumbnail': true,
+	return {
+		ccl__thumbnail: true,
 		'ccl__thumbnail--card': ! mediaSize && layout === 'card',
 		'ccl__thumbnail--list': ! mediaSize && layout === 'list',
 		'ccl-sp__thumbnail--card': mediaSize && layout === 'card',
 		'ccl-sp__thumbnail--list': mediaSize && layout === 'list',
-	})
+	};
 };
