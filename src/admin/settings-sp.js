@@ -9,11 +9,11 @@ export const SettingsSp = ( settings , setSettings ) => {
 			<h2>レスポンシブ設定</h2>
 			<div className='ccl-admin__inputs'>
 				<RangeControl
-				label='ブレークポイント（px）'
-				value={ settings.breakpoint }
-				onChange={ ( value ) => setSettings({...settings, breakpoint: value }) }
-				min={ 200 }
-				max={ 1200 }
+					label='ブレークポイント（px）'
+					value={ settings.breakpoint }
+					onChange={ ( value ) => setSettings({...settings, breakpoint: value }) }
+					min={ 200 }
+					max={ 1200 }
 				/>
 			</div>
 			<h2>デザイン設定（スマホサイズ）</h2>
@@ -60,11 +60,11 @@ export const SettingsSp = ( settings , setSettings ) => {
 						max={ 30 }
 					/>
 					<RangeControl
-					label='説明文字サイズ'
-					value={ settings.descriptionFontSizeSp }
-					onChange={ ( value ) => setSettings({...settings, descriptionFontSizeSp: value }) }
-					min={ 10 }
-					max={ 30 }
+						label='説明文字サイズ'
+						value={ settings.descriptionFontSizeSp }
+						onChange={ ( value ) => setSettings({...settings, descriptionFontSizeSp: value }) }
+						min={ 10 }
+						max={ 30 }
 					/>
 					<RangeControl
 						label='タイトルの最大文字数'
@@ -74,11 +74,11 @@ export const SettingsSp = ( settings , setSettings ) => {
 						max={ 60 }
 					/>
 					<RangeControl
-					label='説明の最大文字数'
-					value={ settings.descriptionNumOfCharSp }
-					onChange={ ( value ) => setSettings({...settings, descriptionNumOfCharSp: value }) }
-					min={ 0 }
-					max={ 200 }
+						label='説明の最大文字数'
+						value={ settings.descriptionNumOfCharSp }
+						onChange={ ( value ) => setSettings({...settings, descriptionNumOfCharSp: value }) }
+						min={ 0 }
+						max={ 200 }
 					/>
 					<RangeControl
 						label='サムネイルとタイトルおよび説明の間の余白'

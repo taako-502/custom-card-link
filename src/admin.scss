@@ -100,12 +100,20 @@
 	&__container {
 		display: flex;
 
+		.ccl-admin__inputs {
+			width: 50%;
+			padding-right: 1em;
+			padding-left: 1em;
+		}
+
 		@media screen and (max-width: 520px) {
 			display: block;
 
-			> .ccl-admin__inputs {
+			.ccl-admin__inputs {
 				max-width: none;
 				width: 100%;
+				padding-right: 0;
+				padding-left: 0;
 			}
 		}
 	}
