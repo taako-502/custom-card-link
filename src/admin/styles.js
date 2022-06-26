@@ -3,7 +3,6 @@
  *
  * @param {boolean} mediaSize
  * @param {Object}  settings
- * @return {Object}
  */
 export const makeStyles = ( mediaSize, settings ) => {
 	let styles = { top: 0 };
@@ -48,7 +47,6 @@ export const makeStyles = ( mediaSize, settings ) => {
  *
  * @param {boolean} mediaSize
  * @param {Object}  settings
- * @return {Object}
  */
 export const makeHoverdStyles = ( mediaSize, settings ) => {
 	const styles = {
@@ -73,7 +71,6 @@ export const makeHoverdStyles = ( mediaSize, settings ) => {
  * @param {boolean} mediaSize
  * @param {Object}  settings
  * @param {Object}  styles
- * @return {typObjecte}
  */
 const sharedStyle = ( mediaSize, settings, styles ) => {
 	if ( ! mediaSize ) {

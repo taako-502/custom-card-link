@@ -4,6 +4,8 @@ import { Hover } from './settings-hover.js';
 import { RadioControl, RangeControl, ColorPicker } from '@wordpress/components';
 
 export const SettingsPc = ( settings, setSettings ) => {
+	const React = require( 'react' );
+
 	return (
 		<React.Fragment>
 			<h2>デザイン設定</h2>

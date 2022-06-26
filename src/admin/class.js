@@ -3,7 +3,6 @@
  *
  * @param {string} mediaSize
  * @param {Object} settings
- * @return {Object}
  */
 export const getCclClass = ( mediaSize, settings ) => {
 	const layout = ! mediaSize ? settings.layout : settings.layoutSp;

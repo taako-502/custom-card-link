@@ -3,6 +3,8 @@ import { Button } from '@wordpress/components';
 import { setStandardDesignCard, setStandardDesignList } from './design.js';
 
 export const Buttons = ( props ) => {
+	const React = require( 'react' );
+
 	return (
 		<React.Fragment>
 			<Button isPrimary onClick={ props.dataSave }>

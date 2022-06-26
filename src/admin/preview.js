@@ -2,8 +2,6 @@ import thumbnail from './../../asset/img/thumbnail.jpg';
 import { getCclClass, getSlcThumbnailClass } from './class.js';
 import { makeStyles, makeHoverdStyles } from './styles.js';
 
-import { useState } from '@wordpress/element';
-
 import classnames from 'classnames';
 
 export const Preview = ( mediaSize, settings, isHover, setIsHover ) => {

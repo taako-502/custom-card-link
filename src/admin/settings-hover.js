@@ -3,6 +3,8 @@ import { styleDisplayNone } from './visibility.js';
 import { RadioControl, RangeControl, ColorPicker } from '@wordpress/components';
 
 export const Hover = ( settings, setSettings ) => {
+	const React = require( 'react' );
+
 	return (
 		<React.Fragment>
 			<h2 className="u-marign-bottom--0">

@@ -2,6 +2,7 @@ import './admin.scss';
 import 'react-notifications-component/dist/theme.css';
 
 import { settingNotification } from './admin/settingNotification.js';
+import { setStandardDesignCard } from './admin/design.js';
 import { Preview } from './admin/preview.js';
 import { Buttons } from './admin/buttons.js';
 import { SettingsPc } from './admin/settings-pc.js';
@@ -17,6 +18,7 @@ import { ReactNotifications } from 'react-notifications-component';
  * 管理画面
  */
 const Admin = () => {
+	const React = require( 'react' );
 	//設定値
 	const [ settings, setSettings ] = useState( {} );
 	const [ isHover, setIsHover ] = useState( false );
@@ -191,7 +193,7 @@ const Admin = () => {
 					hover_shadow_color: settings.hoverShadowColor,
 				},
 			} );
-			const save = settingNotification( model );
+			settingNotification( model );
 		} );
 	};
 

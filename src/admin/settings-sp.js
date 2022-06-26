@@ -1,9 +1,10 @@
 import { styleDisplayNone } from './visibility.js';
-import { Hover } from './settings-hover.js';
 
 import { RadioControl, RangeControl, ColorPicker } from '@wordpress/components';
 
 export const SettingsSp = ( settings, setSettings ) => {
+	const React = require( 'react' );
+
 	return (
 		<React.Fragment>
 			<h2>レスポンシブ設定</h2>

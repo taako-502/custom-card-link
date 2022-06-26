@@ -4,11 +4,10 @@ import { Store } from 'react-notifications-component';
  * react-notifications-componentのメッセージ設定
  *
  * @param {Object} model
- * @return {Object}
  */
 export const settingNotification = ( model ) => {
 	const save = model.save();
-	save.success( ( response, status ) => {
+	save.success( () => {
 		Store.addNotification( {
 			title: 'Success!',
 			message: '入力内容を保存しました。',
@@ -23,7 +22,7 @@ export const settingNotification = ( model ) => {
 			},
 		} );
 	} );
-	save.error( ( response, status ) => {
+	save.error( () => {
 		Store.addNotification( {
 			title: 'Error!',
 			message: '入力内容を保存できませんでした。',
@@ -38,5 +37,4 @@ export const settingNotification = ( model ) => {
 			},
 		} );
 	} );
-	return save;
 };
