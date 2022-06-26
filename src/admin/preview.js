@@ -33,7 +33,7 @@ export const Preview = ( mediaSize, settings, isHover, setIsHover ) => {
 		: settings.descriptionNumOfCharSp;
 	//プレビューのカード型リンクにホバーしている時true
 	return (
-		<a
+		<div
 			className={ classnames( cclClass ) }
 			style={
 				isHover && settings.hover !== 'none' ? hoverdStyles : styles
@@ -50,6 +50,7 @@ export const Preview = ( mediaSize, settings, isHover, setIsHover ) => {
 			<img
 				className={ classnames( cclThumbnailClass ) }
 				src={ thumbnail }
+				alt=""
 			/>
 			<div
 				className="ccl__info"
@@ -96,7 +97,7 @@ export const Preview = ( mediaSize, settings, isHover, setIsHover ) => {
 					) }
 				</p>
 			</div>
-		</a>
+		</div>
 	);
 };
 
