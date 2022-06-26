@@ -7,8 +7,8 @@ export const Hover = ( settings , setSettings ) => {
 		<React.Fragment>
 			<h2 className="u-marign-bottom--0">カスタムリンクカードをホバーした時のデザインや動作</h2>
 			<p className="u-marign-top--4px">PCサイズとスマホサイズで共通の設定です。</p>
-			<div className='u-display--flex'>
-				<div className='u-width--50-percent'>
+			<div className='ccl-admin__container'>
+				<div className='ccl-admin__inputs'>
 					<RadioControl
 						label='ホバー時の動作'
 						help='リンクカードをホバーした際の動作'
@@ -33,7 +33,7 @@ export const Hover = ( settings , setSettings ) => {
 					/>
 				</div>
 				<div
-					className='u-width--50-percent'
+					className='ccl-admin__inputs'
 					style={ styleDisplayNone( settings.hoverUse ) }
 				>
 					<RangeControl

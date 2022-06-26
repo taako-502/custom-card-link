@@ -7,7 +7,7 @@ export const SettingsSp = ( settings , setSettings ) => {
 	return (
 		<React.Fragment>
 			<h2>レスポンシブ設定</h2>
-			<div className='u-width--50-percent'>
+			<div className='ccl-admin__inputs'>
 				<RangeControl
 				label='ブレークポイント（px）'
 				value={ settings.breakpoint }
@@ -17,8 +17,8 @@ export const SettingsSp = ( settings , setSettings ) => {
 				/>
 			</div>
 			<h2>デザイン設定（スマホサイズ）</h2>
-			<div className='u-display--flex'>
-				<div className='u-width--50-percent'>
+			<div className='ccl-admin__container'>
+				<div className='ccl-admin__inputs'>
 					<RadioControl
 						label='レイアウトデザイン'
 						help='デザインのレイアウトを決めます。'
@@ -51,7 +51,7 @@ export const SettingsSp = ( settings , setSettings ) => {
 						max={ 15 }
 					/>
 				</div>
-				<div className='u-width--50-percent'>
+				<div className='ccl-admin__inputs'>
 					<RangeControl
 						label='タイトル文字サイズ'
 						value={ settings.titleFontSizeSp }
@@ -97,8 +97,8 @@ export const SettingsSp = ( settings , setSettings ) => {
 				</div>
 			</div>
 			<h2>影（スマホサイズ）</h2>
-			<div className='u-display--flex'>
-				<div className='u-width--50-percent'>
+			<div className='ccl-admin__container'>
+				<div className='ccl-admin__inputs'>
 					<RadioControl
 						label='影の有無'
 						selected={ settings.shadowUseSp }
@@ -122,7 +122,7 @@ export const SettingsSp = ( settings , setSettings ) => {
 					/>
 				</div>
 				<div
-					className='u-width--50-percent'
+					className='ccl-admin__inputs'
 					style={ styleDisplayNone( settings.shadowUseSp ) }
 				>
 					<RangeControl

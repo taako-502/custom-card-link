@@ -6,7 +6,12 @@
 	max-width: 800px;
 	width: 100%;
 	background: #fff;
+	box-sizing: border-box;
 	box-shadow: 4px 4px 5px 5px rgba(0, 0, 0, 5%);
+
+	@media screen and (max-width: 800px) {
+		max-width: none;
+	}
 
 	h1 {
 		padding: 0.4em 0 0.4em 0.4em;
@@ -21,6 +26,10 @@
 			width: 580px;
 			height: 2px;
 			background: #ff0060;
+
+			@media screen and (max-width: 800px) {
+				width: 80%;
+			}
 		}
 	}
 
@@ -32,6 +41,10 @@
 		padding: 1em 0.8em;
 		display: flex;
 
+		@media screen and (max-width: 782px) {
+			display: block;
+		}
+
 		h2 {
 			display: block;
 			width: 100px;
@@ -41,6 +54,11 @@
 	&__info {
 		position: relative;
 
+		@media screen and (max-width: 782px) {
+			margin-bottom: 1em;
+			height: 66px;
+		}
+
 		.components-base-control {
 			position: absolute;
 			bottom: 0;
@@ -48,7 +66,7 @@
 			margin-top: auto;
 
 			&__field ,
-			&__help{
+			&__help {
 				margin-top: 0;
 				margin-bottom: 0;
 			}
@@ -60,7 +78,6 @@
 	}
 
 	&__settings {
-
 		h2 {
 			margin-top: 2.6em;
 			position: relative;
@@ -72,7 +89,33 @@
 				width: 560px;
 				height: 1px;
 				background: #ff0060;
+
+				@media screen and (max-width: 800px) {
+					width: 100%;
+				}
 			}
 		}
+	}
+
+	&__container {
+		display: flex;
+
+		@media screen and (max-width: 520px) {
+			display: block;
+
+			> .ccl-admin__inputs {
+				max-width: none;
+				width: 100%;
+			}
+		}
+	}
+}
+
+#wpcontent {
+	@media screen and (max-width: 960px) {
+		padding: 20px;
+	}
+	@media screen and (max-width: 782px) {
+		padding: 10px;
 	}
 }

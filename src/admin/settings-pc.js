@@ -7,8 +7,8 @@ export const SettingsPc = ( settings , setSettings ) => {
 	return (
 		<React.Fragment>
 			<h2>デザイン設定</h2>
-			<div className='u-display--flex'>
-				<div className='u-width--50-percent'>
+			<div className='ccl-admin__container'>
+				<div className='ccl-admin__inputs'>
 					<RadioControl
 						label='レイアウトデザイン'
 						help='デザインのレイアウトを決めます。'
@@ -41,7 +41,7 @@ export const SettingsPc = ( settings , setSettings ) => {
 						max={ 15 }
 					/>
 				</div>
-				<div className='u-width--50-percent'>
+				<div className='ccl-admin__inputs'>
 					<RangeControl
 						label='タイトル文字サイズ'
 						value={ settings.titleFontSize }
@@ -87,8 +87,8 @@ export const SettingsPc = ( settings , setSettings ) => {
 				</div>
 			</div>
 			<h2>影</h2>
-			<div className='u-display--flex'>
-				<div className='u-width--50-percent'>
+			<div className='ccl-admin__container'>
+				<div className='ccl-admin__inputs'>
 					<RadioControl
 						label='影の有無'
 						selected={ settings.shadowUse }
@@ -112,7 +112,7 @@ export const SettingsPc = ( settings , setSettings ) => {
 					/>
 				</div>
 				<div
-					className='u-width--50-percent'
+					className='ccl-admin__inputs'
 					style={ styleDisplayNone( settings.shadowUse ) }
 				>
 					<RangeControl
