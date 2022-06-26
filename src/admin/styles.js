@@ -13,7 +13,7 @@ export const makeStyles = ( mediaSize , settings ) => {
 				? 'none'
 				: settings.shadowOffsetX + 'px ' + settings.shadowOffsetY + 'px ' + settings.shadowBlurRadius + 'px '
 					+ settings.shadowSpreadRadius + 'px ' + settings.shadowColor,
-		}
+		};
 	} else {
 		styles = {
 			...styles,
@@ -21,7 +21,7 @@ export const makeStyles = ( mediaSize , settings ) => {
 				? 'none'
 				: settings.shadowOffsetXSp + 'px ' + settings.shadowOffsetYSp + 'px ' + settings.shadowBlurRadiusSp + 'px '
 					+ settings.shadowSpreadRadiusSp + 'px ' + settings.shadowColorSp,
-		}
+		};
 	}
 	return sharedStyle( mediaSize , settings , styles );
 }
@@ -37,7 +37,7 @@ export const makeHoverdStyles = ( mediaSize , settings ) => {
 		top: -1 * settings.hoverTop,
 		boxShadow: settings.hoverShadowOffsetX + 'px ' + settings.hoverShadowOffsetY + 'px ' + settings.hoverShadowBlurRadius + 'px '
 			+ settings.hoverShadowSpreadRadius + 'px ' + settings.hoverShadowColor,
-	}
+	};
 	return sharedStyle( mediaSize , settings , styles );
 }
 
@@ -54,13 +54,13 @@ const sharedStyle = ( mediaSize , settings , styles ) => {
 			...styles,
 			padding: settings.padding + 'px',
 			maxWidth: settings.maxWidth + 'px',
-		}
+		};
 	} else {
 		styles = {
 			...styles,
 			padding: settings.paddingSp + 'px',
 			maxWidth: settings.maxWidthSp + 'px',
-		}
+		};
 	}
 	return styles;
 }

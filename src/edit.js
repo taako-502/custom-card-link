@@ -8,8 +8,8 @@ export default function Edit( { attributes, setAttributes } ) {
 	return (
 		<div { ...blockProps }>
 			<ServerSideRender
-				block={metadata.name}
-				attributes={attributes}
+				block={ metadata.name }
+				attributes={ attributes }
 			/>
 			<TextControl
 				value={ attributes.url }
