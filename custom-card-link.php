@@ -4,7 +4,7 @@ Namespace Ccl_Plugin;
 Plugin Name: Custom Card Link
 Plugin URI: https://github.com/taako-502/custom-card-link
 Description: 外部リンクを表示するGutenbergブロック
-Version: 20220613
+Version: 1.0.0
 Author: Takao
 Author URI: https://github.com/taako-502
 License: GPL2
