@@ -1,25 +1,25 @@
 === Custom Card Link ===
-Contributors:      The WordPress Contributors
+Contributors:      takao502
 Tags:              block
 Tested up to:      6.0
 Stable tag:        1.0.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
+Requires at least: 6.0
+Requires PHP:      8.0
 
-A Gutenberg block to show your pride! This block enables you to type text and style it with the color font Gilbert from Type with Pride.
+You can enjoy customizing card-type external links.
 
 == Description ==
 
-This is the long description. No limit, and you can use Markdown (as well as in the following sections).
-
-For backwards compatibility, if this section is missing, the full length of the short description will be used, and
-Markdown parsed.
+You can enjoy customizing card-type external links.
+e.g.
+- choose between card and list
+- adjust margin
+- add shadow
+- setting movement when hovering the mouse
 
 == Installation ==
-
-This section describes how to install the plugin and get it working.
-
-e.g.
 
 1. Upload the plugin files to the `/wp-content/plugins/custom-card-link` directory, or install the plugin through the WordPress plugins screen directly.
 1. Activate the plugin through the 'Plugins' screen in WordPress
@@ -27,13 +27,9 @@ e.g.
 
 == Frequently Asked Questions ==
 
-= A question that someone might have =
+= FAQ will be added later =
 
-An answer to that question.
-
-= What about foo bar? =
-
-Answer to foo bar dilemma.
+FAQ will be added later
 
 == Screenshots ==
 
@@ -45,11 +41,10 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 
 == Changelog ==
 
-= 0.1.0 =
+= 1.0.0 =
 * Release
 
-== Arbitrary section ==
+== Upgrade Notice ==
 
-You may provide arbitrary sections, in the same format as the ones above. This may be of use for extremely complicated
-plugins where more information needs to be conveyed that doesn't fit into the categories of "description" or
-"installation." Arbitrary sections will be shown below the built-in sections outlined above.
+= 1.0.0 =
+Initial Release
