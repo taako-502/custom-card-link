@@ -1,0 +1,35 @@
+name: SVN Commit
+
+env:
+  secrets: $(file secrets.json)
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  svn-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install SVN client
+        run: sudo apt-get install subversion
+
+      - name: Set up SVN client
+        run: |
+          echo "[auth]" > ~/.subversion/servers
+          echo "password-stores =" >> ~/.subversion/servers
+          echo "store-plaintext-passwords = no" >> ~/.subversion/servers
+          echo "username = ${secrets.username}" > ~/.subversion/auth
+          echo "password = ${secrets.password}" >> ~/.subversion/auth
+          echo "store-passwords = no" >> ~/.subversion/auth
+
+      - name: Commit changes to SVN
+        run: |
+          svn add file.txt
+          svn commit -m "commit message" --no-auth-cache --non-interactive
+        env:
+          SVN_CONFIG_DIR: "./"
