@@ -29,12 +29,14 @@ jobs:
         run: |
           cd ~
           mkdir custom-card-link
-          svn checkout https://plugins.svn.wordpress.org/custom-card-link custom-card-link
           cd custom-card-link
+          svn checkout https://plugins.svn.wordpress.org/custom-card-link .
 
       - name: Commit changes to SVN
         run: |
-          svn add . --force
+          cp ${{ github.workspace }} ~/custom-card-link/trunk
+          cd ~/custom-card-link/trunk
+          svn add * --force
           svn commit -m "commit message" https://plugins.svn.wordpress.org/custom-card-link --no-auth-cache --non-interactive
         env:
           SVN_CONFIG_DIR: "./"
