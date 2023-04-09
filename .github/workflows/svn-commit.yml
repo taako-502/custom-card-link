@@ -35,6 +35,7 @@ jobs:
       - name: Commit changes to SVN
         run: |
           cp ${{ github.workspace }} ~/custom-card-link/trunk
+          cp -r ${{ github.workspace }}/* ~/custom-card-link/trunk/
           cd ~/custom-card-link/trunk
           svn add * --force
           svn commit -m "commit message" https://plugins.svn.wordpress.org/custom-card-link --no-auth-cache --non-interactive
