@@ -17,6 +17,7 @@ jobs:
 
       - name: Set up SVN client
         run: |
+          mkdir -p ~/.subversion
           echo "[auth]" > ~/.subversion/servers
           echo "password-stores =" >> ~/.subversion/servers
           echo "store-plaintext-passwords = no" >> ~/.subversion/servers
