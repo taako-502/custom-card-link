@@ -25,9 +25,16 @@ jobs:
           echo "password = ${{ secrets.SVN_PASSWORD }}" >> ~/.subversion/auth
           echo "store-passwords = no" >> ~/.subversion/auth
 
+      - name: Checkout svn
+        run: |
+          cd ~
+          mkdir custom-card-link
+          svn checkout https://plugins.svn.wordpress.org/custom-card-link custom-card-link
+          cd custom-card-link
+
       - name: Commit changes to SVN
         run: |
-          svn add file.txt
+          svn add . --force
           svn commit -m "commit message" https://plugins.svn.wordpress.org/custom-card-link --no-auth-cache --non-interactive
         env:
           SVN_CONFIG_DIR: "./"
