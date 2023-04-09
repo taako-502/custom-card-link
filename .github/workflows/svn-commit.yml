@@ -1,8 +1,5 @@
 name: SVN Commit
 
-env:
-  secrets: $(file secrets.json)
-
 on:
   push:
     branches:
@@ -23,13 +20,15 @@ jobs:
           echo "[auth]" > ~/.subversion/servers
           echo "password-stores =" >> ~/.subversion/servers
           echo "store-plaintext-passwords = no" >> ~/.subversion/servers
-          echo "username = ${secrets.username}" > ~/.subversion/auth
-          echo "password = ${secrets.password}" >> ~/.subversion/auth
+          echo "username = ${{ secrets.SVN_USERNAME }}" > ~/.subversion/auth
+          echo "password = ${{ secrets.SVN_PASSWORD }}" >> ~/.subversion/auth
           echo "store-passwords = no" >> ~/.subversion/auth
 
       - name: Commit changes to SVN
         run: |
           svn add file.txt
-          svn commit -m "commit message" --no-auth-cache --non-interactive
+          svn commit -m "commit message" https://plugins.svn.wordpress.org/custom-card-link --no-auth-cache --non-interactive
         env:
           SVN_CONFIG_DIR: "./"
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
