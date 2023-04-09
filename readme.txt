@@ -1,8 +1,8 @@
 === Custom Card Link ===
-Contributors:      takao502
+Contributors:      Takao
 Tags:              block
-Tested up to:      6.0
-Stable tag:        1.0.0
+Tested up to:      6.2
+Stable tag:        1.0.1
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 6.0

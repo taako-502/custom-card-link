@@ -8,7 +8,7 @@ import { Buttons } from './admin/buttons.js';
 import { SettingsPc } from './admin/settings-pc.js';
 import { SettingsSp } from './admin/settings-sp.js';
 
-import { render, useState, useLayoutEffect } from '@wordpress/element';
+import { createRoot, useState, useLayoutEffect } from '@wordpress/element';
 import { ToggleControl } from '@wordpress/components';
 import api from '@wordpress/api';
 
@@ -246,4 +246,6 @@ const Admin = () => {
 	);
 };
 
-render( <Admin />, document.getElementById( 'ccl-admin' ) );
+// AdminコンポーネントをルートDOMにレンダリング
+const root = createRoot(document.getElementById('ccl-admin'));
+root.render (<Admin />);
