@@ -37,7 +37,7 @@ jobs:
           cp -r ${{ github.workspace }}/. ~/custom-card-link/trunk/
           cd ~/custom-card-link/trunk
           svn add * --force
-          svn commit -m "commit message" --no-auth-cache --non-interactive
+          svn commit -m "commit message" --no-auth-cache --non-interactive --username ${{ secrets.SVN_USERNAME }} --password ${{ secrets.SVN_PASSWORD }}
         env:
           SVN_CONFIG_DIR: "./"
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
