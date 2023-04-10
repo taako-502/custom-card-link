@@ -18,7 +18,8 @@ jobs:
         sudo apt-get install -y subversion
         wget https://subgit.com/files/subgit-3.3.11.zip
         unzip subgit-3.3.11.zip
-        export PATH=$PATH:$PWD/subgit-3.3.11/bin
+        sudo mv subgit-3.3.11/bin/subgit /usr/local/bin
+        sudo chmod +x /usr/local/bin/subgit
 
     - name: Configure Git-SVN
       run: |
