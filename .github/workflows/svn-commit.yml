@@ -9,36 +9,28 @@ jobs:
   svn-commit:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+    - name: Checkout Git repository
+      uses: actions/checkout@v3
 
-      - name: Install SVN client
-        run: sudo apt-get install subversion
+    - name: Install Subversion and SubGit
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y subversion
+        wget https://subgit.com/files/subgit-3.3.11.zip
+        unzip subgit-3.3.11.zip
+        export PATH=$PATH:$PWD/subgit-3.3.11/bin
 
-      - name: Set up SVN client
-        run: |
-          mkdir -p ~/.subversion
-          echo "[auth]" > ~/.subversion/servers
-          echo "password-stores =" >> ~/.subversion/servers
-          echo "store-plaintext-passwords = no" >> ~/.subversion/servers
-          echo "username = ${{ secrets.SVN_USERNAME }}" > ~/.subversion/auth
-          echo "password = ${{ secrets.SVN_PASSWORD }}" >> ~/.subversion/auth
-          echo "store-passwords = no" >> ~/.subversion/auth
+    - name: Configure Git-SVN
+      run: |
+        subgit configure --svn-url https://plugins.svn.wordpress.org/custom-card-link --trunk main --layout auto --authors-file AUTHORS.txt --non-interactive git-svn
+        echo "password = ${{ secrets.SVN_PASSWORD }}" >> git-svn/subgit/passwd
+        echo "username = ${{ secrets.SVN_USERNAME }}" >> git-svn/subgit/passwd
+        echo "sslVerify = false" >> git-svn/subgit/config
+        subgit install git-svn
 
-      - name: Checkout svn
-        run: |
-          cd ~
-          mkdir custom-card-link
-          cd custom-card-link
-          svn checkout https://plugins.svn.wordpress.org/custom-card-link .
-
-      - name: Commit changes to SVN
-        run: |
-          cp -r ${{ github.workspace }}/. ~/custom-card-link/trunk/
-          cd ~/custom-card-link/trunk
-          svn add * --force
-          svn commit -m "commit message" --no-auth-cache --non-interactive --username ${{ secrets.SVN_USERNAME }} --password ${{ secrets.SVN_PASSWORD }}
-        env:
-          SVN_CONFIG_DIR: "./"
-          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
-          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+    - name: Sync with SVN
+      run: |
+        cd git-svn
+        git fetch origin
+        git merge origin/main
+        git svn dcommit
