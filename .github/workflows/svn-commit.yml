@@ -36,8 +36,7 @@ jobs:
       run: |
         cd git-svn
         git remote add origin https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
-        git fetch origin
-        git merge origin/main
+        git pull
         git svn dcommit
 
     - name: Sync with SVN
