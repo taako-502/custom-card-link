@@ -32,6 +32,14 @@ jobs:
         echo "authorsFile = AUTHORS.txt" >> git-svn/subgit/config
         subgit install git-svn
 
+    - name: Fetch and merge changes from origin
+      run: |
+        cd git-svn
+        git remote add origin https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+        git fetch origin
+        git merge origin/main
+        git svn dcommit
+
     - name: Sync with SVN
       run: |
         cd git-svn
