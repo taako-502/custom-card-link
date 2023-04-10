@@ -1,47 +1,17 @@
-name: SVN Commit
-
+name: Deploy to WordPress.org
 on:
   push:
-    branches:
-      - main
-
+    tags:
+      - "*"
 jobs:
-  svn-commit:
+  tag:
+    name: New tag
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout Git repository
-      uses: actions/checkout@v3
-
-    - name: Install Subversion, SubGit, and Java
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y subversion openjdk-11-jdk
-        wget https://subgit.com/files/subgit-3.3.11.zip
-        unzip subgit-3.3.11.zip
-        sudo mv subgit-3.3.11 /opt/subgit
-        sudo chmod +x /opt/subgit/bin/subgit
-
-    - name: Configure Git-SVN
-      run: |
-        export JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64"
-        export PATH="/opt/subgit/bin:$PATH"
-        subgit configure --svn-url https://plugins.svn.wordpress.org/custom-card-link --trunk trunk --layout auto git-svn
-        echo "password = ${{ secrets.SVN_PASSWORD }}" >> git-svn/subgit/passwd
-        echo "username = ${{ secrets.SVN_USERNAME }}" >> git-svn/subgit/passwd
-        echo "sslVerify = false" >> git-svn/subgit/config
-        echo "authorsFile = AUTHORS.txt" >> git-svn/subgit/config
-        subgit install git-svn
-
-    - name: Fetch and merge changes from origin
-      run: |
-        cd git-svn
-        git remote add origin https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
-        git pull
-        git svn dcommit
-
-    - name: Sync with SVN
-      run: |
-        cd git-svn
-        git fetch origin
-        git merge origin/main
-        git svn dcommit
+    - uses: actions/checkout@master
+    - name: WordPress Plugin Deploy
+      uses: 10up/action-wordpress-plugin-deploy@1.5.0
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+        SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
