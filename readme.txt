@@ -1,5 +1,5 @@
 === Custom Card Link ===
-Contributors:      Takao
+Contributors:      takao502
 Tags:              block
 Tested up to:      6.2
 Stable tag:        1.0.1
