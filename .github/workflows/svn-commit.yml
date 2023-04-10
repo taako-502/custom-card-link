@@ -10,6 +10,9 @@ jobs:
     steps:
     - uses: actions/checkout@master
 
+    - name: Git config
+      run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
     - name: WordPress Plugin Deploy
       uses: 10up/action-wordpress-plugin-deploy@1.5.0
       with:
