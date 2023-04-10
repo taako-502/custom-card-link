@@ -18,12 +18,13 @@ jobs:
         sudo apt-get install -y subversion openjdk-11-jdk
         wget https://subgit.com/files/subgit-3.3.11.zip
         unzip subgit-3.3.11.zip
-        sudo mv subgit-3.3.11/bin/subgit /usr/local/bin
-        sudo chmod +x /usr/local/bin/subgit
+        sudo mv subgit-3.3.11 /opt/subgit
+        sudo chmod +x /opt/subgit/bin/subgit
 
     - name: Configure Git-SVN
       run: |
         export JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64"
+        export PATH="/opt/subgit/bin:$PATH"
         subgit configure --svn-url https://plugins.svn.wordpress.org/custom-card-link --trunk main --layout auto --authors-file AUTHORS.txt --non-interactive git-svn
         echo "password = ${{ secrets.SVN_PASSWORD }}" >> git-svn/subgit/passwd
         echo "username = ${{ secrets.SVN_USERNAME }}" >> git-svn/subgit/passwd
