@@ -12,10 +12,10 @@ jobs:
     - name: Checkout Git repository
       uses: actions/checkout@v3
 
-    - name: Install Subversion and SubGit
+    - name: Install Subversion, SubGit, and Java
       run: |
         sudo apt-get update
-        sudo apt-get install -y subversion
+        sudo apt-get install -y subversion openjdk-11-jdk
         wget https://subgit.com/files/subgit-3.3.11.zip
         unzip subgit-3.3.11.zip
         sudo mv subgit-3.3.11/bin/subgit /usr/local/bin
@@ -23,6 +23,7 @@ jobs:
 
     - name: Configure Git-SVN
       run: |
+        export JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64"
         subgit configure --svn-url https://plugins.svn.wordpress.org/custom-card-link --trunk main --layout auto --authors-file AUTHORS.txt --non-interactive git-svn
         echo "password = ${{ secrets.SVN_PASSWORD }}" >> git-svn/subgit/passwd
         echo "username = ${{ secrets.SVN_USERNAME }}" >> git-svn/subgit/passwd
