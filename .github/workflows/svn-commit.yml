@@ -29,7 +29,8 @@ jobs:
         echo "password = ${{ secrets.SVN_PASSWORD }}" >> git-svn/subgit/passwd
         echo "username = ${{ secrets.SVN_USERNAME }}" >> git-svn/subgit/passwd
         echo "sslVerify = false" >> git-svn/subgit/config
-        subgit install --authors-file AUTHORS.txt git-svn
+        echo "authorsFile = AUTHORS.txt" >> git-svn/subgit/config
+        subgit install git-svn
 
     - name: Sync with SVN
       run: |
