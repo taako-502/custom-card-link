@@ -25,11 +25,11 @@ jobs:
       run: |
         export JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64"
         export PATH="/opt/subgit/bin:$PATH"
-        subgit configure --svn-url https://plugins.svn.wordpress.org/custom-card-link --trunk main --layout auto --authors-file AUTHORS.txt --non-interactive git-svn
+        subgit configure --svn-url https://plugins.svn.wordpress.org/custom-card-link --trunk main --layout auto --non-interactive git-svn
         echo "password = ${{ secrets.SVN_PASSWORD }}" >> git-svn/subgit/passwd
         echo "username = ${{ secrets.SVN_USERNAME }}" >> git-svn/subgit/passwd
         echo "sslVerify = false" >> git-svn/subgit/config
-        subgit install git-svn
+        subgit install --authors-file AUTHORS.txt git-svn
 
     - name: Sync with SVN
       run: |
