@@ -10,5 +10,5 @@ currently being supported with security updates.
 | 1.0.0   | Initial commit |
 
 ## Reporting a Vulnerability
-Send message please.
+Send message please.<br>
 https://ap-ep.com/inquiry/
