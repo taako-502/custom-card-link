@@ -14,6 +14,7 @@ You can create flexible and customizable card-style external links.
 
 You can create flexible and customizable card-style external links.
 For Example
+
 * Choosing between a card or list layout
 * Adjusting the margin (spacing around the element)
 * Adding a shadow effect to the card or list
@@ -35,7 +36,6 @@ It’s open source following the GPL policy.
 
 = If you find bags =
 
-Send me massage to me on this [form](https://hepere.com/inquiry/).
 Please send me a message through this [form](https://hepere.com/inquiry/).
 
 == Screenshots ==
@@ -45,9 +45,11 @@ Please send me a message through this [form](https://hepere.com/inquiry/).
 == Changelog ==
 
 = 1.0.0 =
+
 * Release
 
 == Upgrade Notice ==
 
 = 1.0.0 =
+
 Initial Release
