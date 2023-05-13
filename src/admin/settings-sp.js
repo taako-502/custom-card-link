@@ -7,10 +7,10 @@ export const SettingsSp = ( settings, setSettings ) => {
 
 	return (
 		<React.Fragment>
-			<h2>レスポンシブ設定</h2>
+			<h2>{ __( 'レスポンシブ設定', 'ccl-plugin' ) }</h2>
 			<div className="ccl-admin__inputs">
 				<RangeControl
-					label="ブレークポイント（px）"
+					label={ __( 'ブレークポイント（px）', 'ccl-plugin' ) }
 					value={ settings.breakpoint }
 					onChange={ ( value ) =>
 						setSettings( { ...settings, breakpoint: value } )
@@ -19,7 +19,7 @@ export const SettingsSp = ( settings, setSettings ) => {
 					max={ 1200 }
 				/>
 			</div>
-			<h2>デザイン設定（スマホサイズ）</h2>
+			<h2>{ __( 'デザイン設定（スマホサイズ）', 'ccl-plugin' ) }</h2>
 			<div className="ccl-admin__container">
 				<div className="ccl-admin__inputs">
 					<RadioControl
@@ -30,15 +30,21 @@ export const SettingsSp = ( settings, setSettings ) => {
 						) }
 						selected={ settings.layoutSp }
 						options={ [
-							{ label: 'カード型', value: 'card' },
-							{ label: 'リスト型', value: 'list' },
+							{
+								label: __( 'カード型', 'ccl-plugin' ),
+								value: 'card',
+							},
+							{
+								label: __( 'リスト型', 'ccl-plugin' ),
+								value: 'list',
+							},
 						] }
 						onChange={ ( value ) =>
 							setSettings( { ...settings, layoutSp: value } )
 						}
 					/>
 					<RangeControl
-						label="最大横幅"
+						label={ __( '最大横幅', 'ccl-plugin' ) }
 						value={ settings.maxWidthSp }
 						onChange={ ( value ) =>
 							setSettings( { ...settings, maxWidthSp: value } )
@@ -47,7 +53,7 @@ export const SettingsSp = ( settings, setSettings ) => {
 						max={ 1200 }
 					/>
 					<RangeControl
-						label="内側の余白"
+						label={ __( '内側の余白', 'ccl-plugin' ) }
 						value={ settings.paddingSp }
 						onChange={ ( value ) =>
 							setSettings( { ...settings, paddingSp: value } )
@@ -56,7 +62,7 @@ export const SettingsSp = ( settings, setSettings ) => {
 						max={ 40 }
 					/>
 					<RangeControl
-						label="角の丸さ（px）"
+						label={ __( '角の丸さ（px）', 'ccl-plugin' ) }
 						value={ settings.borderRadiusSp }
 						onChange={ ( value ) =>
 							setSettings( {
@@ -70,7 +76,7 @@ export const SettingsSp = ( settings, setSettings ) => {
 				</div>
 				<div className="ccl-admin__inputs">
 					<RangeControl
-						label="タイトル文字サイズ"
+						label={ __( 'タイトル文字サイズ', 'ccl-plugin' ) }
 						value={ settings.titleFontSizeSp }
 						onChange={ ( value ) =>
 							setSettings( {
@@ -82,7 +88,7 @@ export const SettingsSp = ( settings, setSettings ) => {
 						max={ 30 }
 					/>
 					<RangeControl
-						label="説明文字サイズ"
+						label={ __( '説明文字サイズ', 'ccl-plugin' ) }
 						value={ settings.descriptionFontSizeSp }
 						onChange={ ( value ) =>
 							setSettings( {
@@ -94,7 +100,7 @@ export const SettingsSp = ( settings, setSettings ) => {
 						max={ 30 }
 					/>
 					<RangeControl
-						label="タイトルの最大文字数"
+						label={ __( 'タイトルの最大文字数', 'ccl-plugin' ) }
 						value={ settings.titleNumOfCharSp }
 						onChange={ ( value ) =>
 							setSettings( {
@@ -106,7 +112,7 @@ export const SettingsSp = ( settings, setSettings ) => {
 						max={ 60 }
 					/>
 					<RangeControl
-						label="説明の最大文字数"
+						label={ __( '説明の最大文字数', 'ccl-plugin' ) }
 						value={ settings.descriptionNumOfCharSp }
 						onChange={ ( value ) =>
 							setSettings( {
@@ -118,7 +124,10 @@ export const SettingsSp = ( settings, setSettings ) => {
 						max={ 200 }
 					/>
 					<RangeControl
-						label="サムネイルとタイトルおよび説明の間の余白"
+						label={ __(
+							'サムネイルとタイトルおよび説明の間の余白',
+							'ccl-plugin'
+						) }
 						value={ settings.gapBetweenTitleAndThumbnailSp }
 						onChange={ ( value ) =>
 							setSettings( {
@@ -130,7 +139,7 @@ export const SettingsSp = ( settings, setSettings ) => {
 						max={ 30 }
 					/>
 					<RangeControl
-						label="タイトルと説明の間の余白"
+						label={ __( 'タイトルと説明の間の余白', 'ccl-plugin' ) }
 						value={ settings.descriptionMarginTopSp }
 						onChange={ ( value ) =>
 							setSettings( {
@@ -143,15 +152,21 @@ export const SettingsSp = ( settings, setSettings ) => {
 					/>
 				</div>
 			</div>
-			<h2>影（スマホサイズ）</h2>
+			<h2>{ __( '影（スマホサイズ）', 'ccl-plugin' ) }</h2>
 			<div className="ccl-admin__container">
 				<div className="ccl-admin__inputs">
 					<RadioControl
-						label="影の有無"
+						label={ __( '影の有無', 'ccl-plugin' ) }
 						selected={ settings.shadowUseSp }
 						options={ [
-							{ label: 'なし', value: 'none' },
-							{ label: 'あり', value: 'shadow' },
+							{
+								label: __( 'なし', 'ccl-plugin' ),
+								value: 'none',
+							},
+							{
+								label: __( 'あり', 'ccl-plugin' ),
+								value: 'shadow',
+							},
 						] }
 						onChange={ ( value ) =>
 							setSettings( { ...settings, shadowUseSp: value } )
@@ -161,7 +176,7 @@ export const SettingsSp = ( settings, setSettings ) => {
 						className="u-display--inline-block u-marign-top--8px u-margin-bottom--0"
 						style={ styleDisplayNone( settings.shadowUseSp ) }
 					>
-						影の色
+						{ __( '影の色', 'ccl-plugin' ) }
 					</p>
 					<ColorPicker
 						color={ settings.shadowColorSp }
@@ -177,7 +192,7 @@ export const SettingsSp = ( settings, setSettings ) => {
 					style={ styleDisplayNone( settings.shadowUseSp ) }
 				>
 					<RangeControl
-						label="影の長さ（x方向）"
+						label={ __( '影の長さ（x方向）', 'ccl-plugin' ) }
 						value={ settings.shadowOffsetXSp }
 						onChange={ ( value ) =>
 							setSettings( {
@@ -189,7 +204,7 @@ export const SettingsSp = ( settings, setSettings ) => {
 						max={ 10 }
 					/>
 					<RangeControl
-						label="影の長さ（y方向）"
+						label={ __( '影の長さ（y方向）', 'ccl-plugin' ) }
 						value={ settings.shadowOffsetYSp }
 						onChange={ ( value ) =>
 							setSettings( {
@@ -201,7 +216,7 @@ export const SettingsSp = ( settings, setSettings ) => {
 						max={ 10 }
 					/>
 					<RangeControl
-						label="ぼかしの拡張・縮小"
+						label={ __( 'ぼかしの拡張・縮小', 'ccl-plugin' ) }
 						value={ settings.shadowBlurRadiusSp }
 						onChange={ ( value ) =>
 							setSettings( {
@@ -213,7 +228,7 @@ export const SettingsSp = ( settings, setSettings ) => {
 						max={ 10 }
 					/>
 					<RangeControl
-						label="影の拡張・縮小"
+						label={ __( '影の拡張・縮小', 'ccl-plugin' ) }
 						value={ settings.shadowSpreadRadiusSp }
 						onChange={ ( value ) =>
 							setSettings( {

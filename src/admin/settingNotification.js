@@ -1,3 +1,4 @@
+import { __ } from '@wordpress/i18n';
 import { Store } from 'react-notifications-component';
 
 /**
@@ -10,7 +11,7 @@ export const settingNotification = ( model ) => {
 	save.success( () => {
 		Store.addNotification( {
 			title: 'Success!',
-			message: '入力内容を保存しました。',
+			message: __( '入力内容を保存しました。', 'ccl-plugin' ),
 			type: 'success',
 			insert: 'top',
 			container: 'top-center',
@@ -25,7 +26,7 @@ export const settingNotification = ( model ) => {
 	save.error( () => {
 		Store.addNotification( {
 			title: 'Error!',
-			message: '入力内容を保存できませんでした。',
+			message: __( '入力内容を保存できませんでした。', 'ccl-plugin' ),
 			type: 'danger',
 			insert: 'top',
 			container: 'top-center',

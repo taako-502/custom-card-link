@@ -1,3 +1,4 @@
+import { __ } from '@wordpress/i18n';
 import thumbnail from './../../asset/img/thumbnail.jpg';
 import { getCclClass, getSlcThumbnailClass } from './class.js';
 import { makeStyles, makeHoverdStyles } from './styles.js';
@@ -76,7 +77,7 @@ export const Preview = ( mediaSize, settings, isHover, setIsHover ) => {
 					} }
 				>
 					{ TextPreview(
-						'サンプルの記事カードです。',
+						__( 'サンプルの記事カードです。', 'ccl-plugin' ),
 						titleNumOfChar
 					) }
 				</p>
@@ -92,7 +93,7 @@ export const Preview = ( mediaSize, settings, isHover, setIsHover ) => {
 					} }
 				>
 					{ TextPreview(
-						'サンプルの記事カードの説明です。',
+						__( 'サンプルの記事カードの説明です。', 'ccl-plugin' ),
 						descriptionNumOfChar
 					) }
 				</p>
