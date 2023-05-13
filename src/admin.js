@@ -1,3 +1,4 @@
+import { __ } from '@wordpress/i18n';
 import './admin.scss';
 import 'react-notifications-component/dist/theme.css';
 
@@ -201,14 +202,18 @@ const Admin = () => {
 		<React.Fragment>
 			<ReactNotifications />
 			<div className="ccl-admin">
-				<h1>カスタムリンクカードのデザインの設定画面</h1>
+				<h1>{__('カスタムリンクカードのデザインの設定画面', 'ccl-plugin' )}</h1>
 				<div className="ccl-admin__wrap">
 					<div className="ccl-admin__preview">
 						<div className="ccl-admin__info">
-							<h2>プレビュー</h2>
+							<h2>{__('プレビュー', 'ccl-plugin' )}</h2>
 							<ToggleControl
-								label={ ! mediaSize ? 'パソコン' : 'スマホ' }
-								help="スマホサイズの設定を行う場合はチェックする。"
+								label={
+									 ! mediaSize
+									 ? __('パソコン', 'ccl-plugin' )
+									 : __('スマホ', 'ccl-plugin' )
+								}
+								help={__('スマホサイズの設定を行う場合はチェックする。', 'ccl-plugin' ) }
 								checked={ mediaSize }
 								onChange={ () => {
 									setmediaSize( ( state ) => ! state );

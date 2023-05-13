@@ -2,8 +2,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Custom Card Link\n"
-"POT-Creation-Date: 2023-05-13 22:08+0900\n"
-"PO-Revision-Date: 2023-05-13 21:43+0900\n"
+"POT-Creation-Date: 2023-05-13 22:17+0900\n"
+"PO-Revision-Date: 2023-05-13 22:17+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -36,6 +36,26 @@ msgstr ""
 
 #: custom-card-link.php:94
 msgid "有効なURLを入力してください。"
+msgstr ""
+
+#: src/admin.js:205
+msgid "カスタムリンクカードのデザインの設定画面"
+msgstr ""
+
+#: src/admin.js:209
+msgid "プレビュー"
+msgstr ""
+
+#: src/admin.js:213
+msgid "パソコン"
+msgstr ""
+
+#: src/admin.js:214
+msgid "スマホ"
+msgstr ""
+
+#: src/admin.js:216
+msgid "スマホサイズの設定を行う場合はチェックする。"
 msgstr ""
 
 #: src/admin/buttons.js:12
