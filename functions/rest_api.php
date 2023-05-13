@@ -16,9 +16,9 @@ add_action('init', function() {
 			'show_in_rest' => array(
 				'schema' => array(
 					'type'       => 'object',
-					'items'      => '', //ワーニング回避
+					'items'      => '', // ワーニング回避
 					'properties' => array(
-						//デザイン
+						// デザイン
 						'layout' => array(
 							'type'              => 'string',
 							'sanitize_callback' => 'sanitize_text_field',
@@ -59,7 +59,7 @@ add_action('init', function() {
 							'type'              => 'number',
 							'sanitize_callback' => 'sanitize_text_field',
 						),
-						//影
+						// 影
 						'shadow_use' => array(
 							'type'              => 'string',
 							'sanitize_callback' => 'sanitize_text_field',
@@ -84,12 +84,12 @@ add_action('init', function() {
 							'type'              => 'string',
 							'sanitize_callback' => 'sanitize_text_color',
 						),
-						//レスポンシブ
+						// レスポンシブ
 						'breakpoint' => array(
 							'type'              => 'number',
 							'sanitize_callback' => 'sanitize_text_field',
 						),
-						//デザイン（スマホ）
+						// デザイン（スマホ）
 						'layout_sp' => array(
 							'type'              => 'string',
 							'sanitize_callback' => 'sanitize_text_field',
@@ -130,7 +130,7 @@ add_action('init', function() {
 							'type'              => 'number',
 							'sanitize_callback' => 'sanitize_text_field',
 						),
-						//影（スマホ）
+						// 影（スマホ）
 						'shadow_use_sp' => array(
 							'type'              => 'string',
 							'sanitize_callback' => 'sanitize_text_field',
@@ -155,7 +155,7 @@ add_action('init', function() {
 							'type'              => 'string',
 							'sanitize_callback' => 'sanitize_text_color',
 						),
-						//ホバー
+						// ホバー
 						'hover_use' => array(
 							'type'              => 'string',
 							'sanitize_callback' => 'sanitize_text_field',
