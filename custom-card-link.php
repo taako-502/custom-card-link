@@ -37,8 +37,8 @@ add_action('init', function() {
  */
 add_action('admin_menu', function() {
 	add_menu_page(
-		__('カスタムカードリンク', 'ccl-plugin'),
-		__('カスタムカードリンク - デザイン設定', 'ccl-plugin'),
+		__('Custom Card Link', 'ccl-plugin'),
+		__('Custom Card Link - Settings', 'ccl-plugin'),
 		'manage_options',
 		OPTION_GROUP,
 		function() {

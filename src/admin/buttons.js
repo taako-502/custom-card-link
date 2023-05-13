@@ -16,14 +16,14 @@ export const Buttons = ( props ) => {
 				onClick={ () => setStandardDesignCard( props.setSettings ) }
 				variant="secondary"
 			>
-				{ __( 'Stadndard Card Design', 'ccl-plugin' ) }
+				{ __( 'Default Card Design', 'ccl-plugin' ) }
 			</Button>
 			<Button
 				className="u-margin-left--5px"
 				onClick={ () => setStandardDesignList( props.setSettings ) }
 				variant="secondary"
 			>
-				{ __( 'Starndard List Design', 'ccl-plugin' ) }
+				{ __( 'Default List Design', 'ccl-plugin' ) }
 			</Button>
 		</React.Fragment>
 	);

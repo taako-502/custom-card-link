@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Custom Card Link\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-05-13 07:23+0000\n"
-"PO-Revision-Date: 2023-05-13 14:01+0000\n"
+"PO-Revision-Date: 2023-05-13 14:40+0000\n"
 "Last-Translator: \n"
 "Language-Team: 日本語\n"
 "Language: ja\n"
@@ -17,11 +17,24 @@ msgstr ""
 
 #: src/admin.js:213
 msgid "Computer"
-msgstr ""
+msgstr "パソコン"
 
 #. Plugin Name of the plugin/theme
+#: custom-card-link.php:40
 msgid "Custom Card Link"
 msgstr "カスタムカードリンク"
+
+#: custom-card-link.php:41
+msgid "Custom Card Link - Settings"
+msgstr "カスタムカードリンク - デザイン設定"
+
+#: src/admin/buttons.js:19
+msgid "Default Card Design"
+msgstr "スタンダードデザイン（カード型）"
+
+#: src/admin/buttons.js:26
+msgid "Default List Design"
+msgstr "スタンダードデザイン（リスト型）"
 
 #: src/admin.js:205
 msgid "Design settings"
@@ -45,7 +58,7 @@ msgstr ""
 
 #: src/admin.js:209
 msgid "Preview"
-msgstr ""
+msgstr "プレビュー"
 
 #: src/admin/preview.js:96
 msgid "Sample Description"
@@ -68,16 +81,10 @@ msgid "Setting up a smartphone"
 msgstr "スマホサイズの設定を行う場合はチェックする。"
 
 #: src/admin.js:214
-msgid "Smart Phone"
+#, fuzzy
+#| msgid "Smart Phone"
+msgid "Smartphone"
 msgstr "スマホ"
-
-#: src/admin/buttons.js:19
-msgid "Stadndard Card Design"
-msgstr "スタンダードデザイン（カード型）"
-
-#: src/admin/buttons.js:26
-msgid "Starndard List Design"
-msgstr "スタンダードデザイン（リスト型）"
 
 #. Author of the plugin/theme
 msgid "takao502"
@@ -100,14 +107,6 @@ msgstr ""
 #: src/admin/settings-sp.js:219
 msgid "ぼかしの拡張・縮小"
 msgstr ""
-
-#: custom-card-link.php:40
-msgid "カスタムカードリンク"
-msgstr "カスタムカードリンク"
-
-#: custom-card-link.php:41
-msgid "カスタムカードリンク - デザイン設定"
-msgstr "カスタムカードリンク - デザイン設定"
 
 #: src/admin/settings-hover.js:13
 msgid "カスタムリンクカードをホバーした時のデザインや動作"

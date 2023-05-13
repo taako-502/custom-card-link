@@ -211,7 +211,7 @@ const Admin = () => {
 								label={
 									 ! mediaSize
 									 ? __('Computer', 'ccl-plugin' )
-									 : __('Smart Phone', 'ccl-plugin' )
+									 : __('Smartphone', 'ccl-plugin' )
 								}
 								help={__('Setting up a smartphone', 'ccl-plugin' ) }
 								checked={ mediaSize }

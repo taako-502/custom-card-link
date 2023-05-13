@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Custom Card Link\n"
-"POT-Creation-Date: 2023-05-13 23:01+0900\n"
+"POT-Creation-Date: 2023-05-13 23:39+0900\n"
 "PO-Revision-Date: 2023-05-13 22:17+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -22,12 +22,13 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *.min.js\n"
 "X-Poedit-SearchPathExcluded-1: node_modules\n"
 
+#. Plugin Name of the plugin/theme
 #: custom-card-link.php:40
-msgid "カスタムカードリンク"
+msgid "Custom Card Link"
 msgstr ""
 
 #: custom-card-link.php:41
-msgid "カスタムカードリンク - デザイン設定"
+msgid "Custom Card Link - Settings"
 msgstr ""
 
 #: custom-card-link.php:92
@@ -51,7 +52,7 @@ msgid "Computer"
 msgstr ""
 
 #: src/admin.js:214
-msgid "Smart Phone"
+msgid "Smartphone"
 msgstr ""
 
 #: src/admin.js:216
@@ -63,11 +64,11 @@ msgid "Save"
 msgstr ""
 
 #: src/admin/buttons.js:19
-msgid "Stadndard Card Design"
+msgid "Default Card Design"
 msgstr ""
 
 #: src/admin/buttons.js:26
-msgid "Starndard List Design"
+msgid "Default List Design"
 msgstr ""
 
 #: src/admin/preview.js:80
@@ -226,10 +227,6 @@ msgstr ""
 
 #: src/admin/settings-sp.js:155
 msgid "影（スマホサイズ）"
-msgstr ""
-
-#. Plugin Name of the plugin/theme
-msgid "Custom Card Link"
 msgstr ""
 
 #. Plugin URI of the plugin/theme
