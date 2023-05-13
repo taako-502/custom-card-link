@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Custom Card Link\n"
-"POT-Creation-Date: 2023-05-13 21:43+0900\n"
+"POT-Creation-Date: 2023-05-13 22:08+0900\n"
 "PO-Revision-Date: 2023-05-13 21:43+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
