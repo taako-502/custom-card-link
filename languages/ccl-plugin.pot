@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Custom Card Link\n"
-"POT-Creation-Date: 2023-05-13 23:39+0900\n"
+"POT-Creation-Date: 2023-05-14 02:34+0900\n"
 "PO-Revision-Date: 2023-05-13 22:17+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -16,27 +16,27 @@ msgstr ""
 "X-Poedit-WPHeader: custom-card-link.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
-"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
-"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
+"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.min.js\n"
 "X-Poedit-SearchPathExcluded-1: node_modules\n"
 
 #. Plugin Name of the plugin/theme
-#: custom-card-link.php:40
+#: custom-card-link.php:44
 msgid "Custom Card Link"
 msgstr ""
 
-#: custom-card-link.php:41
+#: custom-card-link.php:45
 msgid "Custom Card Link - Settings"
 msgstr ""
 
-#: custom-card-link.php:92
-msgid "URLを入力してください。"
+#: custom-card-link.php:103
+msgid "Please enter the URL."
 msgstr ""
 
-#: custom-card-link.php:94
-msgid "有効なURLを入力してください。"
+#: custom-card-link.php:105
+msgid "Please enter a valid URL."
 msgstr ""
 
 #: src/admin.js:205
