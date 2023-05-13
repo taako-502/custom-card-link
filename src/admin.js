@@ -247,5 +247,5 @@ const Admin = () => {
 };
 
 // AdminコンポーネントをルートDOMにレンダリング
-const root = createRoot(document.getElementById('ccl-admin'));
-root.render (<Admin />);
+const root = createRoot( document.getElementById( 'ccl-admin' ) );
+root.render( <Admin /> );
