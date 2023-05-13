@@ -202,18 +202,18 @@ const Admin = () => {
 		<React.Fragment>
 			<ReactNotifications />
 			<div className="ccl-admin">
-				<h1>{__('カスタムリンクカードのデザインの設定画面', 'ccl-plugin' )}</h1>
+				<h1>{__('Design settings', 'ccl-plugin' )}</h1>
 				<div className="ccl-admin__wrap">
 					<div className="ccl-admin__preview">
 						<div className="ccl-admin__info">
-							<h2>{__('プレビュー', 'ccl-plugin' )}</h2>
+							<h2>{__('Preview', 'ccl-plugin' )}</h2>
 							<ToggleControl
 								label={
 									 ! mediaSize
-									 ? __('パソコン', 'ccl-plugin' )
-									 : __('スマホ', 'ccl-plugin' )
+									 ? __('Computer', 'ccl-plugin' )
+									 : __('Smart Phone', 'ccl-plugin' )
 								}
-								help={__('スマホサイズの設定を行う場合はチェックする。', 'ccl-plugin' ) }
+								help={__('Setting up a smartphone', 'ccl-plugin' ) }
 								checked={ mediaSize }
 								onChange={ () => {
 									setmediaSize( ( state ) => ! state );

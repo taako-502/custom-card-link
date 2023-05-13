@@ -11,7 +11,7 @@ export const settingNotification = ( model ) => {
 	save.success( () => {
 		Store.addNotification( {
 			title: 'Success!',
-			message: __( '入力内容を保存しました。', 'ccl-plugin' ),
+			message: __( 'Saved', 'ccl-plugin' ),
 			type: 'success',
 			insert: 'top',
 			container: 'top-center',
@@ -26,7 +26,7 @@ export const settingNotification = ( model ) => {
 	save.error( () => {
 		Store.addNotification( {
 			title: 'Error!',
-			message: __( '入力内容を保存できませんでした。', 'ccl-plugin' ),
+			message: __( 'Failed', 'ccl-plugin' ),
 			type: 'danger',
 			insert: 'top',
 			container: 'top-center',

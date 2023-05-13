@@ -9,21 +9,21 @@ export const Buttons = ( props ) => {
 	return (
 		<React.Fragment>
 			<Button isPrimary onClick={ props.dataSave }>
-				{ __( '保存', 'ccl-plugin' ) }
+				{ __( 'Save', 'ccl-plugin' ) }
 			</Button>
 			<Button
 				className="u-margin-left--5px"
 				onClick={ () => setStandardDesignCard( props.setSettings ) }
 				variant="secondary"
 			>
-				{ __( 'スタンダードデザイン（カード型）', 'ccl-plugin' ) }
+				{ __( 'Stadndard Card Design', 'ccl-plugin' ) }
 			</Button>
 			<Button
 				className="u-margin-left--5px"
 				onClick={ () => setStandardDesignList( props.setSettings ) }
 				variant="secondary"
 			>
-				{ __( 'スタンダードデザイン（リスト型）', 'ccl-plugin' ) }
+				{ __( 'Starndard List Design', 'ccl-plugin' ) }
 			</Button>
 		</React.Fragment>
 	);

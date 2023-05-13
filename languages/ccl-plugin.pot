@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Custom Card Link\n"
-"POT-Creation-Date: 2023-05-13 22:17+0900\n"
+"POT-Creation-Date: 2023-05-13 23:01+0900\n"
 "PO-Revision-Date: 2023-05-13 22:17+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -39,51 +39,51 @@ msgid "有効なURLを入力してください。"
 msgstr ""
 
 #: src/admin.js:205
-msgid "カスタムリンクカードのデザインの設定画面"
+msgid "Design settings"
 msgstr ""
 
 #: src/admin.js:209
-msgid "プレビュー"
+msgid "Preview"
 msgstr ""
 
 #: src/admin.js:213
-msgid "パソコン"
+msgid "Computer"
 msgstr ""
 
 #: src/admin.js:214
-msgid "スマホ"
+msgid "Smart Phone"
 msgstr ""
 
 #: src/admin.js:216
-msgid "スマホサイズの設定を行う場合はチェックする。"
+msgid "Setting up a smartphone"
 msgstr ""
 
 #: src/admin/buttons.js:12
-msgid "保存"
+msgid "Save"
 msgstr ""
 
 #: src/admin/buttons.js:19
-msgid "スタンダードデザイン（カード型）"
+msgid "Stadndard Card Design"
 msgstr ""
 
 #: src/admin/buttons.js:26
-msgid "スタンダードデザイン（リスト型）"
+msgid "Starndard List Design"
 msgstr ""
 
 #: src/admin/preview.js:80
-msgid "サンプルの記事カードです。"
+msgid "Sample Link Card"
 msgstr ""
 
 #: src/admin/preview.js:96
-msgid "サンプルの記事カードの説明です。"
+msgid "Sample Description"
 msgstr ""
 
 #: src/admin/settingNotification.js:14
-msgid "入力内容を保存しました。"
+msgid "Saved"
 msgstr ""
 
 #: src/admin/settingNotification.js:29
-msgid "入力内容を保存できませんでした。"
+msgid "Failed"
 msgstr ""
 
 #: src/admin/settings-hover.js:13

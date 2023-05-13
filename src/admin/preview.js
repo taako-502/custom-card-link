@@ -6,13 +6,13 @@ import { makeStyles, makeHoverdStyles } from './styles.js';
 import classnames from 'classnames';
 
 export const Preview = ( mediaSize, settings, isHover, setIsHover ) => {
-	//クラス
+	// クラス
 	const cclClass = getCclClass( mediaSize, settings );
 	const cclThumbnailClass = getSlcThumbnailClass( mediaSize, settings );
-	//プレビュー用スタイルシート
+	// プレビュー用スタイルシート
 	const styles = makeStyles( mediaSize, settings );
 	const hoverdStyles = makeHoverdStyles( mediaSize, settings );
-	//設定値
+	// 設定値
 	const layout = ! mediaSize ? settings.layout : settings.layoutSp;
 	const gapBetweenTitleAndThumbnail = ! mediaSize
 		? settings.gapBetweenTitleAndThumbnail
@@ -77,7 +77,7 @@ export const Preview = ( mediaSize, settings, isHover, setIsHover ) => {
 					} }
 				>
 					{ TextPreview(
-						__( 'サンプルの記事カードです。', 'ccl-plugin' ),
+						__( 'Sample Link Card', 'ccl-plugin' ),
 						titleNumOfChar
 					) }
 				</p>
@@ -93,7 +93,7 @@ export const Preview = ( mediaSize, settings, isHover, setIsHover ) => {
 					} }
 				>
 					{ TextPreview(
-						__( 'サンプルの記事カードの説明です。', 'ccl-plugin' ),
+						__( 'Sample Description', 'ccl-plugin' ),
 						descriptionNumOfChar
 					) }
 				</p>
