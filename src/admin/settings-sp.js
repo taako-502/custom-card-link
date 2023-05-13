@@ -1,5 +1,5 @@
+import { __ } from '@wordpress/i18n';
 import { styleDisplayNone } from './visibility.js';
-
 import { RadioControl, RangeControl, ColorPicker } from '@wordpress/components';
 
 export const SettingsSp = ( settings, setSettings ) => {
@@ -23,8 +23,8 @@ export const SettingsSp = ( settings, setSettings ) => {
 			<div className="ccl-admin__container">
 				<div className="ccl-admin__inputs">
 					<RadioControl
-						label="レイアウトデザイン"
-						help="デザインのレイアウトを決めます。"
+						label={ __('レイアウトデザイン', 'ccl-plugin' ) }
+						help={ __('デザインのレイアウトを決めます。', 'ccl-plugin' ) }
 						selected={ settings.layoutSp }
 						options={ [
 							{ label: 'カード型', value: 'card' },

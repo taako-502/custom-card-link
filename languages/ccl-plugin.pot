@@ -2,52 +2,66 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Custom Card Link\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-13 07:23+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2023-05-13 18:59+0900\n"
+"PO-Revision-Date: 2023-05-13 18:58+0900\n"
+"Last-Translator: \n"
 "Language-Team: \n"
-"Language: \n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Loco https://localise.biz/\n"
-"X-Loco-Version: 2.6.4; wp-6.2\n"
-"X-Domain: ccl-plugin"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"X-Generator: Poedit 3.3\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: custom-card-link.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
+"X-Poedit-SearchPathExcluded-1: node_modules\n"
 
-#. Name of the plugin
-msgid "Custom Card Link"
-msgstr ""
-
-#. Author URI of the plugin
-msgid "https://github.com/taako-502"
-msgstr ""
-
-#. URI of the plugin
-msgid "https://github.com/taako-502/custom-card-link"
-msgstr ""
-
-#. Author of the plugin
-msgid "takao502"
-msgstr ""
-
-#: custom-card-link.php:85
-msgid "URLを入力してください。"
-msgstr ""
-
-#: custom-card-link.php:33
+#: custom-card-link.php:40
 msgid "カスタムカードリンク"
 msgstr ""
 
-#: custom-card-link.php:34
+#: custom-card-link.php:41
 msgid "カスタムカードリンク - デザイン設定"
 msgstr ""
 
-#. Description of the plugin
+#: custom-card-link.php:92
+msgid "URLを入力してください。"
+msgstr ""
+
+#: custom-card-link.php:94
+msgid "有効なURLを入力してください。"
+msgstr ""
+
+#: src/admin/settings-sp.js:26
+msgid "レイアウトデザイン"
+msgstr ""
+
+#: src/admin/settings-sp.js:27
+msgid "デザインのレイアウトを決めます。"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Custom Card Link"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://github.com/taako-502/custom-card-link"
+msgstr ""
+
+#. Description of the plugin/theme
 msgid "外部リンクを表示するGutenbergブロック"
 msgstr ""
 
-#: custom-card-link.php:87
-msgid "有効なURLを入力してください。"
+#. Author of the plugin/theme
+msgid "takao502"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://github.com/taako-502"
 msgstr ""

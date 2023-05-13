@@ -26,6 +26,13 @@ require_once __DIR__ .'/functions/data.php';
 use function Ccl_Plugin\functions\data\get_setting;
 
 /**
+ * 翻訳ファイルの読み込み
+ */
+add_action('init', function() {
+	wp_set_script_translations( 'myguten-script', 'ccl-plugin' );
+});
+
+/**
  * 管理画面追加
  */
 add_action('admin_menu', function() {

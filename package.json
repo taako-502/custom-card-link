@@ -23,5 +23,7 @@
 		"react": "^18.2.0",
 		"react-notifications-component": "^4.0.0"
 	},
-	"dependencies": {}
+	"dependencies": {
+		"@wordpress/i18n": "^4.33.0"
+	}
 }
