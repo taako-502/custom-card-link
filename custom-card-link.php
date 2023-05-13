@@ -1,5 +1,6 @@
 <?php
 Namespace Ccl_Plugin;
+
 /*
 Plugin Name: Custom Card Link
 Plugin URI: https://github.com/taako-502/custom-card-link
@@ -7,6 +8,8 @@ Description: 外部リンクを表示するGutenbergブロック
 Version: 1.0.1
 Author: takao502
 Author URI: https://github.com/taako-502
+Text Domain: ccl-plugin
+Domain Path: /languages
 License: GPL2
 */
 const OPTION_GROUP                = 'custom-card-link';
@@ -27,8 +30,8 @@ use function Ccl_Plugin\functions\data\get_setting;
  */
 add_action('admin_menu', function() {
 	add_menu_page(
-		'カスタムカードリンク',
-		'カスタムカードリンク - デザイン設定',
+		__('カスタムカードリンク', 'ccl-plugin'),
+		__('カスタムカードリンク - デザイン設定', 'ccl-plugin'),
 		'manage_options',
 		OPTION_GROUP,
 		function() {
@@ -79,9 +82,9 @@ add_action('init', function() {
 				$ogps    = \Ccl_Plugin\library\Get_OGP_InWP::get(trim($url));
 				$post_id = url_to_postid($url);
 				if($url == '' && !is_singular()) {
-					return 'URLを入力してください。';
+					return __('URLを入力してください。', 'ccl-plugin');
 				} else if(($ogps == [] && $post_id == 0) && !is_singular()){
-					return '有効なURLを入力してください。';
+					return __('有効なURLを入力してください。', 'ccl-plugin');
 				}
 				if($url == '' || ($ogps == [] && $post_id == 0)){
 					return;

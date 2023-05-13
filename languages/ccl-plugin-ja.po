@@ -1,0 +1,52 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Custom Card Link\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-05-13 07:23+0000\n"
+"PO-Revision-Date: 2023-05-13 07:32+0000\n"
+"Last-Translator: \n"
+"Language-Team: 日本語\n"
+"Language: ja\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.6.4; wp-6.2\n"
+"X-Domain: ccl-plugin"
+
+#. Name of the plugin
+msgid "Custom Card Link"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://github.com/taako-502"
+msgstr ""
+
+#. URI of the plugin
+msgid "https://github.com/taako-502/custom-card-link"
+msgstr "https://github.com/taako-502/custom-card-link"
+
+#. Author of the plugin
+msgid "takao502"
+msgstr ""
+
+#: custom-card-link.php:85
+msgid "URLを入力してください。"
+msgstr "URLを入力してください。"
+
+#: custom-card-link.php:33
+msgid "カスタムカードリンク"
+msgstr "カスタムカードリンク"
+
+#: custom-card-link.php:34
+msgid "カスタムカードリンク - デザイン設定"
+msgstr "カスタムカードリンク - デザイン設定"
+
+#. Description of the plugin
+msgid "外部リンクを表示するGutenbergブロック"
+msgstr "外部リンクを表示するGutenbergブロック"
+
+#: custom-card-link.php:87
+msgid "有効なURLを入力してください。"
+msgstr ""
