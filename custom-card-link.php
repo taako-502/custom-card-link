@@ -95,7 +95,7 @@ add_action('admin_enqueue_scripts', function($hook_suffix) {
 	);
 
 	// NOTE: https://elearn.jp/wpman/function/load_plugin_textdomain.html
-	echo 'test: ' . load_plugin_textdomain(
+	load_plugin_textdomain(
 		TEXT_DOMAIN,
 		false,
 		basename( plugin_dir_url( __FILE__ ) ) . '/languages'
