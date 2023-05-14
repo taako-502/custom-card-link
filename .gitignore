@@ -3,3 +3,6 @@
 package-lock.json
 .github/workflows/secrets.json
 yarn-error.log
+
+# i18n
+languages/ccl-plugin-*-backup*.po~

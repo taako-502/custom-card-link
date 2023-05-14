@@ -1,9 +1,9 @@
 # Languages
 POファイルを元にJSONファイルを作成する
 ```
-$ po2json languages/ccl-plugin-{locale}.po languages/ccl-plugin-{locale}-custom-card-link.
+$ yarn po2json languages/ccl-plugin-{locale}.po languages/ccl-plugin-{locale}-custom-card-link.
 # 例）
-$ po2json languages/ccl-plugin-ja.po languages/ccl-plugin-ja-custom-card-link.
+$ yarn po2json languages/ccl-plugin-ja.po languages/ccl-plugin-ja-custom-card-link.json
 ```
 https://capitalp.jp/2018/12/06/javascript-i18n/
 

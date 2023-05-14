@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Custom Card Link\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-05-13 07:23+0000\n"
-"PO-Revision-Date: 2023-05-13 17:36+0000\n"
+"PO-Revision-Date: 2023-05-14 06:40+0000\n"
 "Last-Translator: \n"
 "Language-Team: 日本語\n"
 "Language: ja\n"
@@ -64,6 +64,7 @@ msgstr "有効なURLを入力してください。"
 msgid "Please enter the URL."
 msgstr "URLを入力してください。"
 
+# 翻訳されない
 #: src/admin.js:209
 msgid "Preview"
 msgstr "プレビュー"
