@@ -11,6 +11,18 @@
 公式プラグインに登録しています。<br>
 [Custom Card Link](https://wordpress.org/plugins/custom-card-link/)
 
+## リポジトリ
+### GitHub
+https://github.com/taako-502/custom-card-link
+
+コミットする前に以下を実施すること
+
+以下のコマンドを実行する
+```bash
+$ yarn build
+```
+
+`ccl-plugin.pot`を更新する。
 
 ## Third-party resources
 ### Get_OGP_InWP

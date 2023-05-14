@@ -1,0 +1,246 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Custom Card Link\n"
+"POT-Creation-Date: 2023-05-14 19:05+0900\n"
+"PO-Revision-Date: 2023-05-13 22:17+0900\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"X-Generator: Poedit 3.3\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: custom-card-link.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
+"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
+"X-Poedit-SearchPathExcluded-1: node_modules\n"
+
+#. Plugin Name of the plugin/theme
+#: custom-card-link.php:52
+msgid "Custom Card Link"
+msgstr ""
+
+#: custom-card-link.php:53
+msgid "Custom Card Link - Settings"
+msgstr ""
+
+#: custom-card-link.php:124
+msgid "Please enter the URL."
+msgstr ""
+
+#: custom-card-link.php:126
+msgid "Please enter a valid URL."
+msgstr ""
+
+#: src/admin.js:205
+msgid "Design settings"
+msgstr ""
+
+#: src/admin.js:209
+msgid "Preview"
+msgstr ""
+
+#: src/admin.js:213
+msgid "Computer"
+msgstr ""
+
+#: src/admin.js:214
+msgid "Smartphone"
+msgstr ""
+
+#: src/admin.js:216
+msgid "Setting up a smartphone"
+msgstr ""
+
+#: src/admin/buttons.js:12
+msgid "Save"
+msgstr ""
+
+#: src/admin/buttons.js:19
+msgid "Default Card Design"
+msgstr ""
+
+#: src/admin/buttons.js:26
+msgid "Default List Design"
+msgstr ""
+
+#: src/admin/preview.js:80
+msgid "Sample Title"
+msgstr ""
+
+#: src/admin/preview.js:96
+msgid "Sample Description"
+msgstr ""
+
+#: src/admin/settingNotification.js:14
+msgid "Saved"
+msgstr ""
+
+#: src/admin/settingNotification.js:29
+msgid "Failed"
+msgstr ""
+
+#: src/admin/settings-hover.js:13
+msgid "カスタムリンクカードをホバーした時のデザインや動作"
+msgstr ""
+
+#: src/admin/settings-hover.js:19
+msgid "PCサイズとスマホサイズで共通の設定です。"
+msgstr ""
+
+#: src/admin/settings-hover.js:26
+msgid "ホバー時の動作"
+msgstr ""
+
+#: src/admin/settings-hover.js:28
+msgid "リンクカードをホバーした際の動作"
+msgstr ""
+
+#: src/admin/settings-hover.js:34 src/admin/settings-pc.js:147
+#: src/admin/settings-sp.js:163
+msgid "なし"
+msgstr ""
+
+#: src/admin/settings-hover.js:38
+msgid "影を表示する"
+msgstr ""
+
+#: src/admin/settings-hover.js:50 src/admin/settings-pc.js:163
+#: src/admin/settings-sp.js:179
+msgid "影の色"
+msgstr ""
+
+#: src/admin/settings-hover.js:69
+msgid "ホバー時の動作時間"
+msgstr ""
+
+#: src/admin/settings-hover.js:82
+msgid "ホバー時の高さ"
+msgstr ""
+
+#: src/admin/settings-hover.js:91 src/admin/settings-pc.js:179
+#: src/admin/settings-sp.js:195
+msgid "影の長さ（x方向）"
+msgstr ""
+
+#: src/admin/settings-hover.js:103 src/admin/settings-pc.js:188
+#: src/admin/settings-sp.js:207
+msgid "影の長さ（y方向）"
+msgstr ""
+
+#: src/admin/settings-hover.js:115 src/admin/settings-pc.js:197
+#: src/admin/settings-sp.js:219
+msgid "ぼかしの拡張・縮小"
+msgstr ""
+
+#: src/admin/settings-hover.js:127 src/admin/settings-pc.js:209
+#: src/admin/settings-sp.js:231
+msgid "影の拡張・縮小"
+msgstr ""
+
+#: src/admin/settings-pc.js:12
+msgid "デザイン設定"
+msgstr ""
+
+#: src/admin/settings-pc.js:16 src/admin/settings-sp.js:26
+msgid "レイアウトデザイン"
+msgstr ""
+
+#: src/admin/settings-pc.js:18 src/admin/settings-sp.js:28
+msgid "デザインのレイアウトを決めます。"
+msgstr ""
+
+#: src/admin/settings-pc.js:24 src/admin/settings-sp.js:34
+msgid "カード型"
+msgstr ""
+
+#: src/admin/settings-pc.js:28 src/admin/settings-sp.js:38
+msgid "リスト型"
+msgstr ""
+
+#: src/admin/settings-pc.js:37 src/admin/settings-sp.js:47
+msgid "最大横幅"
+msgstr ""
+
+#: src/admin/settings-pc.js:46 src/admin/settings-sp.js:56
+msgid "内側の余白"
+msgstr ""
+
+#: src/admin/settings-pc.js:55 src/admin/settings-sp.js:65
+msgid "角の丸さ（px）"
+msgstr ""
+
+#: src/admin/settings-pc.js:66 src/admin/settings-sp.js:79
+msgid "タイトル文字サイズ"
+msgstr ""
+
+#: src/admin/settings-pc.js:75 src/admin/settings-sp.js:91
+msgid "説明文字サイズ"
+msgstr ""
+
+#: src/admin/settings-pc.js:87 src/admin/settings-sp.js:103
+msgid "タイトルの最大文字数"
+msgstr ""
+
+#: src/admin/settings-pc.js:99 src/admin/settings-sp.js:115
+msgid "説明の最大文字数"
+msgstr ""
+
+#: src/admin/settings-pc.js:112 src/admin/settings-sp.js:128
+msgid "サムネイルとタイトルおよび説明の間の余白"
+msgstr ""
+
+#: src/admin/settings-pc.js:126 src/admin/settings-sp.js:142
+msgid "タイトルと説明の間の余白"
+msgstr ""
+
+#: src/admin/settings-pc.js:139
+msgid "影"
+msgstr ""
+
+#: src/admin/settings-pc.js:143 src/admin/settings-sp.js:159
+msgid "影の有無"
+msgstr ""
+
+#: src/admin/settings-pc.js:151 src/admin/settings-sp.js:167
+msgid "あり"
+msgstr ""
+
+#: src/admin/settings-sp.js:10
+msgid "レスポンシブ設定"
+msgstr ""
+
+#: src/admin/settings-sp.js:13
+msgid "ブレークポイント（px）"
+msgstr ""
+
+#: src/admin/settings-sp.js:22
+msgid "デザイン設定（スマホサイズ）"
+msgstr ""
+
+#: src/admin/settings-sp.js:155
+msgid "影（スマホサイズ）"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://github.com/taako-502/custom-card-link"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "外部リンクを表示するGutenbergブロック"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "takao502"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://github.com/taako-502"
+msgstr ""

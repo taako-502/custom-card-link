@@ -1,5 +1,6 @@
 <?php
 Namespace Ccl_Plugin;
+
 /*
 Plugin Name: Custom Card Link
 Plugin URI: https://github.com/taako-502/custom-card-link
@@ -7,10 +8,13 @@ Description: 外部リンクを表示するGutenbergブロック
 Version: 1.0.1
 Author: takao502
 Author URI: https://github.com/taako-502
+Text Domain: ccl-plugin
+Domain Path: /languages
 License: GPL2
 */
 const OPTION_GROUP                = 'custom-card-link';
 const CCL_SLUG                    = 'custom-card-link';
+const TEXT_DOMAIN                 = 'ccl-plugin';
 const DB_NAME                     = 'custom_card_link_settings';
 const MAX_DESCRIPTION_CHAR_OF_NUM = 200; //setting-pc.jsおよびsetting-sp.jsとあわせる
 
@@ -23,12 +27,30 @@ require_once __DIR__ .'/functions/data.php';
 use function Ccl_Plugin\functions\data\get_setting;
 
 /**
+ * 翻訳ファイルの読み込み
+ */
+add_action('init', function() {
+	load_plugin_textdomain(
+		TEXT_DOMAIN,
+		false,
+		basename( plugin_dir_url( __FILE__ ) ) . '/languages'
+	);
+
+	// FIXME: うまく読み込めない
+	wp_set_script_translations(
+		CCL_SLUG,
+		TEXT_DOMAIN,
+		basename( plugin_dir_url( __FILE__ ) ) . '/languages'
+	);
+});
+
+/**
  * 管理画面追加
  */
 add_action('admin_menu', function() {
 	add_menu_page(
-		'カスタムカードリンク',
-		'カスタムカードリンク - デザイン設定',
+		__('Custom Card Link', 'ccl-plugin'),
+		__('Custom Card Link - Settings', 'ccl-plugin'),
 		'manage_options',
 		OPTION_GROUP,
 		function() {
@@ -55,15 +77,35 @@ add_action('admin_enqueue_scripts', function($hook_suffix) {
 		array('wp-components')
 	);
 
-	// JavaScriptファイルの読み込み
+		// JavaScriptファイルの読み込み
 	wp_enqueue_media();
 	$asset_file = include_once ( __DIR__ . '/build/admin.asset.php') ;
-	wp_enqueue_script (
+	wp_enqueue_script(
 		CCL_SLUG,
 		plugin_dir_url( __FILE__ ).'build/admin.js',
 		$asset_file['dependencies'],
 		$asset_file['version'],
 		true
+	);
+
+	load_script_textdomain(
+		CCL_SLUG,
+		TEXT_DOMAIN,
+		basename( plugin_dir_url( __FILE__ ) ) . '/languages'
+	);
+
+	// NOTE: https://elearn.jp/wpman/function/load_plugin_textdomain.html
+	load_plugin_textdomain(
+		TEXT_DOMAIN,
+		false,
+		basename( plugin_dir_url( __FILE__ ) ) . '/languages'
+	);
+
+	// FIXME: うまく読み込めない
+	wp_set_script_translations(
+		CCL_SLUG,
+		TEXT_DOMAIN,
+		basename( plugin_dir_url( __FILE__ ) ) . '/languages'
 	);
 });
 
@@ -79,9 +121,9 @@ add_action('init', function() {
 				$ogps    = \Ccl_Plugin\library\Get_OGP_InWP::get(trim($url));
 				$post_id = url_to_postid($url);
 				if($url == '' && !is_singular()) {
-					return 'URLを入力してください。';
+					return __('Please enter the URL.', 'ccl-plugin');
 				} else if(($ogps == [] && $post_id == 0) && !is_singular()){
-					return '有効なURLを入力してください。';
+					return __('Please enter a valid URL.', 'ccl-plugin');
 				}
 				if($url == '' || ($ogps == [] && $post_id == 0)){
 					return;

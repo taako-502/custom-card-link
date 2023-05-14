@@ -1,3 +1,4 @@
+import { __ } from '@wordpress/i18n';
 import './admin.scss';
 import 'react-notifications-component/dist/theme.css';
 
@@ -201,14 +202,18 @@ const Admin = () => {
 		<React.Fragment>
 			<ReactNotifications />
 			<div className="ccl-admin">
-				<h1>カスタムリンクカードのデザインの設定画面</h1>
+				<h1>{__('Design settings', 'ccl-plugin' )}</h1>
 				<div className="ccl-admin__wrap">
 					<div className="ccl-admin__preview">
 						<div className="ccl-admin__info">
-							<h2>プレビュー</h2>
+							<h2>{__('Preview', 'ccl-plugin' )}</h2>
 							<ToggleControl
-								label={ ! mediaSize ? 'パソコン' : 'スマホ' }
-								help="スマホサイズの設定を行う場合はチェックする。"
+								label={
+									 ! mediaSize
+									 ? __('Computer', 'ccl-plugin' )
+									 : __('Smartphone', 'ccl-plugin' )
+								}
+								help={__('Setting up a smartphone', 'ccl-plugin' ) }
 								checked={ mediaSize }
 								onChange={ () => {
 									setmediaSize( ( state ) => ! state );
@@ -247,5 +252,5 @@ const Admin = () => {
 };
 
 // AdminコンポーネントをルートDOMにレンダリング
-const root = createRoot(document.getElementById('ccl-admin'));
-root.render (<Admin />);
+const root = createRoot( document.getElementById( 'ccl-admin' ) );
+root.render( <Admin /> );

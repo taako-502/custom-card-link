@@ -1,3 +1,4 @@
+import { __ } from '@wordpress/i18n';
 import { styleDisplayNone } from './visibility.js';
 import { Hover } from './settings-hover.js';
 
@@ -8,23 +9,32 @@ export const SettingsPc = ( settings, setSettings ) => {
 
 	return (
 		<React.Fragment>
-			<h2>デザイン設定</h2>
+			<h2>{ __( 'デザイン設定', 'ccl-plugin' ) }</h2>
 			<div className="ccl-admin__container">
 				<div className="ccl-admin__inputs">
 					<RadioControl
-						label="レイアウトデザイン"
-						help="デザインのレイアウトを決めます。"
+						label={ __( 'レイアウトデザイン', 'ccl-plugin' ) }
+						help={ __(
+							'デザインのレイアウトを決めます。',
+							'ccl-plugin'
+						) }
 						selected={ settings.layout }
 						options={ [
-							{ label: 'カード型', value: 'card' },
-							{ label: 'リスト型', value: 'list' },
+							{
+								label: __( 'カード型', 'ccl-plugin' ),
+								value: 'card',
+							},
+							{
+								label: __( 'リスト型', 'ccl-plugin' ),
+								value: 'list',
+							},
 						] }
 						onChange={ ( value ) =>
 							setSettings( { ...settings, layout: value } )
 						}
 					/>
 					<RangeControl
-						label="横幅"
+						label={ __( '最大横幅', 'ccl-plugin' ) }
 						value={ settings.maxWidth }
 						onChange={ ( value ) =>
 							setSettings( { ...settings, maxWidth: value } )
@@ -33,7 +43,7 @@ export const SettingsPc = ( settings, setSettings ) => {
 						max={ 1200 }
 					/>
 					<RangeControl
-						label="内側の余白"
+						label={ __( '内側の余白', 'ccl-plugin' ) }
 						value={ settings.padding }
 						onChange={ ( value ) =>
 							setSettings( { ...settings, padding: value } )
@@ -42,7 +52,7 @@ export const SettingsPc = ( settings, setSettings ) => {
 						max={ 40 }
 					/>
 					<RangeControl
-						label="角の丸さ（px）"
+						label={ __( '角の丸さ（px）', 'ccl-plugin' ) }
 						value={ settings.borderRadius }
 						onChange={ ( value ) =>
 							setSettings( { ...settings, borderRadius: value } )
@@ -53,7 +63,7 @@ export const SettingsPc = ( settings, setSettings ) => {
 				</div>
 				<div className="ccl-admin__inputs">
 					<RangeControl
-						label="タイトル文字サイズ"
+						label={ __( 'タイトル文字サイズ', 'ccl-plugin' ) }
 						value={ settings.titleFontSize }
 						onChange={ ( value ) =>
 							setSettings( { ...settings, titleFontSize: value } )
@@ -62,7 +72,7 @@ export const SettingsPc = ( settings, setSettings ) => {
 						max={ 30 }
 					/>
 					<RangeControl
-						label="説明文字サイズ"
+						label={ __( '説明文字サイズ', 'ccl-plugin' ) }
 						value={ settings.descriptionFontSize }
 						onChange={ ( value ) =>
 							setSettings( {
@@ -74,7 +84,7 @@ export const SettingsPc = ( settings, setSettings ) => {
 						max={ 30 }
 					/>
 					<RangeControl
-						label="タイトルの最大文字数"
+						label={ __( 'タイトルの最大文字数', 'ccl-plugin' ) }
 						value={ settings.titleNumOfChar }
 						onChange={ ( value ) =>
 							setSettings( {
@@ -86,7 +96,7 @@ export const SettingsPc = ( settings, setSettings ) => {
 						max={ 60 }
 					/>
 					<RangeControl
-						label="説明の最大文字数"
+						label={ __( '説明の最大文字数', 'ccl-plugin' ) }
 						value={ settings.descriptionNumOfChar }
 						onChange={ ( value ) =>
 							setSettings( {
@@ -98,7 +108,10 @@ export const SettingsPc = ( settings, setSettings ) => {
 						max={ 200 }
 					/>
 					<RangeControl
-						label="サムネイルとタイトルおよび説明の間の余白"
+						label={ __(
+							'サムネイルとタイトルおよび説明の間の余白',
+							'ccl-plugin'
+						) }
 						value={ settings.gapBetweenTitleAndThumbnail }
 						onChange={ ( value ) =>
 							setSettings( {
@@ -110,7 +123,7 @@ export const SettingsPc = ( settings, setSettings ) => {
 						max={ 30 }
 					/>
 					<RangeControl
-						label="タイトルと説明の間の余白"
+						label={ __( 'タイトルと説明の間の余白', 'ccl-plugin' ) }
 						value={ settings.descriptionMarginTop }
 						onChange={ ( value ) =>
 							setSettings( {
@@ -123,15 +136,21 @@ export const SettingsPc = ( settings, setSettings ) => {
 					/>
 				</div>
 			</div>
-			<h2>影</h2>
+			<h2>{ __( '影', 'ccl-plugin' ) }</h2>
 			<div className="ccl-admin__container">
 				<div className="ccl-admin__inputs">
 					<RadioControl
-						label="影の有無"
+						label={ __( '影の有無', 'ccl-plugin' ) }
 						selected={ settings.shadowUse }
 						options={ [
-							{ label: 'なし', value: 'none' },
-							{ label: 'あり', value: 'shadow' },
+							{
+								label: __( 'なし', 'ccl-plugin' ),
+								value: 'none',
+							},
+							{
+								label: __( 'あり', 'ccl-plugin' ),
+								value: 'shadow',
+							},
 						] }
 						onChange={ ( value ) =>
 							setSettings( { ...settings, shadowUse: value } )
@@ -141,7 +160,7 @@ export const SettingsPc = ( settings, setSettings ) => {
 						className="u-display--inline-block u-marign-top--8px u-margin-bottom--0"
 						style={ styleDisplayNone( settings.shadowUse ) }
 					>
-						影の色
+						{ __( '影の色', 'ccl-plugin' ) }
 					</p>
 					<ColorPicker
 						color={ settings.shadowColor }
@@ -157,7 +176,7 @@ export const SettingsPc = ( settings, setSettings ) => {
 					style={ styleDisplayNone( settings.shadowUse ) }
 				>
 					<RangeControl
-						label="影の長さ（x方向）"
+						label={ __( '影の長さ（x方向）', 'ccl-plugin' ) }
 						value={ settings.shadowOffsetX }
 						onChange={ ( value ) =>
 							setSettings( { ...settings, shadowOffsetX: value } )
@@ -166,7 +185,7 @@ export const SettingsPc = ( settings, setSettings ) => {
 						max={ 10 }
 					/>
 					<RangeControl
-						label="影の長さ（y方向）"
+						label={ __( '影の長さ（y方向）', 'ccl-plugin' ) }
 						value={ settings.shadowOffsetY }
 						onChange={ ( value ) =>
 							setSettings( { ...settings, shadowOffsetY: value } )
@@ -175,7 +194,7 @@ export const SettingsPc = ( settings, setSettings ) => {
 						max={ 10 }
 					/>
 					<RangeControl
-						label="ぼかしの拡張・縮小"
+						label={ __( 'ぼかしの拡張・縮小', 'ccl-plugin' ) }
 						value={ settings.shadowBlurRadius }
 						onChange={ ( value ) =>
 							setSettings( {
@@ -187,7 +206,7 @@ export const SettingsPc = ( settings, setSettings ) => {
 						max={ 10 }
 					/>
 					<RangeControl
-						label="影の拡張・縮小"
+						label={ __( '影の拡張・縮小', 'ccl-plugin' ) }
 						value={ settings.shadowSpreadRadius }
 						onChange={ ( value ) =>
 							setSettings( {

@@ -1,3 +1,4 @@
+import { __ } from '@wordpress/i18n';
 import { styleDisplayNone } from './visibility.js';
 
 import { RadioControl, RangeControl, ColorPicker } from '@wordpress/components';
@@ -8,20 +9,35 @@ export const Hover = ( settings, setSettings ) => {
 	return (
 		<React.Fragment>
 			<h2 className="u-marign-bottom--0">
-				カスタムリンクカードをホバーした時のデザインや動作
+				{ __(
+					'カスタムリンクカードをホバーした時のデザインや動作',
+					'ccl-plugin'
+				) }
 			</h2>
 			<p className="u-marign-top--4px">
-				PCサイズとスマホサイズで共通の設定です。
+				{ __(
+					'PCサイズとスマホサイズで共通の設定です。',
+					'ccl-plugin'
+				) }
 			</p>
 			<div className="ccl-admin__container">
 				<div className="ccl-admin__inputs">
 					<RadioControl
-						label="ホバー時の動作"
-						help="リンクカードをホバーした際の動作"
+						label={ __( 'ホバー時の動作', 'ccl-plugin' ) }
+						help={ __(
+							'リンクカードをホバーした際の動作',
+							'ccl-plugin'
+						) }
 						selected={ settings.hoverUse }
 						options={ [
-							{ label: 'なし', value: 'none' },
-							{ label: '影を表示する', value: 'shadow' },
+							{
+								label: __( 'なし', 'ccl-plugin' ),
+								value: 'none',
+							},
+							{
+								label: __( '影を表示する', 'ccl-plugin' ),
+								value: 'shadow',
+							},
 						] }
 						onChange={ ( value ) =>
 							setSettings( { ...settings, hoverUse: value } )
@@ -31,7 +47,7 @@ export const Hover = ( settings, setSettings ) => {
 						className="u-display--inline-block u-marign-top--8px u-margin-bottom--0"
 						style={ styleDisplayNone( settings.hoverUse ) }
 					>
-						影の色
+						{ __( '影の色', 'ccl-plugin' ) }
 					</p>
 					<ColorPicker
 						color={ settings.hoverShadowColor }
@@ -50,7 +66,7 @@ export const Hover = ( settings, setSettings ) => {
 					style={ styleDisplayNone( settings.hoverUse ) }
 				>
 					<RangeControl
-						label="ホバー時の動作時間"
+						label={ __( 'ホバー時の動作時間', 'ccl-plugin' ) }
 						value={ settings.hoverTransitionTime }
 						onChange={ ( value ) =>
 							setSettings( {
@@ -63,7 +79,7 @@ export const Hover = ( settings, setSettings ) => {
 						step={ 0.1 }
 					/>
 					<RangeControl
-						label="ホバー時の高さ"
+						label={ __( 'ホバー時の高さ', 'ccl-plugin' ) }
 						value={ settings.hoverTop }
 						onChange={ ( value ) =>
 							setSettings( { ...settings, hoverTop: value } )
@@ -72,7 +88,7 @@ export const Hover = ( settings, setSettings ) => {
 						max={ 20 }
 					/>
 					<RangeControl
-						label="影の長さ（x方向）"
+						label={ __( '影の長さ（x方向）', 'ccl-plugin' ) }
 						value={ settings.hoverShadowOffsetX }
 						onChange={ ( value ) =>
 							setSettings( {
@@ -84,7 +100,7 @@ export const Hover = ( settings, setSettings ) => {
 						max={ 10 }
 					/>
 					<RangeControl
-						label="影の長さ（y方向）"
+						label={ __( '影の長さ（y方向）', 'ccl-plugin' ) }
 						value={ settings.hoverShadowOffsetY }
 						onChange={ ( value ) =>
 							setSettings( {
@@ -96,7 +112,7 @@ export const Hover = ( settings, setSettings ) => {
 						max={ 10 }
 					/>
 					<RangeControl
-						label="ぼかしの拡張・縮小"
+						label={ __( 'ぼかしの拡張・縮小', 'ccl-plugin' ) }
 						value={ settings.hoverShadowBlurRadius }
 						onChange={ ( value ) =>
 							setSettings( {
@@ -108,7 +124,7 @@ export const Hover = ( settings, setSettings ) => {
 						max={ 10 }
 					/>
 					<RangeControl
-						label="影の拡張・縮小"
+						label={ __( '影の拡張・縮小', 'ccl-plugin' ) }
 						value={ settings.hoverShadowSpreadRadius }
 						onChange={ ( value ) =>
 							setSettings( {

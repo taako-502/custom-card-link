@@ -1,3 +1,4 @@
+import { __ } from '@wordpress/i18n';
 import thumbnail from './../../asset/img/thumbnail.jpg';
 import { getCclClass, getSlcThumbnailClass } from './class.js';
 import { makeStyles, makeHoverdStyles } from './styles.js';
@@ -5,13 +6,13 @@ import { makeStyles, makeHoverdStyles } from './styles.js';
 import classnames from 'classnames';
 
 export const Preview = ( mediaSize, settings, isHover, setIsHover ) => {
-	//クラス
+	// クラス
 	const cclClass = getCclClass( mediaSize, settings );
 	const cclThumbnailClass = getSlcThumbnailClass( mediaSize, settings );
-	//プレビュー用スタイルシート
+	// プレビュー用スタイルシート
 	const styles = makeStyles( mediaSize, settings );
 	const hoverdStyles = makeHoverdStyles( mediaSize, settings );
-	//設定値
+	// 設定値
 	const layout = ! mediaSize ? settings.layout : settings.layoutSp;
 	const gapBetweenTitleAndThumbnail = ! mediaSize
 		? settings.gapBetweenTitleAndThumbnail
@@ -76,7 +77,7 @@ export const Preview = ( mediaSize, settings, isHover, setIsHover ) => {
 					} }
 				>
 					{ TextPreview(
-						'サンプルの記事カードです。',
+						__( 'Sample Title', 'ccl-plugin' ),
 						titleNumOfChar
 					) }
 				</p>
@@ -92,7 +93,7 @@ export const Preview = ( mediaSize, settings, isHover, setIsHover ) => {
 					} }
 				>
 					{ TextPreview(
-						'サンプルの記事カードの説明です。',
+						__( 'Sample Description', 'ccl-plugin' ),
 						descriptionNumOfChar
 					) }
 				</p>
@@ -102,10 +103,11 @@ export const Preview = ( mediaSize, settings, isHover, setIsHover ) => {
 };
 
 const TextPreview = ( base, numOfChar ) => {
-	let description = '';
+	let contents = '';
+	const basetext = base + ' '
 	for ( let i = 0; i < numOfChar; i++ ) {
-		const character = i % base.length;
-		description += base.charAt( character );
+		const character = i % basetext.length;
+		contents += basetext.charAt( character );
 	}
-	return description;
+	return contents;
 };
