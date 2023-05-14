@@ -77,7 +77,7 @@ export const Preview = ( mediaSize, settings, isHover, setIsHover ) => {
 					} }
 				>
 					{ TextPreview(
-						__( 'Sample Link Card', 'ccl-plugin' ),
+						__( 'Sample Title', 'ccl-plugin' ),
 						titleNumOfChar
 					) }
 				</p>
@@ -103,10 +103,11 @@ export const Preview = ( mediaSize, settings, isHover, setIsHover ) => {
 };
 
 const TextPreview = ( base, numOfChar ) => {
-	let description = '';
+	let contents = '';
+	const basetext = base + ' '
 	for ( let i = 0; i < numOfChar; i++ ) {
-		const character = i % base.length;
-		description += base.charAt( character );
+		const character = i % basetext.length;
+		contents += basetext.charAt( character );
 	}
-	return description;
+	return contents;
 };

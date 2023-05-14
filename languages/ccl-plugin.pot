@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Custom Card Link\n"
-"POT-Creation-Date: 2023-05-14 16:29+0900\n"
+"POT-Creation-Date: 2023-05-14 19:05+0900\n"
 "PO-Revision-Date: 2023-05-13 22:17+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -23,19 +23,19 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-1: node_modules\n"
 
 #. Plugin Name of the plugin/theme
-#: custom-card-link.php:44
+#: custom-card-link.php:52
 msgid "Custom Card Link"
 msgstr ""
 
-#: custom-card-link.php:45
+#: custom-card-link.php:53
 msgid "Custom Card Link - Settings"
 msgstr ""
 
-#: custom-card-link.php:103
+#: custom-card-link.php:124
 msgid "Please enter the URL."
 msgstr ""
 
-#: custom-card-link.php:105
+#: custom-card-link.php:126
 msgid "Please enter a valid URL."
 msgstr ""
 
@@ -72,7 +72,7 @@ msgid "Default List Design"
 msgstr ""
 
 #: src/admin/preview.js:80
-msgid "Sample Link Card"
+msgid "Sample Title"
 msgstr ""
 
 #: src/admin/preview.js:96
