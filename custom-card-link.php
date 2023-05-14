@@ -14,6 +14,7 @@ License: GPL2
 */
 const OPTION_GROUP                = 'custom-card-link';
 const CCL_SLUG                    = 'custom-card-link';
+const TEXT_DOMAIN                 = 'ccl-plugin';
 const DB_NAME                     = 'custom_card_link_settings';
 const MAX_DESCRIPTION_CHAR_OF_NUM = 200; //setting-pc.jsおよびsetting-sp.jsとあわせる
 
@@ -30,8 +31,15 @@ use function Ccl_Plugin\functions\data\get_setting;
  */
 add_action('init', function() {
 	load_plugin_textdomain(
-		'ccl-plugin',
+		TEXT_DOMAIN,
 		false,
+		basename( plugin_dir_url( __FILE__ ) ) . '/languages'
+	);
+
+	// FIXME: うまく読み込めない
+	wp_set_script_translations(
+		CCL_SLUG,
+		TEXT_DOMAIN,
 		basename( plugin_dir_url( __FILE__ ) ) . '/languages'
 	);
 });
@@ -80,10 +88,23 @@ add_action('admin_enqueue_scripts', function($hook_suffix) {
 		true
 	);
 
+	load_script_textdomain(
+		CCL_SLUG,
+		TEXT_DOMAIN,
+		basename( plugin_dir_url( __FILE__ ) ) . '/languages'
+	);
+
+	// NOTE: https://elearn.jp/wpman/function/load_plugin_textdomain.html
+	echo 'test: ' . load_plugin_textdomain(
+		TEXT_DOMAIN,
+		false,
+		basename( plugin_dir_url( __FILE__ ) ) . '/languages'
+	);
+
 	// FIXME: うまく読み込めない
 	wp_set_script_translations(
 		CCL_SLUG,
-		'ccl-plugin',
+		TEXT_DOMAIN,
 		basename( plugin_dir_url( __FILE__ ) ) . '/languages'
 	);
 });
