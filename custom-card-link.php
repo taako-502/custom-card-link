@@ -69,18 +69,10 @@ add_action('admin_enqueue_scripts', function($hook_suffix) {
 		array('wp-components')
 	);
 
-	// NOTE: 以下を参考に'wp-i18n' を依存関係に追加
-	// NOTE: https://github.com/Automattic/jetpack/blob/3034305d9ba599e7d2a58380ec60b7d7d7f0ba05/projects/plugins/boost/app/admin/class-admin.php#L115-L137
-	// FIXME: しかし、うまく読み込めない
-	// 依存関係の追加
+		// JavaScriptファイルの読み込み
 	wp_enqueue_media();
 	$asset_file = include_once ( __DIR__ . '/build/admin.asset.php') ;
-	wp_enqueue_script('wp-i18n');
-	// 'wp-i18n' を依存関係に追加
-	$asset_file['dependencies'][] = 'wp-i18n';
-
-	// JavaScriptファイルの読み込み
-	wp_enqueue_script (
+	wp_enqueue_script(
 		CCL_SLUG,
 		plugin_dir_url( __FILE__ ).'build/admin.js',
 		$asset_file['dependencies'],
