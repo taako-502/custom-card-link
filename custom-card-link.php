@@ -33,14 +33,9 @@ add_action('init', function() {
 	load_plugin_textdomain(
 		TEXT_DOMAIN,
 		false,
-		basename( plugin_dir_url( __FILE__ ) ) . '/languages'
-	);
+		// 公式リポジトリに登録する場合は不要
+		// basename( plugin_dir_url( __FILE__ ) ) . '/languages'
 
-	// FIXME: うまく読み込めない
-	wp_set_script_translations(
-		CCL_SLUG,
-		TEXT_DOMAIN,
-		basename( plugin_dir_url( __FILE__ ) ) . '/languages'
 	);
 });
 
@@ -88,24 +83,12 @@ add_action('admin_enqueue_scripts', function($hook_suffix) {
 		true
 	);
 
-	load_script_textdomain(
-		CCL_SLUG,
-		TEXT_DOMAIN,
-		basename( plugin_dir_url( __FILE__ ) ) . '/languages'
-	);
-
-	// NOTE: https://elearn.jp/wpman/function/load_plugin_textdomain.html
-	load_plugin_textdomain(
-		TEXT_DOMAIN,
-		false,
-		basename( plugin_dir_url( __FILE__ ) ) . '/languages'
-	);
-
 	// FIXME: うまく読み込めない
 	wp_set_script_translations(
 		CCL_SLUG,
 		TEXT_DOMAIN,
-		basename( plugin_dir_url( __FILE__ ) ) . '/languages'
+		// 公式リポジトリに登録する場合は不要
+		// basename( plugin_dir_url( __FILE__ ) ) . '/languages'
 	);
 });
 
