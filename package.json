@@ -1,31 +1,38 @@
 {
-	"name": "custom-card-link",
-	"version": "0.1.0",
-	"description": "Creating a card-type link to the URL you enter.",
-	"author": "The WordPress Contributors",
-	"license": "GPL-2.0-or-later",
-	"main": "build/index.js",
-	"scripts": {
-		"build": "wp-scripts build",
-		"format": "wp-scripts format",
-		"lint": "wp-scripts lint-style && wp-scripts lint-js",
-		"lint:css": "wp-scripts lint-style",
-		"lint--fix:css": "wp-scripts lint-style --fix",
-		"lint:js": "wp-scripts lint-js",
-		"lint--fix:js": "wp-scripts lint-js --fix",
-		"packages-update": "wp-scripts packages-update",
-		"plugin-zip": "wp-scripts plugin-zip",
-		"start": "wp-scripts start"
-	},
-	"devDependencies": {
-		"@wordpress/scripts": "^23.2.0",
-		"classnames": "^2.3.1",
-		"po2json": "^0.4.5",
-		"react": "^18.2.0",
-		"react-notifications-component": "^4.0.0"
-	},
-	"dependencies": {
-		"@wordpress/element": "^5.10.0",
-		"@wordpress/i18n": "^4.33.0"
-	}
+  "name": "custom-card-link",
+  "version": "1.0.3",
+  "packageManager": "yarn@4.0.2",
+  "description": "Creating a card-type link to the URL you enter.",
+  "author": "The WordPress Contributors",
+  "license": "GPL-2.0-or-later",
+  "main": "build/index.js",
+  "scripts": {
+    "start": "wp-scripts start",
+    "build": "wp-scripts build",
+    "format": "wp-scripts format",
+    "lint": "wp-scripts lint-style && wp-scripts lint-js",
+    "lint:css": "wp-scripts lint-style",
+    "lint--fix:css": "wp-scripts lint-style --fix",
+    "lint:js": "wp-scripts lint-js",
+    "lint--fix:js": "wp-scripts lint-js --fix",
+    "packages-update": "wp-scripts packages-update",
+    "plugin-zip": "wp-scripts plugin-zip"
+  },
+  "devDependencies": {
+    "@wordpress/env": "^8.13.0",
+    "@wordpress/scripts": "^23.2.0",
+    "classnames": "^2.3.1",
+    "po2json": "^0.4.5",
+    "react": "^18.2.0",
+    "react-notifications-component": "^4.0.0"
+  },
+  "dependencies": {
+    "@wordpress/element": "^5.10.0",
+    "@wordpress/i18n": "^4.33.0"
+  },
+  "volta": {
+    "node": "20.9.0",
+    "yarn": "4.0.2",
+    "npm": "10.2.3"
+  }
 }
