@@ -1,7 +1,7 @@
 {
   "name": "custom-card-link",
   "version": "1.0.3",
-  "packageManager": "yarn@4.0.2",
+  "packageManager": "yarn@3.6.1",
   "description": "Creating a card-type link to the URL you enter.",
   "author": "The WordPress Contributors",
   "license": "GPL-2.0-or-later",
@@ -31,8 +31,8 @@
     "@wordpress/i18n": "^4.33.0"
   },
   "volta": {
-    "node": "20.9.0",
-    "yarn": "4.0.2",
+    "node": "16.20.2",
+    "yarn": "3.6.1",
     "npm": "10.2.3"
   }
 }
