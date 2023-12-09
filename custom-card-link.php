@@ -72,7 +72,7 @@ add_action('admin_enqueue_scripts', function($hook_suffix) {
 		array('wp-components')
 	);
 
-		// JavaScriptファイルの読み込み
+	// JavaScriptファイルの読み込み
 	wp_enqueue_media();
 	$asset_file = include_once ( __DIR__ . '/build/admin.asset.php') ;
 	wp_enqueue_script(

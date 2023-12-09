@@ -14,11 +14,12 @@ class CustomCardLink {
 	private int $title_font_size                    = 0;
 	private int $description_font_size              = 0;
 	private int $gap_between_title_and_thumbnail    = 0;
-	private int $description_margin_top_sp          = 0;
+	private int $description_margin_top             = 0;
 	//スマホ
 	private string $title_sp                        = '';
 	private string $description_sp                  = '';
 	private string $layout_sp                       = 'card';
+	private int $padding_sp                         = 0;
 	//ホバー時
 	private string $hover_use                       = 'none';
 	private int $hover_top                          = 0;
@@ -38,6 +39,8 @@ class CustomCardLink {
 		$this->gap_between_title_and_thumbnail    = $settings['gap_between_title_and_thumbnail']    ?? 0;
 		$this->description_margin_top             = $settings['description_margin_top']             ?? 0;
 		//スマホ
+		$this->title_sp                           = $settings['title_sp']                           ?? '';
+		$this->description_sp                     = $settings['description_sp']                     ?? '';
 		$this->layout_sp                          = $settings['layout_sp']                          ?? '';
 		$this->padding_sp                         = $settings['padding_sp']                         ?? 0;
 		//ホバー時
