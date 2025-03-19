@@ -42,6 +42,7 @@ jobs:
             git config user.email "github-actions@github.com"
             git tag $TAG
             git push https://${GH_PAT}@github.com/${{ github.repository }}.git $TAG
+          fi
 
       - name: Create GitHub Release
         if: success()
