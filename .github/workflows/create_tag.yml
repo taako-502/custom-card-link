@@ -42,4 +42,13 @@ jobs:
             git config user.email "github-actions@github.com"
             git tag $TAG
             git push https://${GH_PAT}@github.com/${{ github.repository }}.git $TAG
-          fi
+
+      - name: Create GitHub Release
+        if: success()
+        uses: actions/create-release@v1
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        with:
+          tag_name: "v${{ env.VERSION }}"
+          release_name: "v${{ env.VERSION }}"
+          body: "Release for version ${{ env.VERSION }}"
