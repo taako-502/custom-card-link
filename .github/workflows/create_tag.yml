@@ -30,26 +30,14 @@ jobs:
             echo "Version updated from $PREV_VERSION to $VERSION"
           fi
 
-      - name: Create and push Git tag using PAT
-        env:
-          GH_PAT: ${{ secrets.GH_PAT }}
-        run: |
-          TAG=v${{ env.VERSION }}
-          if git rev-parse "$TAG" >/dev/null 2>&1; then
-            echo "Tag $TAG already exists."
-          else
-            git config user.name "github-actions"
-            git config user.email "github-actions@github.com"
-            git tag $TAG
-            git push https://${GH_PAT}@github.com/${{ github.repository }}.git $TAG
-          fi
-
       - name: Create GitHub Release
-        if: success()
+        id: create_release
         uses: actions/create-release@v1
         env:
-          GH_TOKEN: ${{ secrets.GH_PAT }}
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
         with:
           tag_name: "v${{ env.VERSION }}"
           release_name: "v${{ env.VERSION }}"
-          body: "Release for version ${{ env.VERSION }}"
+          body: "Release ${{ env.VERSION }}"
+          draft: false
+          prerelease: false
