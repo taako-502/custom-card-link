@@ -1,6 +1,6 @@
 {
   "name": "custom-card-link",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "packageManager": "yarn@4.6.0",
   "description": "Creating a card-type link to the URL you enter.",
   "author": "The WordPress Contributors",

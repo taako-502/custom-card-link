@@ -31,13 +31,7 @@ jobs:
           fi
 
       - name: Create GitHub Release
-        id: create_release
-        uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: "v${{ env.VERSION }}"
-          release_name: "v${{ env.VERSION }}"
-          body: "Release ${{ env.VERSION }}"
-          draft: false
-          prerelease: false
+        run: |
+          gh release create "v${VERSION}" --title "v${VERSION}" --notes "Release ${VERSION}"
