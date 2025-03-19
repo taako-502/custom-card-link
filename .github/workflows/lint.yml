@@ -1,0 +1,22 @@
+name: Lint Check
+
+on:
+  push:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Volta
+        uses: volta-cli/action@v4
+      - name: Run Lint
+
+        run: |
+          yarn
+          yarn lint

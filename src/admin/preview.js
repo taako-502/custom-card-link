@@ -104,7 +104,7 @@ export const Preview = ( mediaSize, settings, isHover, setIsHover ) => {
 
 const TextPreview = ( base, numOfChar ) => {
 	let contents = '';
-	const basetext = base + ' '
+	const basetext = base + ' ';
 	for ( let i = 0; i < numOfChar; i++ ) {
 		const character = i % basetext.length;
 		contents += basetext.charAt( character );

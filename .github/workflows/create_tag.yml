@@ -1,0 +1,29 @@
+name: Create Tag on Version Update
+
+on:
+  push:
+    paths:
+      - 'package.json'
+
+jobs:
+  create-tag:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Extract package version
+        id: vars
+        run: |
+          VERSION=$(jq -r '.version' package.json)
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+      - name: Create and push Git tag
+        run: |
+          TAG=v${{ env.VERSION }}
+          if git rev-parse "$TAG" >/dev/null 2>&1; then
+            echo "Tag $TAG already exists."
+          else
+            git tag $TAG
+            git push origin $TAG
+          fi
