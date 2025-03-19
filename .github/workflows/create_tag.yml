@@ -11,12 +11,24 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
 
-      - name: Extract package version
+      - name: Extract package version and check for change
         id: vars
         run: |
           VERSION=$(jq -r '.version' package.json)
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "VERSION=${VERSION}" >> $GITHUB_ENV
+
+          PREV_PACKAGE=$(git show HEAD^:package.json 2>/dev/null || echo '{}')
+          PREV_VERSION=$(echo "$PREV_PACKAGE" | jq -r '.version')
+          
+          if [ "$PREV_VERSION" = "$VERSION" ]; then
+            echo "Version not changed (previous: $PREV_VERSION, current: $VERSION), skipping tag creation."
+            exit 0
+          else
+            echo "Version updated from $PREV_VERSION to $VERSION"
+          fi
 
       - name: Create and push Git tag
         run: |
