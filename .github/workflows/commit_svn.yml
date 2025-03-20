@@ -16,10 +16,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Configure Git safe directory
-        run: |
-          git config --global --add safe.directory "$GITHUB_WORKSPACE"
-
       - name: Setup Volta
         uses: volta-cli/action@v4
 
@@ -28,9 +24,16 @@ jobs:
           yarn
           yarn build
 
+      - name: Configure Git safe directory
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
       - name: Deploy to WordPress SVN
         uses: 10up/action-wordpress-plugin-deploy@master
         env:
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
           PLUGIN_SLUG: custom-card-link
+        with:
+          generate-zip: false
+        continue-on-error: false
