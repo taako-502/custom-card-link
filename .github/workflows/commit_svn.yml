@@ -34,6 +34,3 @@ jobs:
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
           PLUGIN_SLUG: custom-card-link
-        with:
-          generate-zip: false
-        continue-on-error: false
