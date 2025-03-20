@@ -48,4 +48,4 @@ jobs:
            -H "Accept: application/vnd.github+json" \
            -H "Authorization: Bearer ${{ secrets.GH_PAT }}" \
            https://api.github.com/repos/${{ github.repository }}/dispatches \
-           -d '{"event_type": "deploy-svn", "client_payload": {"version": "v${VERSION}"}}'
+           -d '{"event_type": "deploy-svn", "client_payload": {"version": "v${{ env.VERSION }}"}}'
