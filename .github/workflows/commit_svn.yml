@@ -4,8 +4,8 @@ on:
   push:
     tags:
       - 'v*'
-  # repository_dispatch:
-  #   types: [deploy-svn]
+  repository_dispatch:
+    types: [deploy-svn]
 
 jobs:
   deploy:
