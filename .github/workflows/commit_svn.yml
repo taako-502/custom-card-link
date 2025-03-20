@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          ref: ${{ github.event.client_payload.version || github.ref }}
+          ref: ${{ github.event.client_payload.version != '' && github.event.client_payload.version || github.ref_name }}
 
       - name: Setup Volta
         uses: volta-cli/action@v4
