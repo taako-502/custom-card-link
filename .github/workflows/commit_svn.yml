@@ -3,33 +3,25 @@ name: Deploy WordPress Plugin
 on:
   push:
     tags:
-      - 'v*'
-  repository_dispatch:
-    types: [deploy-svn]
+      - '*'
 
 jobs:
-  deploy:
+  tag:
+    name: New tag
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          ref: ${{ github.event.client_payload.version != '' && github.event.client_payload.version || github.ref_name }}
+      - uses: actions/checkout@v4
 
       - name: Setup Volta
         uses: volta-cli/action@v4
-
+      
       - name: Build
         run: |
           yarn
           yarn build
-
+      
       - name: WordPress Plugin Deploy
-        id: deploy
         uses: 10up/action-wordpress-plugin-deploy@stable
-        with:
-          generate-zip: true
         env:
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
