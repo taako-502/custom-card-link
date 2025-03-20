@@ -24,6 +24,9 @@ $ yarn build
 
 `ccl-plugin.pot`を更新する。
 
+## Deploy（SVNへのコミット）
+`vX.X.X`形式でタグを作成すると、GitHub Actionのワークフローが実行され、SVNに自動でデプロイされる。
+
 ## Third-party resources
 ### Get_OGP_InWP
 License: Apache v2
