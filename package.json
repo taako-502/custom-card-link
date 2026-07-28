@@ -16,7 +16,11 @@
     "lint:js": "wp-scripts lint-js",
     "lint--fix:js": "wp-scripts lint-js --fix",
     "packages-update": "wp-scripts packages-update",
-    "plugin-zip": "wp-scripts plugin-zip"
+    "plugin-zip": "wp-scripts plugin-zip",
+    "wp-env:start": "wp-env start",
+    "wp-env:stop": "wp-env stop",
+    "wp-env:clean": "wp-env clean all",
+    "wp-env:logs": "wp-env logs --no-watch"
   },
   "devDependencies": {
     "@wordpress/env": "^10.20.0",
