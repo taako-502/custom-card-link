@@ -1,0 +1,12 @@
+includes:
+	- vendor/szepeviktor/phpstan-wordpress/extension.neon
+
+parameters:
+	level: 5
+	phpVersion: 80000
+	paths:
+		- custom-card-link.php
+		- classes/
+		- functions/
+	scanFiles:
+		- library/Get_OGP_InWP/get_ogp_inwp.php

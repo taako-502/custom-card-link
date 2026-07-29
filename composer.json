@@ -1,0 +1,25 @@
+{
+    "name": "takao502/custom-card-link",
+    "description": "Development tools for the Custom Card Link WordPress plugin.",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0-or-later",
+    "require": {
+        "php": ">=8.0"
+    },
+    "require-dev": {
+        "php-parallel-lint/php-parallel-lint": "^1.4",
+        "szepeviktor/phpstan-wordpress": "^2.0"
+    },
+    "scripts": {
+        "lint:php": "parallel-lint --exclude vendor .",
+        "analyse:php": "phpstan analyse --no-progress --memory-limit=512M",
+        "check:php": [
+            "@lint:php",
+            "@analyse:php"
+        ]
+    },
+    "config": {
+        "allow-plugins": false,
+        "sort-packages": true
+    }
+}

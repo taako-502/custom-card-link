@@ -179,7 +179,9 @@ add_action('init', function() {
 				}
 
 				//リンク先の情報と設定画面の設定情報をマージ
-				$settings = array_merge(get_setting(), getLinkInfo($post_id, $ogps));
+				/** @var array<string, mixed> $plugin_settings */
+				$plugin_settings = get_setting();
+				$settings = array_merge($plugin_settings, getLinkInfo($post_id, $ogps));
 
 				//HTMLの作成
 				$ccl = new \Ccl_Plugin\classes\CustomCardLink($url, $settings);
@@ -191,12 +193,8 @@ add_action('init', function() {
 
 /**
  * リンク先の情報を取得する
- * @param  string $post_id
+ * @param  int    $post_id
  * @param  array  $ogps
- * @param  string $title_num
- * @param  string $title_num_sp
- * @param  string $description_num
- * @param  string $description_num_sp
  * @return array
  */
 function getLinkInfo($post_id, $ogps) {
@@ -225,8 +223,8 @@ function getLinkInfo($post_id, $ogps) {
 
 /**
  * 記事情報をディスクリプションに変換
- * @param  string  $content 記事情報
- * @param  integer $len     文字数
+ * @param  int     $id  記事ID
+ * @param  integer $len 文字数
  * @return string           ディスクリプション
  */
 function getDescription($id, $len){
