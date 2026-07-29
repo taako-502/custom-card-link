@@ -20,11 +20,13 @@ const MAX_DESCRIPTION_CHAR_OF_NUM = 200; //setting-pc.jsおよびsetting-sp.js�
 
 require_once __DIR__ .'/classes/CustomCardLink.php';
 require_once __DIR__ .'/library/Get_OGP_InWP/get_ogp_inwp.php';
+require_once __DIR__ .'/functions/ogp_cache.php';
 require_once __DIR__ .'/functions/rest_api.php';
 require_once __DIR__ .'/functions/style.php';
 require_once __DIR__ .'/functions/data.php';
 
 use function Ccl_Plugin\functions\data\get_setting;
+use function Ccl_Plugin\functions\ogp_cache\get_cached_ogp;
 
 /**
  * 翻訳ファイルの読み込み
@@ -163,7 +165,7 @@ add_action('init', function() {
 
 				// 内部リンクはWordPressの投稿データを使用するため、HTTPリクエストは不要
 				$ogps = $post_id == 0
-					? \Ccl_Plugin\library\Get_OGP_InWP::get($url)
+					? get_cached_ogp($url)
 					: [];
 
 				if(($ogps == [] && $post_id == 0) && !is_singular()){
