@@ -108,7 +108,12 @@ function normalizeUrlForComparison($url) {
 	}
 
 	$host = strtolower($parts['host']);
-	$port = isset($parts['port']) ? ':'.$parts['port'] : '';
+	$scheme = strtolower($parts['scheme'] ?? '');
+	$port = $parts['port'] ?? null;
+	if(($scheme === 'http' && $port === 80) || ($scheme === 'https' && $port === 443)) {
+		$port = null;
+	}
+	$port = isset($port) ? ':'.$port : '';
 	$path = $parts['path'] ?? '/';
 	$path = '/'.ltrim($path, '/');
 	$path = untrailingslashit($path);
