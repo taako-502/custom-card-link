@@ -176,7 +176,7 @@ jobs:
             if git diff --cached --quiet; then
               echo "Source versions and build files are already up to date."
             else
-              git commit -m "[via Codex] chore: release ${RELEASE_VERSION}"
+              git commit -m "[via GitHub Actions] release ${RELEASE_VERSION}"
             fi
 
             release_sha="$(git rev-parse HEAD)"
