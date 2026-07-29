@@ -29,7 +29,11 @@ $ composer check:php
 `composer check:php`では、PHPの構文チェックとWordPress向けPHPStanによる静的解析を実行する。
 
 ## Deploy（SVNへのコミット）
-`vX.X.X`形式でタグを作成すると、GitHub Actionのワークフローが実行され、SVNに自動でデプロイされる。
+1. GitHub Actionsの「Deploy WordPress Plugin」で`main`を選択し、「Run workflow」を開く。
+2. リリースするバージョンを先頭`v`なしの`X.Y.Z`形式で入力して実行する。
+
+ワークフローは`package.json`と`custom-card-link.php`のバージョン更新、lint・テスト・build、リリースコミットの`main`へのpush、WordPress.orgへのデプロイを順に行う。デプロイ成功後に`vX.Y.Z`タグとGitHub Releaseを作成する。
+再実行時は同じコミットを指す既存タグと既存GitHub Releaseを再利用する。タグが別のコミットを指す場合は、タグを変更せずエラー終了する。
 
 ## Third-party resources
 ### Get_OGP_InWP
