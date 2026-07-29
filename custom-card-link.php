@@ -93,22 +93,83 @@ add_action('admin_enqueue_scripts', function($hook_suffix) {
 });
 
 /**
-* サーバ側処理
-*/
+ * URLを比較用に正規化する
+ *
+ * クエリ文字列とフラグメントはページの識別に使用せず、
+ * 末尾のスラッシュの有無も同一URLとして扱う。
+ *
+ * @param string $url
+ * @return string
+ */
+function normalizeUrlForComparison($url) {
+	$parts = wp_parse_url(trim($url));
+	if(!is_array($parts) || empty($parts['host'])) {
+		return '';
+	}
+
+	$host = strtolower($parts['host']);
+	$scheme = strtolower($parts['scheme'] ?? '');
+	$port = $parts['port'] ?? null;
+	if(($scheme === 'http' && $port === 80) || ($scheme === 'https' && $port === 443)) {
+		$port = null;
+	}
+	$port = isset($port) ? ':'.$port : '';
+	$path = $parts['path'] ?? '/';
+	$path = '/'.ltrim($path, '/');
+	$path = untrailingslashit($path);
+
+	return $host.$port.$path;
+}
+
+/**
+ * 指定されたURLが現在表示中のURLか判定する
+ *
+ * @param string $url
+ * @return bool
+ */
+function isCurrentRequestUrl($url) {
+	if(empty($_SERVER['HTTP_HOST']) || empty($_SERVER['REQUEST_URI'])) {
+		return false;
+	}
+
+	$scheme      = is_ssl() ? 'https://' : 'http://';
+	$host        = sanitize_text_field(wp_unslash($_SERVER['HTTP_HOST']));
+	$request_uri = wp_unslash($_SERVER['REQUEST_URI']);
+	$current_url = $scheme.$host.$request_uri;
+
+	return normalizeUrlForComparison($url) === normalizeUrlForComparison($current_url);
+}
+
+/**
+ * サーバ側処理
+ */
 add_action('init', function() {
 	register_block_type_from_metadata(__DIR__ . '/build',
 		array(
 			'render_callback' => function($attributes) {
 				//入力チェック
-				$url     = $attributes['url'] ?? '';
-				$ogps    = \Ccl_Plugin\library\Get_OGP_InWP::get(trim($url));
+				$url = trim($attributes['url'] ?? '');
+				if($url == '') {
+					if(!is_singular()) {
+						return __('Please enter the URL.', 'ccl-plugin');
+					}
+					return;
+				}
+
 				$post_id = url_to_postid($url);
-				if($url == '' && !is_singular()) {
-					return __('Please enter the URL.', 'ccl-plugin');
-				} else if(($ogps == [] && $post_id == 0) && !is_singular()){
+				if($post_id == 0 && isCurrentRequestUrl($url)) {
+					return;
+				}
+
+				// 内部リンクはWordPressの投稿データを使用するため、HTTPリクエストは不要
+				$ogps = $post_id == 0
+					? \Ccl_Plugin\library\Get_OGP_InWP::get($url)
+					: [];
+
+				if(($ogps == [] && $post_id == 0) && !is_singular()){
 					return __('Please enter a valid URL.', 'ccl-plugin');
 				}
-				if($url == '' || ($ogps == [] && $post_id == 0)){
+				if($ogps == [] && $post_id == 0){
 					return;
 				}
 
