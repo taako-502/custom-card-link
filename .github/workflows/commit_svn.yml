@@ -12,6 +12,31 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
+      - name: Validate versions
+        run: |
+          tag_version="${GITHUB_REF_NAME#v}"
+          package_version="$(node -p "require('./package.json').version")"
+          plugin_version="$(
+            awk '/^[[:space:]]*Version:[[:space:]]*/ {
+              sub(/^[[:space:]]*Version:[[:space:]]*/, "")
+              sub(/\r$/, "")
+              print
+              exit
+            }' custom-card-link.php
+          )"
+
+          if [[ -z "${tag_version}" || -z "${package_version}" || -z "${plugin_version}" ]]; then
+            echo "::error title=Version validation failed::バージョンを取得できませんでした (tag=${tag_version}, package.json=${package_version}, custom-card-link.php=${plugin_version})"
+            exit 1
+          fi
+
+          if [[ "${tag_version}" != "${package_version}" || "${tag_version}" != "${plugin_version}" ]]; then
+            echo "::error title=Version mismatch::バージョンが一致しません (tag=${tag_version}, package.json=${package_version}, custom-card-link.php=${plugin_version})"
+            exit 1
+          fi
+
+          echo "Version ${tag_version} is valid."
+
       - name: Setup Volta
         uses: volta-cli/action@v5
       
@@ -32,4 +57,3 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh release create "${{ github.ref_name }}" --title "${{ github.ref_name }}" --notes "Release ${{ github.ref_name }}"
-  
