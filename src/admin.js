@@ -11,9 +11,10 @@ import { SettingsSp } from './admin/settings-sp.js';
 
 import { createRoot, useState, useLayoutEffect } from '@wordpress/element';
 import { ToggleControl } from '@wordpress/components';
-import api from '@wordpress/api';
 
 import { ReactNotifications } from 'react-notifications-component';
+
+const { api } = window.wp;
 
 /**
  * 管理画面
