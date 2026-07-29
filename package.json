@@ -1,7 +1,7 @@
 {
   "name": "custom-card-link",
   "version": "1.0.24",
-  "packageManager": "yarn@4.6.0",
+  "packageManager": "yarn@4.18.0",
   "description": "Creating a card-type link to the URL you enter.",
   "author": "The WordPress Contributors",
   "license": "GPL-2.0-or-later",
@@ -23,19 +23,24 @@
     "wp-env:logs": "wp-env logs --no-watch"
   },
   "devDependencies": {
-    "@wordpress/env": "^10.20.0",
-    "@wordpress/scripts": "^30.13.0",
+    "@wordpress/env": "^11.12.0",
+    "@wordpress/scripts": "^34.0.0",
     "classnames": "^2.5.1",
     "po2json": "^0.4.5",
-    "react": "^19.0.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-notifications-component": "^4.0.1"
   },
   "dependencies": {
-    "@wordpress/element": "^6.20.0",
-    "@wordpress/i18n": "^5.20.0"
+    "@wordpress/block-editor": "^16.1.0",
+    "@wordpress/blocks": "^15.25.0",
+    "@wordpress/components": "^38.0.0",
+    "@wordpress/element": "^8.4.0",
+    "@wordpress/i18n": "^6.25.0",
+    "@wordpress/server-side-render": "^6.28.0"
   },
   "volta": {
-    "node": "22.12.0",
-    "yarn": "4.6.0"
+    "node": "24.18.0",
+    "yarn": "4.18.0"
   }
 }
