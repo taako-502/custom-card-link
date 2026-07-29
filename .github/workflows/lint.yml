@@ -11,12 +11,30 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Volta
-        uses: volta-cli/action@v4
-      - name: Run Lint
+        uses: volta-cli/action@v5
 
+      - name: Run Lint
         run: |
           yarn
           yarn lint
+
+  php:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.0"
+          coverage: none
+
+      - name: Install PHP dependencies
+        run: composer install --no-interaction --no-progress
+
+      - name: Run PHP checks
+        run: composer check:php

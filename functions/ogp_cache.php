@@ -82,9 +82,6 @@ function get_cached_ogp($url) {
 	}
 
 	$ogps = Get_OGP_InWP::get($url);
-	if(!is_array($ogps)) {
-		$ogps = [];
-	}
 
 	$request_cache[$cache_key] = $ogps;
 

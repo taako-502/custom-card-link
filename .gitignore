@@ -5,6 +5,7 @@ yarn-error.log
 
 # dependencies
 /node_modules
+/vendor
 /.pnp
 .pnp.js
 .yarn/install-state.gz

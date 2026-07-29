@@ -20,9 +20,13 @@ https://github.com/taako-502/custom-card-link
 以下のコマンドを実行する
 ```bash
 $ yarn build
+$ composer install
+$ composer check:php
 ```
 
 `ccl-plugin.pot`を更新する。
+
+`composer check:php`では、PHPの構文チェックとWordPress向けPHPStanによる静的解析を実行する。
 
 ## Deploy（SVNへのコミット）
 `vX.X.X`形式でタグを作成すると、GitHub Actionのワークフローが実行され、SVNに自動でデプロイされる。

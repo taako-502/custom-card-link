@@ -19,7 +19,6 @@ class CustomCardLink {
 	private string $title_sp                        = '';
 	private string $description_sp                  = '';
 	private string $layout_sp                       = 'card';
-	private int $padding_sp                         = 0;
 	//ホバー時
 	private string $hover_use                       = 'none';
 	private int $hover_top                          = 0;
@@ -42,7 +41,6 @@ class CustomCardLink {
 		$this->title_sp                           = $settings['title_sp']                           ?? '';
 		$this->description_sp                     = $settings['description_sp']                     ?? '';
 		$this->layout_sp                          = $settings['layout_sp']                          ?? '';
-		$this->padding_sp                         = $settings['padding_sp']                         ?? 0;
 		//ホバー時
 		$this->hover_use                          = $settings['hover_use']                          ?? '';
 		$this->hover_top                          = $settings['hover_top']                          ?? 0;
@@ -61,7 +59,6 @@ class CustomCardLink {
 
 	/**
 	 * 外部リンクカード
-	 * @param  string $url
 	 * @return string
 	 */
 	public function make_ccl() {
@@ -130,34 +127,24 @@ class CustomCardLink {
 		switch ($num) {
 			case 0.1:
 				return 'point-1';
-				break;
 			case 0.2:
 				return 'point-2';
-				break;
 			case 0.3:
 				return 'point-3';
-				break;
 			case 0.4:
 				return 'point-4';
-				break;
 			case 0.5:
 				return 'point-5';
-				break;
 			case 0.6:
 				return 'point-6';
-				break;
 			case 0.7:
 				return 'point-7';
-				break;
 			case 0.8:
 				return 'point-8';
-				break;
 			case 0.9:
 				return 'point-9';
-				break;
 			case 1:
 				return '1';
-				break;
 		}
 		return;
 	}
@@ -170,15 +157,5 @@ class CustomCardLink {
 	 */
 	private function format_title($title, $num) {
 		return mb_strlen($title) <= $num ? mb_substr($title, 0, $num) : mb_substr($title, 0, $num).'...';
-	}
-
-	/**
-	 * ディスクリプションの整形
-	 * @param  string $title
-	 * @param  int $num
-	 * @return string
-	 */
-	private function format_description($description, $num) {
-		return $num == 0 ? mb_substr($description, 0, $num) : mb_substr($description, 0, $num).'...';
 	}
 }
