@@ -76,15 +76,11 @@ add_action('admin_enqueue_scripts', function($hook_suffix) {
 	);
 
 	// JavaScriptファイルの読み込み
-	wp_enqueue_media();
 	$asset_file = include_once ( __DIR__ . '/build/admin.asset.php') ;
-	$dependencies = array_unique(
-		array_merge($asset_file['dependencies'], array('wp-api'))
-	);
 	wp_enqueue_script(
 		CCL_SLUG,
 		plugin_dir_url( __FILE__ ).'build/admin.js',
-		$dependencies,
+		$asset_file['dependencies'],
 		$asset_file['version'],
 		true
 	);

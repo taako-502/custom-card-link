@@ -1,222 +1,280 @@
+import apiFetch from '@wordpress/api-fetch';
+import { Button, Notice, Spinner, ToggleControl } from '@wordpress/components';
+import {
+	createRoot,
+	useCallback,
+	useEffect,
+	useRef,
+	useState,
+} from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import './admin.scss';
-import 'react-notifications-component/dist/theme.css';
 
-import { settingNotification } from './admin/settingNotification.js';
+import { Buttons } from './admin/buttons.js';
 import { setStandardDesignCard } from './admin/design.js';
 import { Preview } from './admin/preview.js';
-import { Buttons } from './admin/buttons.js';
 import { SettingsPc } from './admin/settings-pc.js';
 import { SettingsSp } from './admin/settings-sp.js';
 
-import { createRoot, useState, useLayoutEffect } from '@wordpress/element';
-import { ToggleControl } from '@wordpress/components';
+const getSettingsFromResponse = ( settings ) => {
+	return {
+		layout: settings.layout,
+		maxWidth: settings.max_width,
+		padding: settings.padding,
+		borderRadius: settings.border_radius,
+		titleFontSize: settings.title_font_size,
+		descriptionFontSize: settings.description_font_size,
+		titleNumOfChar: settings.title_num_of_char,
+		descriptionNumOfChar: settings.description_num_of_char,
+		gapBetweenTitleAndThumbnail: settings.gap_between_title_and_thumbnail,
+		descriptionMarginTop: settings.description_margin_top,
+		shadowUse: settings.shadow_use,
+		shadowOffsetX: settings.shadow_offset_x,
+		shadowOffsetY: settings.shadow_offset_y,
+		shadowBlurRadius: settings.shadow_blur_radius,
+		shadowSpreadRadius: settings.shadow_spread_radius,
+		shadowColor: settings.shadow_color,
+		breakpoint: settings.breakpoint,
+		layoutSp: settings.layout_sp,
+		maxWidthSp: settings.max_width_sp,
+		paddingSp: settings.padding_sp,
+		borderRadiusSp: settings.border_radius_sp,
+		titleFontSizeSp: settings.title_font_size_sp,
+		descriptionFontSizeSp: settings.description_font_size_sp,
+		titleNumOfCharSp: settings.title_num_of_char_sp,
+		descriptionNumOfCharSp: settings.description_num_of_char_sp,
+		gapBetweenTitleAndThumbnailSp:
+			settings.gap_between_title_and_thumbnail_sp,
+		descriptionMarginTopSp: settings.description_margin_top_sp,
+		shadowUseSp: settings.shadow_use_sp,
+		shadowOffsetXSp: settings.shadow_offset_x_sp,
+		shadowOffsetYSp: settings.shadow_offset_y_sp,
+		shadowBlurRadiusSp: settings.shadow_blur_radius_sp,
+		shadowSpreadRadiusSp: settings.shadow_spread_radius_sp,
+		shadowColorSp: settings.shadow_color_sp,
+		hoverUse: settings.hover_use,
+		hoverTop: settings.hover_top,
+		hoverTransitionTime: settings.hover_transition_time,
+		hoverShadowOffsetX: settings.hover_shadow_offset_x,
+		hoverShadowOffsetY: settings.hover_shadow_offset_y,
+		hoverShadowBlurRadius: settings.hover_shadow_blur_radius,
+		hoverShadowSpreadRadius: settings.hover_shadow_spread_radius,
+		hoverShadowColor: settings.hover_shadow_color,
+	};
+};
 
-import { ReactNotifications } from 'react-notifications-component';
+const getSettingsForRequest = ( settings ) => {
+	return {
+		layout: settings.layout,
+		max_width: settings.maxWidth,
+		padding: settings.padding,
+		border_radius: settings.borderRadius,
+		title_font_size: settings.titleFontSize,
+		description_font_size: settings.descriptionFontSize,
+		title_num_of_char: settings.titleNumOfChar,
+		description_num_of_char: settings.descriptionNumOfChar,
+		gap_between_title_and_thumbnail: settings.gapBetweenTitleAndThumbnail,
+		description_margin_top: settings.descriptionMarginTop,
+		shadow_use: settings.shadowUse,
+		shadow_offset_x: settings.shadowOffsetX,
+		shadow_offset_y: settings.shadowOffsetY,
+		shadow_blur_radius: settings.shadowBlurRadius,
+		shadow_spread_radius: settings.shadowSpreadRadius,
+		shadow_color: settings.shadowColor,
+		breakpoint: settings.breakpoint,
+		layout_sp: settings.layoutSp,
+		max_width_sp: settings.maxWidthSp,
+		padding_sp: settings.paddingSp,
+		border_radius_sp: settings.borderRadiusSp,
+		title_font_size_sp: settings.titleFontSizeSp,
+		description_font_size_sp: settings.descriptionFontSizeSp,
+		title_num_of_char_sp: settings.titleNumOfCharSp,
+		description_num_of_char_sp: settings.descriptionNumOfCharSp,
+		gap_between_title_and_thumbnail_sp:
+			settings.gapBetweenTitleAndThumbnailSp,
+		description_margin_top_sp: settings.descriptionMarginTopSp,
+		shadow_use_sp: settings.shadowUseSp,
+		shadow_offset_x_sp: settings.shadowOffsetXSp,
+		shadow_offset_y_sp: settings.shadowOffsetYSp,
+		shadow_blur_radius_sp: settings.shadowBlurRadiusSp,
+		shadow_spread_radius_sp: settings.shadowSpreadRadiusSp,
+		shadow_color_sp: settings.shadowColorSp,
+		hover_use: settings.hoverUse,
+		hover_top: settings.hoverTop,
+		hover_transition_time: settings.hoverTransitionTime,
+		hover_shadow_offset_x: settings.hoverShadowOffsetX,
+		hover_shadow_offset_y: settings.hoverShadowOffsetY,
+		hover_shadow_blur_radius: settings.hoverShadowBlurRadius,
+		hover_shadow_spread_radius: settings.hoverShadowSpreadRadius,
+		hover_shadow_color: settings.hoverShadowColor,
+	};
+};
 
-const { api } = window.wp;
+const getErrorMessage = ( error, fallback ) => {
+	if (
+		error &&
+		typeof error.message === 'string' &&
+		error.message.trim() !== ''
+	) {
+		return error.message;
+	}
+
+	return fallback;
+};
+
+const LOAD_STATUS = {
+	LOADING: 'loading',
+	ERROR: 'error',
+	READY: 'ready',
+};
 
 /**
  * 管理画面
  */
-const Admin = () => {
+export const Admin = () => {
 	const React = require( 'react' );
-	//設定値
 	const [ settings, setSettings ] = useState( {} );
 	const [ isHover, setIsHover ] = useState( false );
 	const [ mediaSize, setmediaSize ] = useState( false );
+	const [ loadStatus, setLoadStatus ] = useState( LOAD_STATUS.LOADING );
+	const [ isSaving, setIsSaving ] = useState( false );
+	const [ notice, setNotice ] = useState( null );
+	const isMounted = useRef( true );
+	const loadRequestInProgress = useRef( false );
 
-	useLayoutEffect( () => {
-		api.loadPromise.then( () => {
-			// Modelの生成
-			const model = new api.models.Settings();
-			// 設定値の取得
-			model.fetch().then( ( response ) => {
-				if (
-					response.custom_card_link_settings === undefined ||
-					response.custom_card_link_settings === null
-				) {
-					setStandardDesignCard( setSettings );
-				} else {
-					setSettings( ( prevSettings ) => {
-						return {
-							...prevSettings,
-							layout: response.custom_card_link_settings.layout,
-							maxWidth:
-								response.custom_card_link_settings.max_width,
-							padding: response.custom_card_link_settings.padding,
-							borderRadius:
-								response.custom_card_link_settings
-									.border_radius,
-							titleFontSize:
-								response.custom_card_link_settings
-									.title_font_size,
-							descriptionFontSize:
-								response.custom_card_link_settings
-									.description_font_size,
-							titleNumOfChar:
-								response.custom_card_link_settings
-									.title_num_of_char,
-							descriptionNumOfChar:
-								response.custom_card_link_settings
-									.description_num_of_char,
-							gapBetweenTitleAndThumbnail:
-								response.custom_card_link_settings
-									.gap_between_title_and_thumbnail,
-							descriptionMarginTop:
-								response.custom_card_link_settings
-									.description_margin_top,
-							shadowUse:
-								response.custom_card_link_settings.shadow_use,
-							shadowOffsetX:
-								response.custom_card_link_settings
-									.shadow_offset_x,
-							shadowOffsetY:
-								response.custom_card_link_settings
-									.shadow_offset_y,
-							shadowBlurRadius:
-								response.custom_card_link_settings
-									.shadow_blur_radius,
-							shadowSpreadRadius:
-								response.custom_card_link_settings
-									.shadow_spread_radius,
-							shadowColor:
-								response.custom_card_link_settings.shadow_color,
-							breakpoint:
-								response.custom_card_link_settings.breakpoint,
-							layoutSp:
-								response.custom_card_link_settings.layout_sp,
-							maxWidthSp:
-								response.custom_card_link_settings.max_width_sp,
-							paddingSp:
-								response.custom_card_link_settings.padding_sp,
-							borderRadiusSp:
-								response.custom_card_link_settings
-									.border_radius_sp,
-							titleFontSizeSp:
-								response.custom_card_link_settings
-									.title_font_size_sp,
-							descriptionFontSizeSp:
-								response.custom_card_link_settings
-									.description_font_size_sp,
-							titleNumOfCharSp:
-								response.custom_card_link_settings
-									.title_num_of_char_sp,
-							descriptionNumOfCharSp:
-								response.custom_card_link_settings
-									.description_num_of_char_sp,
-							gapBetweenTitleAndThumbnailSp:
-								response.custom_card_link_settings
-									.gap_between_title_and_thumbnail_sp,
-							descriptionMarginTopSp:
-								response.custom_card_link_settings
-									.description_margin_top_sp,
-							shadowUseSp:
-								response.custom_card_link_settings
-									.shadow_use_sp,
-							shadowOffsetXSp:
-								response.custom_card_link_settings
-									.shadow_offset_x_sp,
-							shadowOffsetYSp:
-								response.custom_card_link_settings
-									.shadow_offset_y_sp,
-							shadowBlurRadiusSp:
-								response.custom_card_link_settings
-									.shadow_blur_radius_sp,
-							shadowSpreadRadiusSp:
-								response.custom_card_link_settings
-									.shadow_spread_radius_sp,
-							shadowColorSp:
-								response.custom_card_link_settings
-									.shadow_color_sp,
-							hoverUse:
-								response.custom_card_link_settings.hover_use,
-							hoverTop:
-								response.custom_card_link_settings.hover_top,
-							hoverTransitionTime:
-								response.custom_card_link_settings
-									.hover_transition_time,
-							hoverShadowOffsetX:
-								response.custom_card_link_settings
-									.hover_shadow_offset_x,
-							hoverShadowOffsetY:
-								response.custom_card_link_settings
-									.hover_shadow_offset_y,
-							hoverShadowBlurRadius:
-								response.custom_card_link_settings
-									.hover_shadow_blur_radius,
-							hoverShadowSpreadRadius:
-								response.custom_card_link_settings
-									.hover_shadow_spread_radius,
-							hoverShadowColor:
-								response.custom_card_link_settings
-									.hover_shadow_color,
-						};
-					} );
-				}
+	const loadSettings = useCallback( async () => {
+		if ( loadRequestInProgress.current ) {
+			return;
+		}
+
+		loadRequestInProgress.current = true;
+		setLoadStatus( LOAD_STATUS.LOADING );
+		setNotice( null );
+
+		try {
+			const response = await apiFetch( {
+				path: '/wp/v2/settings',
 			} );
-		} );
+
+			if ( ! isMounted.current ) {
+				return;
+			}
+
+			if (
+				response.custom_card_link_settings === undefined ||
+				response.custom_card_link_settings === null
+			) {
+				setStandardDesignCard( setSettings );
+			} else {
+				setSettings(
+					getSettingsFromResponse(
+						response.custom_card_link_settings
+					)
+				);
+			}
+			setLoadStatus( LOAD_STATUS.READY );
+		} catch ( error ) {
+			if ( ! isMounted.current ) {
+				return;
+			}
+
+			setSettings( {} );
+			setLoadStatus( LOAD_STATUS.ERROR );
+			setNotice( {
+				status: 'error',
+				message: getErrorMessage(
+					error,
+					__( 'Failed to load settings.', 'ccl-plugin' )
+				),
+			} );
+		} finally {
+			loadRequestInProgress.current = false;
+		}
 	}, [] );
-	//データを保存する処理
-	const dataSave = () => {
-		api.loadPromise.then( () => {
-			const model = new api.models.Settings( {
-				custom_card_link_settings: {
-					layout: settings.layout,
-					max_width: settings.maxWidth,
-					padding: settings.padding,
-					border_radius: settings.borderRadius,
-					title_font_size: settings.titleFontSize,
-					description_font_size: settings.descriptionFontSize,
-					title_num_of_char: settings.titleNumOfChar,
-					description_num_of_char: settings.descriptionNumOfChar,
-					gap_between_title_and_thumbnail:
-						settings.gapBetweenTitleAndThumbnail,
-					description_margin_top: settings.descriptionMarginTop,
-					shadow_use: settings.shadowUse,
-					shadow_offset_x: settings.shadowOffsetX,
-					shadow_offset_y: settings.shadowOffsetY,
-					shadow_blur_radius: settings.shadowBlurRadius,
-					shadow_spread_radius: settings.shadowSpreadRadius,
-					shadow_color: settings.shadowColor,
-					breakpoint: settings.breakpoint,
-					layout_sp: settings.layoutSp,
-					max_width_sp: settings.maxWidthSp,
-					padding_sp: settings.paddingSp,
-					border_radius_sp: settings.borderRadiusSp,
-					title_font_size_sp: settings.titleFontSizeSp,
-					description_font_size_sp: settings.descriptionFontSizeSp,
-					title_num_of_char_sp: settings.titleNumOfCharSp,
-					description_num_of_char_sp: settings.descriptionNumOfCharSp,
-					gap_between_title_and_thumbnail_sp:
-						settings.gapBetweenTitleAndThumbnailSp,
-					description_margin_top_sp: settings.descriptionMarginTopSp,
-					shadow_use_sp: settings.shadowUseSp,
-					shadow_offset_x_sp: settings.shadowOffsetXSp,
-					shadow_offset_y_sp: settings.shadowOffsetYSp,
-					shadow_blur_radius_sp: settings.shadowBlurRadiusSp,
-					shadow_spread_radius_sp: settings.shadowSpreadRadiusSp,
-					shadow_color_sp: settings.shadowColorSp,
-					hover_use: settings.hoverUse,
-					hover_top: settings.hoverTop,
-					hover_transition_time: settings.hoverTransitionTime,
-					hover_shadow_offset_x: settings.hoverShadowOffsetX,
-					hover_shadow_offset_y: settings.hoverShadowOffsetY,
-					hover_shadow_blur_radius: settings.hoverShadowBlurRadius,
-					hover_shadow_spread_radius:
-						settings.hoverShadowSpreadRadius,
-					hover_shadow_color: settings.hoverShadowColor,
+
+	useEffect( () => {
+		isMounted.current = true;
+		loadSettings();
+
+		return () => {
+			isMounted.current = false;
+		};
+	}, [ loadSettings ] );
+
+	const dataSave = async () => {
+		if ( loadStatus !== LOAD_STATUS.READY || isSaving ) {
+			return;
+		}
+
+		setIsSaving( true );
+		setNotice( null );
+
+		try {
+			await apiFetch( {
+				path: '/wp/v2/settings',
+				method: 'POST',
+				data: {
+					custom_card_link_settings:
+						getSettingsForRequest( settings ),
 				},
 			} );
-			settingNotification( model );
-		} );
+			setNotice( {
+				status: 'success',
+				message: __( 'Settings saved.', 'ccl-plugin' ),
+			} );
+		} catch ( error ) {
+			setNotice( {
+				status: 'error',
+				message: getErrorMessage(
+					error,
+					__( 'Failed to save settings.', 'ccl-plugin' )
+				),
+			} );
+		} finally {
+			setIsSaving( false );
+		}
 	};
+
+	if ( loadStatus === LOAD_STATUS.LOADING ) {
+		return (
+			<div className="ccl-admin" aria-busy="true">
+				<h1>{ __( 'Design settings', 'ccl-plugin' ) }</h1>
+				<Spinner />
+			</div>
+		);
+	}
+
+	if ( loadStatus === LOAD_STATUS.ERROR ) {
+		return (
+			<div className="ccl-admin">
+				<h1>{ __( 'Design settings', 'ccl-plugin' ) }</h1>
+				{ notice && (
+					<Notice
+						status={ notice.status }
+						onRemove={ () => setNotice( null ) }
+					>
+						{ notice.message }
+					</Notice>
+				) }
+				<Button variant="secondary" onClick={ loadSettings }>
+					{ __( 'Retry', 'ccl-plugin' ) }
+				</Button>
+			</div>
+		);
+	}
 
 	return (
 		<React.Fragment>
-			<ReactNotifications />
 			<div className="ccl-admin">
 				<h1>{ __( 'Design settings', 'ccl-plugin' ) }</h1>
+				{ notice && (
+					<Notice
+						status={ notice.status }
+						onRemove={ () => setNotice( null ) }
+					>
+						{ notice.message }
+					</Notice>
+				) }
 				<div className="ccl-admin__wrap">
 					<div className="ccl-admin__preview">
 						<div className="ccl-admin__info">
@@ -238,21 +296,18 @@ const Admin = () => {
 							/>
 						</div>
 						<div className="ccl-admin__preview-wrap">
-							{ Object.keys( settings ).length === 0 ? (
-								<div></div>
-							) : (
-								Preview(
-									mediaSize,
-									settings,
-									isHover,
-									setIsHover
-								)
+							{ Preview(
+								mediaSize,
+								settings,
+								isHover,
+								setIsHover
 							) }
 						</div>
 					</div>
 					<div className="ccl-admin__buttons">
 						<Buttons
 							dataSave={ dataSave }
+							isSaving={ isSaving }
 							settings={ settings }
 							setSettings={ setSettings }
 						/>
@@ -268,6 +323,8 @@ const Admin = () => {
 	);
 };
 
-// AdminコンポーネントをルートDOMにレンダリング
-const root = createRoot( document.getElementById( 'ccl-admin' ) );
-root.render( <Admin /> );
+const adminRoot = document.getElementById( 'ccl-admin' );
+if ( adminRoot ) {
+	const root = createRoot( adminRoot );
+	root.render( <Admin /> );
+}

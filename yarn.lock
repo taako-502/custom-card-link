@@ -10484,6 +10484,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "custom-card-link@workspace:."
   dependencies:
+    "@wordpress/api-fetch": "npm:^7.52.0"
     "@wordpress/block-editor": "npm:^16.1.0"
     "@wordpress/blocks": "npm:^15.25.0"
     "@wordpress/components": "npm:^38.0.0"
@@ -10496,7 +10497,6 @@ __metadata:
     po2json: "npm:^0.4.5"
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
-    react-notifications-component: "npm:^4.0.1"
   languageName: unknown
   linkType: soft
 
@@ -18022,15 +18022,6 @@ __metadata:
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
   checksum: 10/5aa564a1cde7d391ac980bedee21202fc90bdea3b399952117f54fb71a932af1e5902020144fb354b4690b2414a0c7aafe798eb617b76a3d441d956db7726fdf
-  languageName: node
-  linkType: hard
-
-"react-notifications-component@npm:^4.0.1":
-  version: 4.0.1
-  resolution: "react-notifications-component@npm:4.0.1"
-  peerDependencies:
-    react: ^18.0.1
-  checksum: 10/62a68c4b4b010551aea38fa5e247ba82bfa9220b0529100eef066fba97130fa8d5c9d41b4af237006fcd4dc36551b492157c0663029df8cd5c3e04562ea2e116
   languageName: node
   linkType: hard
 

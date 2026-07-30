@@ -8,8 +8,15 @@ export const Buttons = ( props ) => {
 
 	return (
 		<React.Fragment>
-			<Button isPrimary onClick={ props.dataSave }>
-				{ __( 'Save', 'ccl-plugin' ) }
+			<Button
+				isPrimary
+				isBusy={ props.isSaving }
+				disabled={ props.isSaving }
+				onClick={ props.dataSave }
+			>
+				{ props.isSaving
+					? __( 'Saving…', 'ccl-plugin' )
+					: __( 'Save', 'ccl-plugin' ) }
 			</Button>
 			<Button
 				className="u-margin-left--5px"
