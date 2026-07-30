@@ -8,6 +8,9 @@ const UPDATE_HOOK = 'ccl_refresh_ogp';
 const DEFAULT_TTL = DAY_IN_SECONDS;
 const FAILURE_RETRY = 15 * MINUTE_IN_SECONDS;
 const LOCK_TTL = 60;
+const MIGRATION_VERSION = 2;
+const MIGRATION_HOOK = 'ccl_backfill_ogp';
+const MIGRATION_BATCH_SIZE = 50;
 
 /**
  * URLをキャッシュキー用に正規化する
@@ -99,6 +102,9 @@ function get_cached_ogp($url) {
  */
 function make_entry($url, $data, $status, $fetched_at) {
 	$ttl = (int) apply_filters('ccl_ogp_cache_expiration', DEFAULT_TTL, $url, $data);
+	if($ttl <= 0) {
+		$ttl = DEFAULT_TTL;
+	}
 	return array(
 		'version'     => CACHE_VERSION,
 		'url'         => normalize_url_for_cache($url),
@@ -167,7 +173,8 @@ function schedule_refresh($url, $force = false) {
  */
 function refresh_ogp($url) {
 	$lock_key = get_cache_key($url).'_lock';
-	if(!acquire_lock($lock_key)) {
+	$lock_token = acquire_lock($lock_key);
+	if($lock_token === false) {
 		return;
 	}
 
@@ -196,7 +203,7 @@ function refresh_ogp($url) {
 			wp_schedule_single_event($next_at, UPDATE_HOOK, $args);
 		}
 	} finally {
-		delete_option($lock_key);
+		release_lock($lock_key, $lock_token);
 	}
 }
 
@@ -204,21 +211,45 @@ function refresh_ogp($url) {
  * add_optionを利用して同一URLの更新ロックを原子的に取得する。
  *
  * @param string $lock_key
- * @return bool
+ * @return string|false
  */
 function acquire_lock($lock_key) {
 	$now = time();
-	if(add_option($lock_key, $now + LOCK_TTL, '', false)) {
-		return true;
+	$token = wp_generate_uuid4();
+	$value = array(
+		'token'      => $token,
+		'expires_at' => $now + LOCK_TTL,
+	);
+	if(add_option($lock_key, $value, '', false)) {
+		return $token;
 	}
 
-	$expires_at = (int) get_option($lock_key, 0);
+	$current = get_option($lock_key, array());
+	$expires_at = is_array($current)
+		? (int) ($current['expires_at'] ?? 0)
+		: (int) $current;
 	if($expires_at >= $now) {
 		return false;
 	}
 
 	delete_option($lock_key);
-	return add_option($lock_key, $now + LOCK_TTL, '', false);
+	// delete_option()によるDB状態変更をPHPStanは追跡できない。
+	// @phpstan-ignore ternary.alwaysFalse
+	return add_option($lock_key, $value, '', false) ? $token : false;
+}
+
+/**
+ * 自身が取得したロックだけを解放する。
+ *
+ * @param string $lock_key
+ * @param string $token
+ * @return void
+ */
+function release_lock($lock_key, $token) {
+	$current = get_option($lock_key, array());
+	if(is_array($current) && hash_equals((string) ($current['token'] ?? ''), $token)) {
+		delete_option($lock_key);
+	}
 }
 
 /**
@@ -242,6 +273,53 @@ function schedule_blocks($blocks) {
 }
 
 add_action(UPDATE_HOOK, __NAMESPACE__.'\\refresh_ogp');
+add_action(MIGRATION_HOOK, __NAMESPACE__.'\\backfill_ogp');
+
+/**
+ * 既存投稿を小分けに走査し、外部リンクカードの更新を予約する。
+ *
+ * @param int $page
+ * @return void
+ */
+function backfill_ogp($page = 1) {
+	$post_ids = get_posts(array(
+		'post_type'              => 'any',
+		'post_status'            => array('publish', 'draft', 'pending', 'private', 'future'),
+		'fields'                 => 'ids',
+		'posts_per_page'         => MIGRATION_BATCH_SIZE,
+		'paged'                  => max(1, (int) $page),
+		'orderby'                => 'ID',
+		'order'                  => 'ASC',
+		'no_found_rows'          => true,
+		'update_post_meta_cache' => false,
+		'update_post_term_cache' => false,
+	));
+
+	foreach($post_ids as $post_id) {
+		$post = get_post($post_id);
+		if($post) {
+			schedule_blocks(parse_blocks($post->post_content));
+		}
+	}
+
+	if(count($post_ids) === MIGRATION_BATCH_SIZE) {
+		wp_schedule_single_event(time() + 10, MIGRATION_HOOK, array($page + 1));
+	}
+}
+
+// アップグレード後の最初の管理画面リクエストで一度だけ移行を開始する。
+add_action('admin_init', function() {
+	if((int) get_option('ccl_ogp_migration_version', 0) >= MIGRATION_VERSION) {
+		return;
+	}
+	$scheduled = wp_next_scheduled(MIGRATION_HOOK, array(1));
+	if(!$scheduled) {
+		$scheduled = wp_schedule_single_event(time() + 1, MIGRATION_HOOK, array(1));
+	}
+	if($scheduled) {
+		update_option('ccl_ogp_migration_version', MIGRATION_VERSION, false);
+	}
+});
 
 add_action('save_post', function($post_id, $post) {
 	if(wp_is_post_revision($post_id) || wp_is_post_autosave($post_id)) {

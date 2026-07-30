@@ -94,7 +94,7 @@ class Get_OGP_InWP {
 	 *
 	 * @param string $url    URL of the target page
 	 * @param array  $args    Arguments to pass to wp_remote_get()
-	 * @return string Fetch result
+	 * @return string|\WP_Error Fetch result
 	 */
 	public static function fetch( $url, $args ) {
 
