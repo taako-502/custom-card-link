@@ -27,6 +27,7 @@ require_once __DIR__ .'/functions/data.php';
 
 use function Ccl_Plugin\functions\data\get_setting;
 use function Ccl_Plugin\functions\ogp_cache\get_cached_ogp;
+use function Ccl_Plugin\functions\ogp_cache\schedule_refresh;
 
 /**
  * 翻訳ファイルの読み込み
@@ -171,17 +172,21 @@ add_action('init', function() {
 					? get_cached_ogp($url)
 					: [];
 
-				if(($ogps == [] && $post_id == 0) && !is_singular()){
-					return __('Please enter a valid URL.', 'ccl-plugin');
-				}
-				if($ogps == [] && $post_id == 0){
-					return;
+				// エディターのServerSideRenderではURL確定時に非同期更新を予約する。
+				// 公開画面の描画経路では予約もHTTP通信も行わない。
+				if(
+					$post_id === 0
+					&& defined('REST_REQUEST')
+					&& REST_REQUEST
+					&& current_user_can('edit_posts')
+				) {
+					schedule_refresh($url);
 				}
 
 				//リンク先の情報と設定画面の設定情報をマージ
 				/** @var array<string, mixed> $plugin_settings */
 				$plugin_settings = get_setting();
-				$settings = array_merge($plugin_settings, getLinkInfo($post_id, $ogps));
+				$settings = array_merge($plugin_settings, getLinkInfo($post_id, $ogps, $url));
 
 				//HTMLの作成
 				$ccl = new \Ccl_Plugin\classes\CustomCardLink($url, $settings);
@@ -195,9 +200,10 @@ add_action('init', function() {
  * リンク先の情報を取得する
  * @param  int    $post_id
  * @param  array  $ogps
+ * @param  string $url
  * @return array
  */
-function getLinkInfo($post_id, $ogps) {
+function getLinkInfo($post_id, $ogps, $url = '') {
 	if($post_id != 0) {
 		//内部リンクの場合
 		$image          = get_the_post_thumbnail_url($post_id , 'large' );
@@ -208,8 +214,11 @@ function getLinkInfo($post_id, $ogps) {
 	} else {
 		//外部リンク
 		$image          = $ogps['og:image'] ?? '';
-		$post_title     = $ogps['og:title'] ?? '';
-		$description    = $ogps['og:description'] ?? '';
+		$post_title     = $ogps['og:title'] ?? ($ogps['title'] ?? '');
+		$description    = $ogps['og:description'] ?? ($ogps['description'] ?? '');
+		if($post_title === '') {
+			$post_title = wp_parse_url($url, PHP_URL_HOST) ?: $url;
+		}
 		$description_sp = $description;
 		$link_type      = 'external';
 	}
