@@ -9,6 +9,7 @@ $GLOBALS['ccl_test_events'] = array();
 $GLOBALS['ccl_test_actions'] = array();
 $GLOBALS['ccl_test_filters'] = array();
 $GLOBALS['ccl_test_http_calls'] = 0;
+$GLOBALS['ccl_test_attachment_calls'] = array();
 
 class WP_Error {
 }
@@ -28,6 +29,27 @@ function set_transient($key, $value) {
 
 function apply_filters($hook, $value) {
 	return $GLOBALS['ccl_test_filters'][$hook] ?? $value;
+}
+
+function esc_attr($value) {
+	return htmlspecialchars((string) $value, ENT_QUOTES);
+}
+
+function esc_html($value) {
+	return htmlspecialchars((string) $value, ENT_QUOTES);
+}
+
+function esc_url($value) {
+	$scheme = parse_url((string) $value, PHP_URL_SCHEME);
+	return in_array($scheme, array('http', 'https'), true) ? htmlspecialchars((string) $value, ENT_QUOTES) : '';
+}
+
+function wp_get_attachment_image($id, $size, $icon, $attributes) {
+	$GLOBALS['ccl_test_attachment_calls'][] = compact('id', 'size', 'icon', 'attributes');
+	return '<img src="https://example.com/image-1024.jpg" width="1024" height="576"'
+		.' srcset="https://example.com/image-300.jpg 300w, https://example.com/image-1024.jpg 1024w"'
+		.' sizes="'.esc_attr($attributes['sizes']).'" alt="添付画像の代替テキスト"'
+		.' class="'.esc_attr($attributes['class']).'" decoding="'.esc_attr($attributes['decoding']).'">';
 }
 
 function add_action($hook, $callback) {
@@ -116,3 +138,4 @@ function wp_is_post_autosave() {
 
 require_once dirname(__DIR__).'/library/Get_OGP_InWP/get_ogp_inwp.php';
 require_once dirname(__DIR__).'/functions/ogp_cache.php';
+require_once dirname(__DIR__).'/classes/CustomCardLink.php';

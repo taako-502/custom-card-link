@@ -112,6 +112,8 @@ function make_entry($url, $data, $status, $fetched_at) {
 		'title'       => $data['og:title'] ?? ($data['title'] ?? ''),
 		'description' => $data['og:description'] ?? ($data['description'] ?? ''),
 		'thumbnail'   => $data['og:image'] ?? ($data['thumbnail'] ?? ''),
+		'image_width' => get_ogp_image_dimension($data['og:image:width'] ?? 0),
+		'image_height' => get_ogp_image_dimension($data['og:image:height'] ?? 0),
 		'favicon'     => get_favicon($data),
 		'fetched_at'  => $fetched_at,
 		'expires_at'  => $fetched_at + max(1, $ttl),
@@ -119,6 +121,17 @@ function make_entry($url, $data, $status, $fetched_at) {
 		'retry_after' => $status === 'failed' ? $fetched_at + FAILURE_RETRY : 0,
 		'data'        => $data,
 	);
+}
+
+/**
+ * OGP画像寸法を正の整数へ正規化する
+ *
+ * @param mixed $value
+ * @return int
+ */
+function get_ogp_image_dimension($value) {
+	$value = filter_var($value, FILTER_VALIDATE_INT, array('options' => array('min_range' => 1)));
+	return $value === false ? 0 : $value;
 }
 
 /**

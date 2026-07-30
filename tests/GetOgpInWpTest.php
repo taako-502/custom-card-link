@@ -24,6 +24,8 @@ final class GetOgpInWpTest extends TestCase {
 			.'<meta property="og:title" content="OG title">'
 			.'<meta property="og:description" content="OG description">'
 			.'<meta property="og:image" content="https://example.com/image.jpg">'
+			.'<meta property="og:image:width" content="1200">'
+			.'<meta property="og:image:height" content="630">'
 			.'</head></html>';
 
 		$result = Get_OGP_InWP::parse($html, Get_OGP_InWP::$default_targets);
@@ -32,6 +34,8 @@ final class GetOgpInWpTest extends TestCase {
 		self::assertSame('OG title', $result['og:title']);
 		self::assertSame('OG description', $result['og:description']);
 		self::assertSame('https://example.com/image.jpg', $result['og:image']);
+		self::assertSame('1200', $result['og:image:width']);
+		self::assertSame('630', $result['og:image:height']);
 		self::assertSame('Fallback title', $result['title']);
 		self::assertSame('Fallback description', $result['description']);
 	}
