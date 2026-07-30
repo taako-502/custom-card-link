@@ -158,6 +158,17 @@ class Get_OGP_InWP {
 			$is_tw = ( $targets['twitter'] && 0 === strpos( $name, 'twitter:' ) );
 
 			if ( $is_og || $is_fb ) {
+				if ( 'og:image' === $property ) {
+					// 構造化プロパティは直前のルート画像だけに属するため、
+					// 新しい画像へ前の画像の値を引き継がない。
+					unset(
+						$ogp_data['og:image:secure_url'],
+						$ogp_data['og:image:type'],
+						$ogp_data['og:image:width'],
+						$ogp_data['og:image:height'],
+						$ogp_data['og:image:alt']
+					);
+				}
 				$ogp_data[ $property ] = $content;
 			} elseif ( $is_tw ) {
 				$ogp_data[ $name ] = $content;

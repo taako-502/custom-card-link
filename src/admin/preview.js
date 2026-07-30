@@ -52,6 +52,9 @@ export const Preview = ( mediaSize, settings, isHover, setIsHover ) => {
 				className={ classnames( cclThumbnailClass ) }
 				src={ thumbnail }
 				alt=""
+				width="800"
+				height="450"
+				decoding="async"
 			/>
 			<div
 				className="ccl__info"

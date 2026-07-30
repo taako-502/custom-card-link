@@ -24,6 +24,8 @@ final class GetOgpInWpTest extends TestCase {
 			.'<meta property="og:title" content="OG title">'
 			.'<meta property="og:description" content="OG description">'
 			.'<meta property="og:image" content="https://example.com/image.jpg">'
+			.'<meta property="og:image:width" content="1200">'
+			.'<meta property="og:image:height" content="630">'
 			.'</head></html>';
 
 		$result = Get_OGP_InWP::parse($html, Get_OGP_InWP::$default_targets);
@@ -32,7 +34,53 @@ final class GetOgpInWpTest extends TestCase {
 		self::assertSame('OG title', $result['og:title']);
 		self::assertSame('OG description', $result['og:description']);
 		self::assertSame('https://example.com/image.jpg', $result['og:image']);
+		self::assertSame('1200', $result['og:image:width']);
+		self::assertSame('630', $result['og:image:height']);
 		self::assertSame('Fallback title', $result['title']);
 		self::assertSame('Fallback description', $result['description']);
+	}
+
+	public function test_parser_keeps_dimensions_with_the_selected_image(): void {
+		$html = '<html><head>'
+			.'<meta property="og:image" content="https://example.com/first.jpg">'
+			.'<meta property="og:image:width" content="1200">'
+			.'<meta property="og:image:height" content="630">'
+			.'<meta property="og:image" content="https://example.com/second.jpg">'
+			.'<meta property="og:image:width" content="800">'
+			.'<meta property="og:image:height" content="450">'
+			.'</head></html>';
+
+		$result = Get_OGP_InWP::parse($html, Get_OGP_InWP::$default_targets);
+
+		self::assertSame('https://example.com/second.jpg', $result['og:image']);
+		self::assertSame('800', $result['og:image:width']);
+		self::assertSame('450', $result['og:image:height']);
+	}
+
+	public function test_parser_keeps_a_single_image_without_dimensions(): void {
+		$html = '<html><head>'
+			.'<meta property="og:image" content="https://example.com/image.jpg">'
+			.'</head></html>';
+
+		$result = Get_OGP_InWP::parse($html, Get_OGP_InWP::$default_targets);
+
+		self::assertSame('https://example.com/image.jpg', $result['og:image']);
+		self::assertArrayNotHasKey('og:image:width', $result);
+		self::assertArrayNotHasKey('og:image:height', $result);
+	}
+
+	public function test_parser_does_not_carry_dimensions_to_a_later_image(): void {
+		$html = '<html><head>'
+			.'<meta property="og:image" content="https://example.com/first.jpg">'
+			.'<meta property="og:image:width" content="1200">'
+			.'<meta property="og:image:height" content="630">'
+			.'<meta property="og:image" content="https://example.com/second.jpg">'
+			.'</head></html>';
+
+		$result = Get_OGP_InWP::parse($html, Get_OGP_InWP::$default_targets);
+
+		self::assertSame('https://example.com/second.jpg', $result['og:image']);
+		self::assertArrayNotHasKey('og:image:width', $result);
+		self::assertArrayNotHasKey('og:image:height', $result);
 	}
 }

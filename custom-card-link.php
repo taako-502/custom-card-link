@@ -187,6 +187,7 @@ add_action('init', function() {
 				/** @var array<string, mixed> $plugin_settings */
 				$plugin_settings = get_setting();
 				$settings = array_merge($plugin_settings, getLinkInfo($post_id, $ogps, $url));
+				$settings['image_sizes'] = getCardImageSizes($plugin_settings);
 
 				//HTMLの作成
 				$ccl = new \Ccl_Plugin\classes\CustomCardLink($url, $settings);
@@ -206,14 +207,20 @@ add_action('init', function() {
 function getLinkInfo($post_id, $ogps, $url = '') {
 	if($post_id != 0) {
 		//内部リンクの場合
-		$image          = get_the_post_thumbnail_url($post_id , 'large' );
+		$image_id       = (int) get_post_thumbnail_id($post_id);
+		$image          = (string) get_the_post_thumbnail_url($post_id, 'large');
+		$image_width    = 0;
+		$image_height   = 0;
 		$post_title     = get_the_title($post_id );
 		$description    = getDescription($post_id, MAX_DESCRIPTION_CHAR_OF_NUM);
 		$description_sp = getDescription($post_id, MAX_DESCRIPTION_CHAR_OF_NUM);
 		$link_type      = 'internal';
 	} else {
 		//外部リンク
+		$image_id       = 0;
 		$image          = $ogps['og:image'] ?? '';
+		$image_width    = getPositiveImageDimension($ogps['og:image:width'] ?? 0);
+		$image_height   = getPositiveImageDimension($ogps['og:image:height'] ?? 0);
 		$post_title     = $ogps['og:title'] ?? ($ogps['title'] ?? '');
 		$description    = $ogps['og:description'] ?? ($ogps['description'] ?? '');
 		if($post_title === '') {
@@ -224,10 +231,63 @@ function getLinkInfo($post_id, $ogps, $url = '') {
 	}
 	return array(
 		'image'       => $image,
+		'image_id'    => $image_id,
+		'image_width' => $image_width,
+		'image_height' => $image_height,
 		'link_type'   => $link_type,
 		'title'       => $post_title,
 		'description' => $description,
 	);
+}
+
+/**
+ * OGP画像寸法を正の整数へ正規化する
+ *
+ * @param mixed $value
+ * @return int
+ */
+function getPositiveImageDimension($value) {
+	$value = filter_var($value, FILTER_VALIDATE_INT, array('options' => array('min_range' => 1)));
+	return $value === false ? 0 : $value;
+}
+
+/**
+ * カードの実表示幅に合わせたsizes属性を作成する
+ *
+ * @param array<string, mixed> $settings
+ * @return string
+ */
+function getCardImageSizes($settings) {
+	$breakpoint = max(0, (int) ($settings['breakpoint'] ?? 640));
+	$desktop = getCardImageSlotSize(
+		$settings['layout'] ?? 'card',
+		(int) ($settings['max_width'] ?? 600),
+		(int) ($settings['padding'] ?? 28)
+	);
+	$mobile = getCardImageSlotSize(
+		$settings['layout_sp'] ?? 'card',
+		(int) ($settings['max_width_sp'] ?? 600),
+		(int) ($settings['padding_sp'] ?? 28)
+	);
+
+	return '(max-width: '.$breakpoint.'px) '.$mobile.', '.$desktop;
+}
+
+/**
+ * レイアウトごとの画像スロット幅を返す
+ *
+ * @param string $layout
+ * @param int    $max_width
+ * @param int    $padding
+ * @return string
+ */
+function getCardImageSlotSize($layout, $max_width, $padding) {
+	$content_width = max(1, $max_width - (2 * $padding));
+	if($layout === 'list') {
+		$maximum = max(1, (int) floor($content_width * 0.3));
+		return 'min('.$maximum.'px, 30vw)';
+	}
+	return 'min('.$content_width.'px, calc(100vw - '.max(0, 2 * $padding).'px))';
 }
 
 /**

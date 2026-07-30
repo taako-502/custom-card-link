@@ -4,6 +4,10 @@ Namespace Ccl_Plugin\classes;
 class CustomCardLink {
 	private string $url                             = '';
 	private string $image                           = '';
+	private int $image_id                           = 0;
+	private int $image_width                        = 0;
+	private int $image_height                       = 0;
+	private string $image_sizes                     = '';
 	private string $link_type                       = '';
 	//PC
 	private string $title                           = '';
@@ -28,6 +32,10 @@ class CustomCardLink {
 		//初期化
 		$this->url                                = $url;
 		$this->image                              = $settings['image']                              ?? '';
+		$this->image_id                           = (int) ($settings['image_id']                    ?? 0);
+		$this->image_width                        = (int) ($settings['image_width']                 ?? 0);
+		$this->image_height                       = (int) ($settings['image_height']                ?? 0);
+		$this->image_sizes                        = $settings['image_sizes']                         ?? '';
 		$this->link_type                          = $settings['link_type']                          ?? '';
 		//PC
 		$this->layout                             = $settings['layout']                             ?? '';
@@ -66,19 +74,81 @@ class CustomCardLink {
 		$info_class        = $this->get_info_class();
 		$title_class       = $this->get_title_class();
 		$description_class = $this->get_description_class();
-		$thumbnail         = trim($this->image) !== '' ? '<img class="ccl__thumbnail ccl__thumbnail--'.$this->layout.' ccl-sp__thumbnail--'.$this->layout_sp.'" src="'.$this->image.'">' : '';
+		$thumbnail         = $this->get_thumbnail();
 		$target            = $this->link_type == 'external' ? 'target="_blanck"' : '';
 		$rel               = $target !== '' ? 'rel="noopener noreferrer"' : '';
 		return '
-			<a class="'.$main_class.'" href="'.$this->url.'" '.$target.' '.$rel.'>
+			<a class="'.esc_attr($main_class).'" href="'.esc_url($this->url).'" '.$target.' '.$rel.'>
 				'.$thumbnail.'
-				<div class="'.$info_class.'">
-					<p class="'.$title_class.'">'.$this->title.'</p>
-					<p class="ccl__title ccl-sp__title ccl-sp__title--'.$this->layout.'">'.$this->title_sp.'</p>
-					<p class="'.$description_class.'">'.$this->description.'</p>
-					<p class="ccl__description ccl-sp__description ccl-sp__description--'.$this->layout.'">'.$this->description_sp.'</p>
+				<div class="'.esc_attr($info_class).'">
+					<p class="'.esc_attr($title_class).'">'.esc_html($this->title).'</p>
+					<p class="ccl__title ccl-sp__title ccl-sp__title--'.esc_attr($this->layout).'">'.esc_html($this->title_sp).'</p>
+					<p class="'.esc_attr($description_class).'">'.esc_html($this->description).'</p>
+					<p class="ccl__description ccl-sp__description ccl-sp__description--'.esc_attr($this->layout).'">'.esc_html($this->description_sp).'</p>
 				</div>
 			</a>';
+	}
+
+	/**
+	 * カード画像を作成する
+	 *
+	 * @return string
+	 */
+	private function get_thumbnail() {
+		$class = 'ccl__thumbnail ccl__thumbnail--'.$this->layout.' ccl-sp__thumbnail--'.$this->layout_sp;
+
+		if($this->image_id > 0) {
+			$image = wp_get_attachment_image(
+				$this->image_id,
+				'large',
+				false,
+				array(
+					'class'    => $class,
+					'sizes'    => $this->image_sizes,
+					'decoding' => 'async',
+				)
+			);
+			if($image !== '') {
+				return $image;
+			}
+		}
+
+		$image = trim($this->image);
+		$scheme = wp_parse_url($image, PHP_URL_SCHEME);
+		if($image === '' || !in_array(strtolower((string) $scheme), array('http', 'https'), true)) {
+			return '';
+		}
+
+		$attributes = array(
+			'class'    => $class,
+			'src'      => esc_url($image),
+			'alt'      => '',
+			'decoding' => 'async',
+		);
+		if($this->image_width > 0 && $this->image_height > 0) {
+			$attributes['width'] = $this->image_width;
+			$attributes['height'] = $this->image_height;
+		}
+
+		// the_content等の処理中はコアが後段で画像群をまとめて最適化し、
+		// それ以外の描画経路ではここで同じ標準APIの判定を利用する。
+		$optimization_attributes = wp_get_loading_optimization_attributes(
+			'img',
+			$attributes,
+			'ccl_card_image'
+		);
+		$attributes = array_merge($attributes, $optimization_attributes);
+
+		$html_attributes = array();
+		foreach($attributes as $name => $value) {
+			if($value !== false && $value !== '') {
+				$html_attributes[] = esc_attr($name).'="'.esc_attr((string) $value).'"';
+			} elseif($name === 'alt') {
+				$html_attributes[] = 'alt=""';
+			}
+		}
+
+		return '<img '.implode(' ', $html_attributes).'>';
 	}
 
 	/**

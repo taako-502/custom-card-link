@@ -16,8 +16,13 @@
 	}
 
 	&__thumbnail {
+		display: block;
+		align-self: flex-start;
 		width: 100%;
+		height: auto;
+		aspect-ratio: 16 / 9;
 		object-fit: cover;
+		object-position: center;
 	}
 
 	&__title,
@@ -58,10 +63,10 @@
 	}
 
 	&__thumbnail--list {
-		object-fit: cover;
+		flex: 0 0 30%;
+		width: 30%;
 		max-width: 30%;
-		min-width: 140px;
-		min-height: 140px;
+		min-width: 0;
 	}
 
 	&__title--list {

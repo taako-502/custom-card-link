@@ -26,6 +26,23 @@ final class OgpCacheTest extends TestCase {
 		self::assertSame(0, $GLOBALS['ccl_test_http_calls']);
 	}
 
+	public function test_entry_saves_ogp_image_dimensions_without_fetching_image(): void {
+		$entry = make_entry(
+			'https://example.com/dimensions',
+			array(
+				'og:image'        => 'https://example.com/image.jpg',
+				'og:image:width'  => '1200',
+				'og:image:height' => '630',
+			),
+			'success',
+			time()
+		);
+
+		self::assertSame(1200, $entry['image_width']);
+		self::assertSame(630, $entry['image_height']);
+		self::assertSame(0, $GLOBALS['ccl_test_http_calls']);
+	}
+
 	public function test_stale_and_failed_entries_keep_old_data(): void {
 		$stale_url = 'https://example.com/stale';
 		$failed_url = 'https://example.com/failed';
