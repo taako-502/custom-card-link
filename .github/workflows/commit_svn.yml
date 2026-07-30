@@ -86,6 +86,7 @@ jobs:
           const version = process.env.RELEASE_VERSION;
           const packagePath = "package.json";
           const pluginPath = "custom-card-link.php";
+          const readmePath = "readme.txt";
 
           const packageJson = JSON.parse(fs.readFileSync(packagePath, "utf8"));
           packageJson.version = version;
@@ -108,6 +109,24 @@ jobs:
               (header, prefix) => `${prefix}${version}`,
             ),
           );
+
+          const readmeSource = fs.readFileSync(readmePath, "utf8");
+          const stableTag = /^(Stable tag:[ \t]*).*$/gm;
+          const stableTagMatches = [...readmeSource.matchAll(stableTag)];
+
+          if (stableTagMatches.length !== 1) {
+            throw new Error(
+              `${readmePath}のStable tagを一意に特定できませんでした (count=${stableTagMatches.length})`,
+            );
+          }
+
+          fs.writeFileSync(
+            readmePath,
+            readmeSource.replace(
+              stableTag,
+              (header, prefix) => `${prefix}${version}`,
+            ),
+          );
           NODE
 
           package_version="$(node -p "require('./package.json').version")"
@@ -119,9 +138,17 @@ jobs:
               exit
             }' custom-card-link.php
           )"
+          readme_version="$(
+            awk '/^Stable tag:[[:space:]]*/ {
+              sub(/^Stable tag:[[:space:]]*/, "")
+              sub(/\r$/, "")
+              print
+              exit
+            }' readme.txt
+          )"
 
-          if [[ "${package_version}" != "${RELEASE_VERSION}" || "${plugin_version}" != "${RELEASE_VERSION}" ]]; then
-            echo "::error title=Version update failed::バージョン更新に失敗しました (input=${RELEASE_VERSION}, package.json=${package_version}, custom-card-link.php=${plugin_version})"
+          if [[ "${package_version}" != "${RELEASE_VERSION}" || "${plugin_version}" != "${RELEASE_VERSION}" || "${readme_version}" != "${RELEASE_VERSION}" ]]; then
+            echo "::error title=Version update failed::バージョン更新に失敗しました (input=${RELEASE_VERSION}, package.json=${package_version}, custom-card-link.php=${plugin_version}, readme.txt=${readme_version})"
             exit 1
           fi
 
@@ -145,7 +172,7 @@ jobs:
         run: |
           unexpected_changes="$(
             git diff --name-only |
-              grep -Ev '^(package\.json|custom-card-link\.php|build/)' || true
+              grep -Ev '^(package\.json|custom-card-link\.php|readme\.txt|build/)' || true
           )"
           if [[ -n "${unexpected_changes}" ]]; then
             echo "::error title=Unexpected changes::リリース処理で想定外のファイルが変更されました"
@@ -154,7 +181,7 @@ jobs:
           fi
 
           if [[ "${TAG_EXISTS}" == "true" ]]; then
-            if ! git diff --quiet -- package.json custom-card-link.php; then
+            if ! git diff --quiet -- package.json custom-card-link.php readme.txt; then
               echo "::error title=Existing tag is immutable::既存タグ${RELEASE_TAG}のソースバージョンと入力値が一致しません"
               exit 1
             fi
@@ -171,7 +198,7 @@ jobs:
           else
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add package.json custom-card-link.php build
+            git add package.json custom-card-link.php readme.txt build
 
             if git diff --cached --quiet; then
               echo "Source versions and build files are already up to date."
