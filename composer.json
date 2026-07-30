@@ -8,18 +8,24 @@
     },
     "require-dev": {
         "php-parallel-lint/php-parallel-lint": "^1.4",
+        "phpunit/phpunit": "^9.6",
         "szepeviktor/phpstan-wordpress": "^2.0"
     },
     "scripts": {
         "lint:php": "parallel-lint --exclude vendor .",
         "analyse:php": "phpstan analyse --no-progress --memory-limit=512M",
+        "test:php": "phpunit",
         "check:php": [
             "@lint:php",
-            "@analyse:php"
+            "@analyse:php",
+            "@test:php"
         ]
     },
     "config": {
         "allow-plugins": false,
+        "platform": {
+            "php": "8.0.0"
+        },
         "sort-packages": true
     }
 }

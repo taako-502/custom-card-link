@@ -17,9 +17,9 @@ class Get_OGP_InWP {
 	 * Default value of the argument passed to wp_remote_get()
 	 */
 	public static $default_fetch_args = [
-		'timeout'     => 15,
-		'redirection' => 3,
-		'sslverify'   => false,
+		'timeout'             => 4,
+		'redirection'         => 2,
+		'limit_response_size' => 512 * KB_IN_BYTES,
 		// 'user-agent'  => 'WordPress/' . $wp_version . '; ' . get_bloginfo( 'url' ),
 	];
 
@@ -50,14 +50,42 @@ class Get_OGP_InWP {
 	 * @return array Obtained OGP and metadata information
 	 */
 	public static function get( $url, $fetch_args = null, $targets = null ) {
+		$result = self::get_result( $url, $fetch_args, $targets );
+		return is_wp_error( $result ) ? [] : $result;
+	}
+
+	/**
+	 * エラー情報を維持したままOGPを取得する
+	 *
+	 * @param string $url
+	 * @param array|null $fetch_args
+	 * @param array|null $targets
+	 * @return array|\WP_Error
+	 */
+	public static function get_result( $url, $fetch_args = null, $targets = null ) {
+		if ( ! self::is_safe_url( $url ) ) {
+			return new \WP_Error( 'ccl_invalid_ogp_url', '安全でないURLです。' );
+		}
 
 		$fetch_args = $fetch_args ?: self::$default_fetch_args;
 		$targets    = $targets ?: self::$default_targets;
 
 		$response = self::fetch( $url, $fetch_args );
-		if ( false === $response ) return [];
+		if ( is_wp_error( $response ) ) return $response;
 
 		return self::parse( $response, $targets );
+	}
+
+	/**
+	 * HTTP/HTTPSかつWordPressが外部アクセス可能と判定したURLのみ許可する
+	 *
+	 * @param string $url
+	 * @return bool
+	 */
+	public static function is_safe_url( $url ) {
+		$scheme = wp_parse_url( $url, PHP_URL_SCHEME );
+		return in_array( strtolower( (string) $scheme ), [ 'http', 'https' ], true )
+			&& wp_http_validate_url( $url );
 	}
 
 
@@ -66,16 +94,20 @@ class Get_OGP_InWP {
 	 *
 	 * @param string $url    URL of the target page
 	 * @param array  $args    Arguments to pass to wp_remote_get()
-	 * @return string Fetch result
+	 * @return string|\WP_Error Fetch result
 	 */
 	public static function fetch( $url, $args ) {
 
-		$response = wp_remote_get( $url, $args );
+		$response = wp_safe_remote_get( $url, $args );
 
 		if ( is_wp_error( $response ) ) {
-			return false;
+			return $response;
 		}
-		return $response['body'];
+		$status = wp_remote_retrieve_response_code( $response );
+		if ( $status < 200 || $status >= 300 ) {
+			return new \WP_Error( 'ccl_ogp_http_error', 'OGP取得に失敗しました。', [ 'status' => $status ] );
+		}
+		return wp_remote_retrieve_body( $response );
 	}
 
 

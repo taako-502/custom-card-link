@@ -20,3 +20,4 @@ yarn-error.log
 
 # i18n
 languages/ccl-plugin-*-backup*.po~
+.phpunit.result.cache
