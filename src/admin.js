@@ -1,6 +1,12 @@
 import apiFetch from '@wordpress/api-fetch';
-import { Notice, Spinner, ToggleControl } from '@wordpress/components';
-import { createRoot, useEffect, useState } from '@wordpress/element';
+import { Button, Notice, Spinner, ToggleControl } from '@wordpress/components';
+import {
+	createRoot,
+	useCallback,
+	useEffect,
+	useRef,
+	useState,
+} from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import './admin.scss';
 
@@ -116,69 +122,87 @@ const getErrorMessage = ( error, fallback ) => {
 	return fallback;
 };
 
+const LOAD_STATUS = {
+	LOADING: 'loading',
+	ERROR: 'error',
+	READY: 'ready',
+};
+
 /**
  * 管理画面
  */
-const Admin = () => {
+export const Admin = () => {
 	const React = require( 'react' );
 	const [ settings, setSettings ] = useState( {} );
 	const [ isHover, setIsHover ] = useState( false );
 	const [ mediaSize, setmediaSize ] = useState( false );
-	const [ isLoading, setIsLoading ] = useState( true );
+	const [ loadStatus, setLoadStatus ] = useState( LOAD_STATUS.LOADING );
 	const [ isSaving, setIsSaving ] = useState( false );
 	const [ notice, setNotice ] = useState( null );
+	const isMounted = useRef( true );
+	const loadRequestInProgress = useRef( false );
 
-	useEffect( () => {
-		let isMounted = true;
+	const loadSettings = useCallback( async () => {
+		if ( loadRequestInProgress.current ) {
+			return;
+		}
 
-		apiFetch( {
-			path: '/wp/v2/settings',
-		} )
-			.then( ( response ) => {
-				if ( ! isMounted ) {
-					return;
-				}
+		loadRequestInProgress.current = true;
+		setLoadStatus( LOAD_STATUS.LOADING );
+		setNotice( null );
 
-				if (
-					response.custom_card_link_settings === undefined ||
-					response.custom_card_link_settings === null
-				) {
-					setStandardDesignCard( setSettings );
-				} else {
-					setSettings(
-						getSettingsFromResponse(
-							response.custom_card_link_settings
-						)
-					);
-				}
-			} )
-			.catch( ( error ) => {
-				if ( ! isMounted ) {
-					return;
-				}
-
-				setStandardDesignCard( setSettings );
-				setNotice( {
-					status: 'error',
-					message: getErrorMessage(
-						error,
-						__( 'Failed to load settings.', 'ccl-plugin' )
-					),
-				} );
-			} )
-			.finally( () => {
-				if ( isMounted ) {
-					setIsLoading( false );
-				}
+		try {
+			const response = await apiFetch( {
+				path: '/wp/v2/settings',
 			} );
 
-		return () => {
-			isMounted = false;
-		};
+			if ( ! isMounted.current ) {
+				return;
+			}
+
+			if (
+				response.custom_card_link_settings === undefined ||
+				response.custom_card_link_settings === null
+			) {
+				setStandardDesignCard( setSettings );
+			} else {
+				setSettings(
+					getSettingsFromResponse(
+						response.custom_card_link_settings
+					)
+				);
+			}
+			setLoadStatus( LOAD_STATUS.READY );
+		} catch ( error ) {
+			if ( ! isMounted.current ) {
+				return;
+			}
+
+			setSettings( {} );
+			setLoadStatus( LOAD_STATUS.ERROR );
+			setNotice( {
+				status: 'error',
+				message: getErrorMessage(
+					error,
+					__( 'Failed to load settings.', 'ccl-plugin' )
+				),
+			} );
+		} finally {
+			loadRequestInProgress.current = false;
+		}
 	}, [] );
 
+	useEffect( () => {
+		isMounted.current = true;
+		loadSettings();
+
+		return () => {
+			isMounted.current = false;
+		};
+	}, [ loadSettings ] );
+
 	const dataSave = async () => {
-		if ( isSaving ) {
+		if ( loadStatus !== LOAD_STATUS.READY || isSaving ) {
 			return;
 		}
 
@@ -211,11 +235,30 @@ const Admin = () => {
 		}
 	};
 
-	if ( isLoading ) {
+	if ( loadStatus === LOAD_STATUS.LOADING ) {
 		return (
 			<div className="ccl-admin" aria-busy="true">
 				<h1>{ __( 'Design settings', 'ccl-plugin' ) }</h1>
 				<Spinner />
+			</div>
+		);
+	}
+
+	if ( loadStatus === LOAD_STATUS.ERROR ) {
+		return (
+			<div className="ccl-admin">
+				<h1>{ __( 'Design settings', 'ccl-plugin' ) }</h1>
+				{ notice && (
+					<Notice
+						status={ notice.status }
+						onRemove={ () => setNotice( null ) }
+					>
+						{ notice.message }
+					</Notice>
+				) }
+				<Button variant="secondary" onClick={ loadSettings }>
+					{ __( 'Retry', 'ccl-plugin' ) }
+				</Button>
 			</div>
 		);
 	}
@@ -280,5 +323,8 @@ const Admin = () => {
 	);
 };
 
-const root = createRoot( document.getElementById( 'ccl-admin' ) );
-root.render( <Admin /> );
+const adminRoot = document.getElementById( 'ccl-admin' );
+if ( adminRoot ) {
+	const root = createRoot( adminRoot );
+	root.render( <Admin /> );
+}

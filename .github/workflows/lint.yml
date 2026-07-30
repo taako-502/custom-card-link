@@ -18,10 +18,11 @@ jobs:
       - name: Setup Volta
         uses: volta-cli/action@v5
 
-      - name: Run Lint
+      - name: Run lint and JavaScript tests
         run: |
           yarn
           yarn lint
+          yarn test:js --runInBand
 
   php:
     runs-on: ubuntu-latest
