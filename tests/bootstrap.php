@@ -10,6 +10,7 @@ $GLOBALS['ccl_test_actions'] = array();
 $GLOBALS['ccl_test_filters'] = array();
 $GLOBALS['ccl_test_http_calls'] = 0;
 $GLOBALS['ccl_test_attachment_calls'] = array();
+$GLOBALS['ccl_test_loading_optimization_results'] = array();
 
 class WP_Error {
 }
@@ -50,6 +51,10 @@ function wp_get_attachment_image($id, $size, $icon, $attributes) {
 		.' srcset="https://example.com/image-300.jpg 300w, https://example.com/image-1024.jpg 1024w"'
 		.' sizes="'.esc_attr($attributes['sizes']).'" alt="添付画像の代替テキスト"'
 		.' class="'.esc_attr($attributes['class']).'" decoding="'.esc_attr($attributes['decoding']).'">';
+}
+
+function wp_get_loading_optimization_attributes() {
+	return array_shift($GLOBALS['ccl_test_loading_optimization_results']) ?? array();
 }
 
 function add_action($hook, $callback) {

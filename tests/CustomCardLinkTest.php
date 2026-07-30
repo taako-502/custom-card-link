@@ -6,6 +6,7 @@ final class CustomCardLinkTest extends TestCase {
 	protected function setUp(): void {
 		$GLOBALS['ccl_test_attachment_calls'] = array();
 		$GLOBALS['ccl_test_filters'] = array();
+		$GLOBALS['ccl_test_loading_optimization_results'] = array();
 	}
 
 	public function test_internal_image_uses_wordpress_responsive_image(): void {
@@ -26,7 +27,11 @@ final class CustomCardLinkTest extends TestCase {
 		self::assertStringNotContainsString('fetchpriority="high"', $html);
 	}
 
-	public function test_external_image_uses_cached_dimensions_and_lazy_loading(): void {
+	public function test_external_image_uses_cached_dimensions_and_wordpress_loading_optimization(): void {
+		$GLOBALS['ccl_test_loading_optimization_results'][] = array(
+			'decoding'      => 'async',
+			'fetchpriority' => 'high',
+		);
 		$html = $this->makeCard(array(
 			'image'        => 'https://cdn.example.com/og.jpg',
 			'image_width'  => 1200,
@@ -36,16 +41,52 @@ final class CustomCardLinkTest extends TestCase {
 
 		self::assertStringContainsString('width="1200"', $html);
 		self::assertStringContainsString('height="630"', $html);
-		self::assertStringContainsString('loading="lazy"', $html);
+		self::assertStringNotContainsString('loading="lazy"', $html);
+		self::assertStringContainsString('fetchpriority="high"', $html);
 		self::assertStringContainsString('decoding="async"', $html);
-		self::assertStringNotContainsString('fetchpriority=', $html);
 	}
 
-	public function test_external_loading_can_be_disabled_for_lcp_candidates(): void {
-		$GLOBALS['ccl_test_filters']['ccl_external_image_loading'] = false;
-		$html = $this->makeCard(array('image' => 'https://cdn.example.com/og.jpg'));
+	public function test_later_external_image_is_lazy_loaded_by_wordpress(): void {
+		$GLOBALS['ccl_test_loading_optimization_results'][] = array(
+			'decoding' => 'async',
+			'loading'  => 'lazy',
+		);
+		$html = $this->makeCard(array(
+			'image'        => 'https://cdn.example.com/og.jpg',
+			'image_width'  => 1200,
+			'image_height' => 630,
+			'link_type'    => 'external',
+		));
 
-		self::assertStringNotContainsString('loading=', $html);
+		self::assertStringContainsString('loading="lazy"', $html);
+		self::assertStringNotContainsString('fetchpriority="high"', $html);
+	}
+
+	public function test_external_image_without_dimensions_does_not_invent_dimensions(): void {
+		$GLOBALS['ccl_test_loading_optimization_results'][] = array('decoding' => 'async');
+		$html = $this->makeCard(array(
+			'image'     => 'https://cdn.example.com/og.jpg',
+			'link_type' => 'external',
+		));
+
+		self::assertStringNotContainsString(' width=', $html);
+		self::assertStringNotContainsString(' height=', $html);
+		self::assertStringContainsString('decoding="async"', $html);
+	}
+
+	public function test_image_classes_cover_different_desktop_and_mobile_layouts(): void {
+		$GLOBALS['ccl_test_loading_optimization_results'][] = array('decoding' => 'async');
+		$html = $this->makeCard(array(
+			'image'     => 'https://cdn.example.com/og.jpg',
+			'link_type' => 'external',
+			'layout'    => 'list',
+			'layout_sp' => 'card',
+		));
+
+		self::assertStringContainsString('ccl__thumbnail--list', $html);
+		self::assertStringContainsString('ccl-sp__thumbnail--card', $html);
+		self::assertStringContainsString('ccl--list', $html);
+		self::assertStringContainsString('ccl-sp--card', $html);
 	}
 
 	public function test_unsafe_or_missing_external_image_is_not_rendered(): void {

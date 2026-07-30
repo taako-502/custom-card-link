@@ -119,22 +119,36 @@ class CustomCardLink {
 			return '';
 		}
 
-		$loading = apply_filters('ccl_external_image_loading', 'lazy', $this->url);
 		$attributes = array(
-			'class="'.esc_attr($class).'"',
-			'src="'.esc_url($image).'"',
-			'alt=""',
-			'decoding="async"',
+			'class'    => $class,
+			'src'      => esc_url($image),
+			'alt'      => '',
+			'decoding' => 'async',
 		);
 		if($this->image_width > 0 && $this->image_height > 0) {
-			$attributes[] = 'width="'.esc_attr((string) $this->image_width).'"';
-			$attributes[] = 'height="'.esc_attr((string) $this->image_height).'"';
-		}
-		if(in_array($loading, array('lazy', 'eager'), true)) {
-			$attributes[] = 'loading="'.esc_attr($loading).'"';
+			$attributes['width'] = $this->image_width;
+			$attributes['height'] = $this->image_height;
 		}
 
-		return '<img '.implode(' ', $attributes).'>';
+		// the_content等の処理中はコアが後段で画像群をまとめて最適化し、
+		// それ以外の描画経路ではここで同じ標準APIの判定を利用する。
+		$optimization_attributes = wp_get_loading_optimization_attributes(
+			'img',
+			$attributes,
+			'ccl_card_image'
+		);
+		$attributes = array_merge($attributes, $optimization_attributes);
+
+		$html_attributes = array();
+		foreach($attributes as $name => $value) {
+			if($value !== false && $value !== '') {
+				$html_attributes[] = esc_attr($name).'="'.esc_attr((string) $value).'"';
+			} elseif($name === 'alt') {
+				$html_attributes[] = 'alt=""';
+			}
+		}
+
+		return '<img '.implode(' ', $html_attributes).'>';
 	}
 
 	/**
