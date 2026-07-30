@@ -1,7 +1,10 @@
 <?php
 namespace Ccl_Plugin\functions\rest_api;
 
+use const Ccl_Plugin\CCL_SLUG;
 use function Ccl_Plugin\functions\data\get_setting;
+
+const FRONTEND_STYLE_HANDLE = 'custom-card-link-frontend';
 
 /**
  * 動的スタイルシート
@@ -9,7 +12,6 @@ use function Ccl_Plugin\functions\data\get_setting;
  */
 function dynamic_styles(){
 	$css  = '';
-	$css .= '<style type="text/css">';
 	if( get_setting('shadow_use') == 'shadow' ) {
 		$css .= '  .ccl {';
 		$css .= '    box-shadow: '.get_setting('shadow_offset_x').'px '.get_setting('shadow_offset_y').'px '
@@ -77,13 +79,41 @@ function dynamic_styles(){
 	$css .= '    margin-left: '.get_setting('gap_between_title_and_thumbnail_sp').'px;';
 	$css .= '  }';
 	$css .= '}';
-	$css .= '</style>';
 	return $css;
 }
 
 /**
- * ヘッダーにCSSを挿入
+ * フロントエンド用スタイルを登録
  */
-add_action('wp_head', function() {
-	echo dynamic_styles();
+add_action('init', function() {
+	$style_path = dirname(__DIR__).'/build/style-index.css';
+	$version    = file_exists($style_path) ? (string) filemtime($style_path) : null;
+
+	wp_register_style(
+		FRONTEND_STYLE_HANDLE,
+		plugin_dir_url(dirname(__DIR__).'/custom-card-link.php').'build/style-index.css',
+		array(),
+		$version
+	);
+
+	wp_style_add_data(FRONTEND_STYLE_HANDLE, 'rtl', 'replace');
+});
+
+/**
+ * ブロックが描画されたページでのみスタイルを読み込む
+ *
+ * @param string $block_content
+ * @return string
+ */
+add_filter('render_block_'.CCL_SLUG.'/'.CCL_SLUG, function($block_content) {
+	static $dynamic_styles_added = false;
+
+	wp_enqueue_style(FRONTEND_STYLE_HANDLE);
+
+	if(!$dynamic_styles_added) {
+		wp_add_inline_style(FRONTEND_STYLE_HANDLE, dynamic_styles());
+		$dynamic_styles_added = true;
+	}
+
+	return $block_content;
 });
