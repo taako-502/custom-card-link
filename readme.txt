@@ -1,6 +1,6 @@
-=== Custom Card Link ===
+=== Custom Card Link – OGP Blog Card Block ===
 Contributors:      takao502
-Tags:              block
+Tags:              blogcard, linkcard, link preview, gutenberg, ogp
 Tested up to:      7.0
 Stable tag:        1.1.3
 License:           GPL-2.0-or-later
@@ -8,48 +8,66 @@ License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 6.9
 Requires PHP:      8.0
 
-You can create flexible and customizable card-style external links.
+Create customizable OGP blog cards for internal and external URLs with a Gutenberg block, layouts, spacing, shadows, and hover effects.
 
 == Description ==
 
-You can create flexible and customizable card-style external links.
-For Example
+Custom Card Link is a Gutenberg block for creating customizable blog cards and link previews from internal or external URLs.
 
-* Choosing between a card or list layout
-* Adjusting the margin (spacing around the element)
-* Adding a shadow effect to the card or list
-* Setting a movement or animation when the mouse hovers over the element
+For internal links, the plugin uses the WordPress post title, excerpt, and featured image. For external links, it retrieves metadata such as the title, description, and image from OGP (Open Graph Protocol) tags.
 
-Attractive links can increase the click-through rate of your viewers. To improve the engagement and browsing experience on your website, it's essential to have flexible and customizable links. This plugin can fulfill that role effectively.
+= Features =
+
+* Create blog cards for internal and external links
+* Retrieve OGP titles, descriptions, and images for external URLs
+* Use WordPress post data for internal URLs
+* Choose between card and list layouts
+* Adjust margins and spacing around the link
+* Add shadows to cards and lists
+* Configure movement and animation on hover
+* Cache external OGP metadata and refresh it asynchronously
+* Display responsive card images
+
+Customizable link cards can make related content and external resources easier to identify and navigate.
 
 == Installation ==
 
-1. Upload the plugin files to the `/wp-content/plugins/custom-card-link` directory, or install the plugin through the WordPress plugins screen directly.
-1. Activate the plugin through the 'Plugins' screen in WordPress
+1. Install Custom Card Link through the WordPress plugin screen, or upload the plugin files to the `/wp-content/plugins/custom-card-link` directory.
+2. Activate the plugin through the 'Plugins' screen in WordPress.
+3. Add the 'Custom Card Link' block in the block editor and enter an internal or external URL.
+4. Configure the layout and design from the block settings and the Custom Card Link settings screen.
 
 == Frequently Asked Questions ==
 
-= Is this plugin for free? =
+= Is this plugin free? =
 
-This plugin is for free and licensed to GPL.
-It’s open source following the GPL policy.
+Yes. Custom Card Link is free, open-source software licensed under the GPL.
 
-= If you find bags =
+= Does it support both internal and external links? =
 
-Please send me a message through this [form](https://hepere.com/inquiry/).
+Yes. Internal links use data from the corresponding WordPress post. External links use metadata retrieved from the linked page, including OGP metadata when available.
+
+= Is external OGP metadata cached? =
+
+Yes. Retrieved metadata is cached and refreshed asynchronously to avoid fetching the external page during normal front-end rendering.
+
+= How can I report a bug? =
+
+Please send a message through this [form](https://hepere.com/inquiry/).
 
 == Screenshots ==
 
-1. This is the screen for adjusting the design of the links.
+1. The settings screen for adjusting the design of link cards.
 
 == Changelog ==
 
+= 1.1.3 =
+
+* Improved OGP fetching with asynchronous cache refresh.
+* Improved responsive card image output.
+* Reduced unused dependencies in the administration screen.
+* Improved reliability when external metadata retrieval fails.
+
 = 1.0.0 =
 
-* Release
-
-== Upgrade Notice ==
-
-= 1.0.0 =
-
-Initial Release
+* Initial release.
