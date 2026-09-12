@@ -53,7 +53,7 @@ Yes. Retrieved metadata is cached and refreshed asynchronously to avoid fetching
 
 = How can I report a bug? =
 
-Please send a message through this [form](https://hepere.com/inquiry/).
+Please send a message through this [form](https://ap-ep.com/inquiry/).
 
 == Screenshots ==
 
