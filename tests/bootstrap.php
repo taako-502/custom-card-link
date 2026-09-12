@@ -11,6 +11,23 @@ $GLOBALS['ccl_test_filters'] = array();
 $GLOBALS['ccl_test_http_calls'] = 0;
 $GLOBALS['ccl_test_attachment_calls'] = array();
 $GLOBALS['ccl_test_loading_optimization_results'] = array();
+$GLOBALS['ccl_test_posts'] = array();
+$GLOBALS['ccl_test_post_types_viewable'] = array();
+$GLOBALS['ccl_test_post_data_calls'] = array();
+
+class WP_Post {
+	public $ID;
+	public $post_status;
+	public $post_type;
+	public $post_password;
+	public $post_content;
+
+	public function __construct($data) {
+		foreach($data as $key => $value) {
+			$this->{$key} = $value;
+		}
+	}
+}
 
 class WP_Error {
 }
@@ -125,8 +142,40 @@ function get_posts() {
 	return array();
 }
 
-function get_post() {
-	return null;
+function get_post($post_id = 0) {
+	return $GLOBALS['ccl_test_posts'][$post_id] ?? null;
+}
+
+function get_post_status_object($status) {
+	$public_statuses = array('publish', 'custom-public');
+	return (object) array('public' => in_array($status, $public_statuses, true));
+}
+
+function is_post_type_viewable($post_type) {
+	return $GLOBALS['ccl_test_post_types_viewable'][$post_type] ?? false;
+}
+
+function home_url($path = '') {
+	return 'https://example.com'.'/'.ltrim($path, '/');
+}
+
+function get_post_thumbnail_id($post_id) {
+	$GLOBALS['ccl_test_post_data_calls'][] = 'thumbnail_id';
+	return 42;
+}
+
+function get_the_post_thumbnail_url($post_id, $size = 'post-thumbnail') {
+	$GLOBALS['ccl_test_post_data_calls'][] = 'thumbnail_url';
+	return 'https://example.com/image.jpg';
+}
+
+function get_the_title($post_id) {
+	$GLOBALS['ccl_test_post_data_calls'][] = 'title';
+	return '公開タイトル';
+}
+
+function wp_strip_all_tags($text) {
+	return strip_tags($text);
 }
 
 function parse_blocks() {
@@ -144,3 +193,5 @@ function wp_is_post_autosave() {
 require_once dirname(__DIR__).'/library/Get_OGP_InWP/get_ogp_inwp.php';
 require_once dirname(__DIR__).'/functions/ogp_cache.php';
 require_once dirname(__DIR__).'/classes/CustomCardLink.php';
+define('Ccl_Plugin\\MAX_DESCRIPTION_CHAR_OF_NUM', 200);
+require_once dirname(__DIR__).'/functions/internal_link.php';
