@@ -20,6 +20,7 @@ const MAX_DESCRIPTION_CHAR_OF_NUM = 200; //setting-pc.jsおよびsetting-sp.js�
 
 require_once __DIR__ .'/classes/CustomCardLink.php';
 require_once __DIR__ .'/library/Get_OGP_InWP/get_ogp_inwp.php';
+require_once __DIR__ .'/functions/internal_link.php';
 require_once __DIR__ .'/functions/ogp_cache.php';
 require_once __DIR__ .'/functions/rest_api.php';
 require_once __DIR__ .'/functions/style.php';
@@ -158,20 +159,34 @@ add_action('init', function() {
 					return;
 				}
 
-				$post_id = url_to_postid($url);
+				$post_id = (int) url_to_postid($url);
 				if($post_id == 0 && isCurrentRequestUrl($url)) {
 					return;
 				}
+				$is_internal_url = $post_id !== 0 || isInternalSiteUrl($url);
+				if($post_id !== 0 && !isPubliclyViewableInternalPost($post_id)) {
+					if(
+						defined('REST_REQUEST')
+						&& REST_REQUEST
+						&& current_user_can('edit_posts')
+					) {
+						return '<p class="ccl__notice">'
+							.esc_html__('This link cannot be displayed because the post is not publicly accessible.', 'ccl-plugin')
+							.'</p>';
+					}
+					return '';
+				}
 
 				// 内部リンクはWordPressの投稿データを使用するため、HTTPリクエストは不要
-				$ogps = $post_id == 0
+				// 投稿IDを解決できない同一サイトURLも、外部OGP取得へ回さない。
+				$ogps = !$is_internal_url
 					? get_cached_ogp($url)
 					: [];
 
 				// エディターのServerSideRenderではURL確定時に非同期更新を予約する。
 				// 公開画面の描画経路では予約もHTTP通信も行わない。
 				if(
-					$post_id === 0
+					!$is_internal_url
 					&& defined('REST_REQUEST')
 					&& REST_REQUEST
 					&& current_user_can('edit_posts')
@@ -192,60 +207,6 @@ add_action('init', function() {
 		)
 	);
 });
-
-/**
- * リンク先の情報を取得する
- * @param  int    $post_id
- * @param  array  $ogps
- * @param  string $url
- * @return array
- */
-function getLinkInfo($post_id, $ogps, $url = '') {
-	if($post_id != 0) {
-		//内部リンクの場合
-		$image_id       = (int) get_post_thumbnail_id($post_id);
-		$image          = (string) get_the_post_thumbnail_url($post_id, 'large');
-		$image_width    = 0;
-		$image_height   = 0;
-		$post_title     = get_the_title($post_id );
-		$description    = getDescription($post_id, MAX_DESCRIPTION_CHAR_OF_NUM);
-		$description_sp = getDescription($post_id, MAX_DESCRIPTION_CHAR_OF_NUM);
-		$link_type      = 'internal';
-	} else {
-		//外部リンク
-		$image_id       = 0;
-		$image          = $ogps['og:image'] ?? '';
-		$image_width    = getPositiveImageDimension($ogps['og:image:width'] ?? 0);
-		$image_height   = getPositiveImageDimension($ogps['og:image:height'] ?? 0);
-		$post_title     = $ogps['og:title'] ?? ($ogps['title'] ?? '');
-		$description    = $ogps['og:description'] ?? ($ogps['description'] ?? '');
-		if($post_title === '') {
-			$post_title = wp_parse_url($url, PHP_URL_HOST) ?: $url;
-		}
-		$description_sp = $description;
-		$link_type      = 'external';
-	}
-	return array(
-		'image'       => $image,
-		'image_id'    => $image_id,
-		'image_width' => $image_width,
-		'image_height' => $image_height,
-		'link_type'   => $link_type,
-		'title'       => $post_title,
-		'description' => $description,
-	);
-}
-
-/**
- * OGP画像寸法を正の整数へ正規化する
- *
- * @param mixed $value
- * @return int
- */
-function getPositiveImageDimension($value) {
-	$value = filter_var($value, FILTER_VALIDATE_INT, array('options' => array('min_range' => 1)));
-	return $value === false ? 0 : $value;
-}
 
 /**
  * カードの実表示幅に合わせたsizes属性を作成する
@@ -284,18 +245,4 @@ function getCardImageSlotSize($layout, $max_width, $padding) {
 		return 'min('.$maximum.'px, 30vw)';
 	}
 	return 'min('.$content_width.'px, calc(100vw - '.max(0, 2 * $padding).'px))';
-}
-
-/**
- * 記事情報をディスクリプションに変換
- * @param  int     $id  記事ID
- * @param  integer $len 文字数
- * @return string           ディスクリプション
- */
-function getDescription($id, $len){
-	$description = get_post($id)->post_content;
-	$description = str_replace(array("\r\n","\r","\n","&nbsp;"),'',$description);
-	$description = wp_strip_all_tags($description);
-	$description = preg_replace('/\[.*\]/','',$description);
-	return mb_substr($description, 0, $len);
 }
