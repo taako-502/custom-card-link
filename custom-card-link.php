@@ -4,7 +4,7 @@ Namespace Ccl_Plugin;
 /*
 Plugin Name: Custom Card Link
 Plugin URI: https://github.com/taako-502/custom-card-link
-Description: 外部リンクを表示するGutenbergブロック
+Description: Create customizable blog cards and link previews for internal and external URLs with OGP metadata in the Gutenberg block editor.
 Version: 1.1.7
 Author: takao502
 Author URI: https://github.com/taako-502
