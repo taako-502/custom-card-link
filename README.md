@@ -15,13 +15,35 @@
 ### GitHub
 https://github.com/taako-502/custom-card-link
 
-コミットする前に以下を実施すること
+## ローカルでの動作確認
 
-以下のコマンドを実行する
+`.wp-env.json`では、WordPress 7.1とPHP 8.0を使用する。
+
+初回、または`.wp-env.json`のWordPressバージョンを変更した後は、環境を作り直して起動する。
+
 ```bash
-$ yarn build
-$ composer install
-$ composer check:php
+yarn install --immutable
+yarn wp-env:clean
+yarn wp-env:start
+```
+
+WordPressのバージョンとプラグインの有効化状態を確認する。
+
+```bash
+yarn wp-env run cli wp core version
+yarn wp-env run cli wp plugin is-active custom-card-link
+```
+
+WordPressのバージョンとして`7.1`が表示され、プラグイン確認コマンドが終了コード`0`で完了すること。
+
+コミットする前に以下を実施すること。
+
+```bash
+yarn build
+yarn lint
+yarn test:js --runInBand
+composer install
+yarn wp-env run cli --env-cwd=wp-content/plugins/custom-card-link composer check:php
 ```
 
 `ccl-plugin.pot`を更新する。

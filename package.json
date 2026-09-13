@@ -20,7 +20,7 @@
     "plugin-zip": "wp-scripts plugin-zip",
     "wp-env:start": "wp-env start",
     "wp-env:stop": "wp-env stop",
-    "wp-env:clean": "wp-env clean all",
+    "wp-env:clean": "wp-env cleanup",
     "wp-env:logs": "wp-env logs --no-watch"
   },
   "devDependencies": {
